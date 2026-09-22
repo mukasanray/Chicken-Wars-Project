@@ -1,0 +1,74 @@
+# ============================================================================
+# Chicken Wars — Unity Project .gitignore
+# Proteção extra contra commits acidentais de dentro da pasta Unity
+# ============================================================================
+
+# Unity generated folders
+/Library/
+/Temp/
+/Obj/
+/Build/
+/Builds/
+/Logs/
+/UserSettings/
+/MemoryCaptures/
+/Recording/
+
+# IDE / solution files
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# IDE folders
+.vs/
+.vscode/
+.idea/
+.consulo/
+.gradle/
+ExportedObj/
+
+# Unity meta for debug files
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Crash reports
+sysinfo.txt
+crashlytics-build.properties
+
+# Build outputs
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Plastic SCM
+*.plastic
+.plastic/
+*.private
+*.private.meta
+
+# Unity sync
+~UnityDirMonSyncFile~*
+
+# Addressables
+**/Assets/AddressableAssetsData/*/*.bin*
+**/Assets/StreamingAssets/aa.meta
+**/Assets/StreamingAssets/aa/*
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini

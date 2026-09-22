@@ -1,0 +1,156 @@
+# ============================================================================
+# Chicken Wars — Root .gitignore
+# Unity + Anchor/Solana + IDE + OS + Security
+# ============================================================================
+
+# ============================================================================
+# UNITY (template oficial GitHub para Unity)
+# ============================================================================
+
+# Unity generated folders
+unity/*/Library/
+unity/*/Temp/
+unity/*/Obj/
+unity/*/Build/
+unity/*/Builds/
+unity/*/Logs/
+unity/*/UserSettings/
+unity/*/MemoryCaptures/
+unity/*/Recording/
+
+# Unity3D generated meta files
+*.pidb.meta
+*.pdb.meta
+*.mdb.meta
+
+# Unity3D generated file on crash reports
+sysinfo.txt
+
+# Builds
+*.apk
+*.aab
+*.unitypackage
+*.app
+
+# Crashlytics generated file
+crashlytics-build.properties
+
+# Packed Addressables
+**/Assets/AddressableAssetsData/*/*.bin*
+**/Assets/StreamingAssets/aa.meta
+**/Assets/StreamingAssets/aa/*
+
+# TextMeshPro
+**/Assets/TextMesh*Pro/
+
+# Plastic SCM (Unity Version Control)
+*.plastic
+*.private
+*.private.meta
+
+# Unity sync file
+~UnityDirMonSyncFile~*
+
+# ============================================================================
+# IDE / Editors
+# ============================================================================
+
+# Visual Studio / Visual Studio Code
+.vs/
+.vscode/
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+*.pdb
+*.mdb
+*.opendb
+*.VC.db
+
+# JetBrains Rider
+.idea/
+
+# Consulo
+.consulo/
+
+# Gradle
+.gradle/
+
+# Export
+ExportedObj/
+
+# ============================================================================
+# SOLANA / ANCHOR / RUST
+# ============================================================================
+
+# Anchor build artifacts
+program/target/
+program/.anchor/
+program/test-ledger/
+program/node_modules/
+
+# Rust
+**/*.rs.bk
+
+# ============================================================================
+# NODE.JS
+# ============================================================================
+
+node_modules/
+package-lock.json
+yarn.lock
+.yarn/
+
+# ============================================================================
+# 🔒 SEGURANÇA — NUNCA COMMITAR
+# ============================================================================
+
+# Chaves privadas e keypairs
+*.pem
+*.keypair
+*.key
+id.json
+*-keypair.json
+deploy-keypair.json
+
+# Environment / Secrets
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+
+# Seed phrases / mnemonics
+seed.txt
+mnemonic.txt
+wallet.json
+
+# ============================================================================
+# OS
+# ============================================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+
+# Windows
+Thumbs.db
+Thumbs.db:encryptable
+ehthumbs.db
+ehthumbs_vista.db
+Desktop.ini
+$RECYCLE.BIN/
+*.lnk
+
+# Linux
+*~

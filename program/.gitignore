@@ -1,0 +1,47 @@
+# ============================================================================
+# Chicken Wars — Anchor/Solana Program .gitignore
+# ============================================================================
+
+# Anchor build artifacts
+/target/
+
+# Anchor cached data
+.anchor/
+
+# Local validator ledger
+test-ledger/
+
+# Node modules (test dependencies)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Rust backup files
+**/*.rs.bk
+
+# ============================================================================
+# 🔒 SEGURANÇA — NUNCA COMMITAR CHAVES
+# ============================================================================
+
+# Keypairs e chaves privadas
+*.pem
+*.keypair
+*.key
+id.json
+*-keypair.json
+deploy-keypair.json
+wallet.json
+seed.txt
+mnemonic.txt
+
+# Environment / Secrets
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+
+# OS
+.DS_Store
+Thumbs.db
+Desktop.ini
