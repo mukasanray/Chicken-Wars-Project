@@ -1,0 +1,20 @@
+[package]
+name = "chicken-wars"
+version = "0.1.0"
+description = "Chicken Wars — Solana on-chain program"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "chicken_wars"
+
+[features]
+default = []
+cpi = ["no-entrypoint"]
+no-entrypoint = []
+no-idl = []
+no-log-ix-name = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = "0.30.1"
