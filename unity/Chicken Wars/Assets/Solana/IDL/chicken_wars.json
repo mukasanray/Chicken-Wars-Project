@@ -1,0 +1,27 @@
+{
+  "address": "11111111111111111111111111111111",
+  "metadata": {
+    "name": "chicken_wars",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Chicken Wars — Solana on-chain program"
+  },
+  "instructions": [
+    {
+      "name": "initialize",
+      "discriminator": [],
+      "accounts": [
+        {
+          "name": "signer",
+          "writable": true,
+          "signer": true
+        }
+      ],
+      "args": []
+    }
+  ],
+  "accounts": [],
+  "events": [],
+  "errors": [],
+  "types": []
+}
