@@ -56,6 +56,16 @@ namespace ChickenWars.Solana
         [Tooltip("Intervalo entre tentativas de confirmação (segundos).")]
         private float confirmRetryInterval = 2f;
 
+        /// <summary>
+        /// Número máximo de tentativas de confirmação.
+        /// </summary>
+        public int MaxConfirmRetries => maxConfirmRetries;
+
+        /// <summary>
+        /// Intervalo entre tentativas de confirmação (segundos).
+        /// </summary>
+        public float ConfirmRetryInterval => confirmRetryInterval;
+
         private void Awake()
         {
             if (Instance != null && Instance != this)
@@ -110,7 +120,8 @@ namespace ChickenWars.Solana
             //    await connection.ConfirmTransaction(signature);
             //    Debug.Log($"[TransactionManager] Confirmada: {signature}");
 
-            Debug.Log($"[TransactionManager] Transação '{instructionName}' processada (placeholder).");
+            await System.Threading.Tasks.Task.CompletedTask;
+            Debug.Log($"[TransactionManager] Transação '{instructionName}' processada (placeholder: retries={maxConfirmRetries}, interval={confirmRetryInterval}s).");
         }
 
         private void OnDestroy()

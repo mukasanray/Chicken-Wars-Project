@@ -100,6 +100,7 @@ namespace ChickenWars.Solana
             // 5. Log resultado
             //    Debug.Log($"[ChickenWarsProgram] Initialize confirmed: {signature}");
 
+            await System.Threading.Tasks.Task.CompletedTask;
             Debug.Log("[ChickenWarsProgram] Initialize chamado (placeholder — aguardando SDK).");
         }
     }
