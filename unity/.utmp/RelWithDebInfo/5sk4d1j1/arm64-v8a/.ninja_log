@@ -1,0 +1,10 @@
+# ninja log v5
+105	3294	8119122932259534	GameActivity/CMakeFiles/game.dir/UGAInputKeyEvent.cpp.o	931c77c68cdcbdd8
+85	3335	8119122932520272	GameActivity/CMakeFiles/game.dir/UGAEntry.cpp.o	fa546a03feb64fa5
+151	3407	8119122933346519	GameActivity/CMakeFiles/game.dir/UGAInputMotionEvent.cpp.o	3c9760440abc4022
+21	3426	8119122933361819	GameActivity/CMakeFiles/game.dir/UGAConfiguration.cpp.o	213f465f570508f7
+1	3595	8119122935245119	GameActivity/CMakeFiles/game.dir/UGADebug.cpp.o	baef6f943b67f28b
+125	3850	8119122937882961	GameActivity/CMakeFiles/game.dir/UGASoftKeyboard.cpp.o	55d1dbe160ba227d
+59	3949	8119122938731427	GameActivity/CMakeFiles/game.dir/UGAInput.cpp.o	7564f149b10cbe68
+40	4181	8119122941130634	GameActivity/CMakeFiles/game.dir/UGAApplication.cpp.o	e330d96e99c73d07
+4191	4532	8119122944522051	D:/Dev/ChickenWars/unity/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/5sk4d1j1/obj/arm64-v8a/libgame.so	515fa5a7554ae356
