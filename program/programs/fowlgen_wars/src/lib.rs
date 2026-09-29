@@ -7,19 +7,19 @@ use anchor_lang::prelude::*;
 declare_id!("11111111111111111111111111111111");
 
 #[program]
-pub mod chicken_wars {
+pub mod fowlgen_wars {
     use super::*;
 
-    /// Instrução de inicialização do programa Chicken Wars.
+    /// Instrução de inicialização do programa Fowlgen Wars.
     ///
     /// Esta é a primeira instrução — prova que o programa está deployado
     /// e consegue receber chamadas.
     ///
     /// Evolução futura:
-    ///   initialize → initialize_chicken → upgrade_chicken
+    ///   initialize → initialize_fowlgen → upgrade_fowlgen
     ///   → record_battle → claim_reward
     pub fn initialize(ctx: Context<Initialize>) -> Result<()> {
-        msg!("Chicken Wars program initialized!");
+        msg!("Fowlgen Wars program initialized!");
         msg!("Signer: {}", ctx.accounts.signer.key());
 
         Ok(())
@@ -29,7 +29,7 @@ pub mod chicken_wars {
 /// Accounts para a instrução `initialize`.
 ///
 /// Apenas requer um `Signer` — a wallet que está chamando o programa.
-/// Futuramente será expandido com PDAs para estado do jogo, galinhas, etc.
+/// Futuramente será expandido com PDAs para estado do jogo, fowlgens, etc.
 #[derive(Accounts)]
 pub struct Initialize<'info> {
     #[account(mut)]

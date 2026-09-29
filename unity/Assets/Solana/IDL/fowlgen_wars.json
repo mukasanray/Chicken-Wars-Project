@@ -1,10 +1,10 @@
 {
   "address": "11111111111111111111111111111111",
   "metadata": {
-    "name": "chicken_wars",
+    "name": "fowlgen_wars",
     "version": "0.1.0",
     "spec": "0.1.0",
-    "description": "Chicken Wars — Solana on-chain program"
+    "description": "Fowlgen Wars — Solana on-chain program"
   },
   "instructions": [
     {

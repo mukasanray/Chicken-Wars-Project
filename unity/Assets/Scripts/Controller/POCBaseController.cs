@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ChickenWars.POC
+namespace FowlgenWars.POC
 {
     public abstract class POCBaseController : MonoBehaviour
     {
@@ -21,7 +21,7 @@ namespace ChickenWars.POC
             if (screenUI != null)
                 screenUI.AppendLog(message);
             else
-                Debug.Log("[Chicken Wars] " + message);
+                Debug.Log("[Fowlgen Wars] " + message);
         }
     }
 }

@@ -1,4 +1,4 @@
-# FOWLGEN WARS — Regras de Combate e Torres
+﻿# FOWLGEN WARS — Regras de Combate e Torres
 
 ## Objetivo e status
 

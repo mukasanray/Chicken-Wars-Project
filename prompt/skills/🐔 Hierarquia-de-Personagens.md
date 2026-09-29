@@ -1,4 +1,4 @@
-# 🐔 HIERARQUIA DE PERSONAGENS
+﻿# 🐔 HIERARQUIA DE PERSONAGENS
 
 A estrutura pode ser entendida assim:
 

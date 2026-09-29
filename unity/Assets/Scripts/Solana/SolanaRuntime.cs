@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ChickenWars.Solana
+namespace FowlgenWars.Solana
 {
     /// <summary>
     /// Creates SolanaManager, connection, wallet, transactions and program bindings
@@ -70,9 +70,9 @@ namespace ChickenWars.Solana
             if (GetComponent<TransactionManager>() == null)
                 gameObject.AddComponent<TransactionManager>();
 
-            ChickenWarsProgram program = GetComponent<ChickenWarsProgram>();
+            FowlgenWarsProgram program = GetComponent<FowlgenWarsProgram>();
             if (program == null)
-                program = gameObject.AddComponent<ChickenWarsProgram>();
+                program = gameObject.AddComponent<FowlgenWarsProgram>();
             program.BindIdl(IdlInspector.LoadIdlAsset());
         }
     }

@@ -1,4 +1,4 @@
-# 🐔 SISTEMA DE RECOMPENSAS
+﻿# 🐔 SISTEMA DE RECOMPENSAS
 🎁 Regra principal
 A cada partida, o jogador recebe 7 a 10 tipos de recompensas/progressos, combinando pequenas quantidades de vários recursos.
 Não significa necessariamente entregar 7–10 itens grandes. Alguns podem ser:
@@ -98,7 +98,7 @@ Baú Halloween
 Baú Natal
 Baú Copa
 Baú Medieval
-Baú Cyber Chicken
+Baú Cyber FOWLGEN
 Baú Galinheiro Sombrio
 Baú do Caos
 🥚 OVOS-BOMBA

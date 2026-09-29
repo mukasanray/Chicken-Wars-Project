@@ -8,7 +8,7 @@ NFT = navio
 teríamos:
 NFT = personagem jogável / galinha especial
 Exemplo conceitual:
-NFT Chicken #001
+NFT FOWLGEN #001
 Classe: Guerreiro
 Raridade: Comum
 Força: 10
@@ -24,13 +24,13 @@ O NFT pode representar a identidade/propriedade do personagem, enquanto um PDA a
 2. 🧬 NFT + PDA → evolução da galinha
 Aqui está uma das ideias mais interessantes do exemplo que você trouxe.
 Podemos criar uma relação:
-NFT Chicken
+NFT FOWLGEN
      │
      ▼
    Mint
      │
      ▼
-PDA ChickenData
+PDA FOWLGENData
      │
      ├── Level
      ├── XP
@@ -48,10 +48,10 @@ Galinha nível 1 → nível 2 → nível 3 → veterana
 Aqui eu acho que precisamos ter muito cuidado.
 Não recomendo criar 10 tokens diferentes logo no MVP.
 Podemos começar conceitualmente com:
-🥚 CHICKEN
+🥚 FOWLGEN
 Um SPL Token fungível utilizado como recurso/economia.
 Exemplo:
-🐔 Chicken Token
+🐔 FOWLGEN Token
 
 Ganhar:
 +10 vitória
@@ -91,7 +91,7 @@ SPL Token / recompensa
    ↓
 Upgrade
    ↓
-NFT Chicken
+NFT FOWLGEN
 Ou:
 Arena
  ↓
@@ -108,7 +108,7 @@ Isso cria um loop econômico, mas precisamos desenhá-lo cuidadosamente para nã
 Não precisamos limitar NFT a personagem.
 Futuramente:
 NFT
-├── 🐔 Chicken
+├── 🐔 FOWLGEN
 ├── 🛡️ Armadura
 ├── ⚔️ Arma
 ├── 👑 Skin
@@ -183,7 +183,7 @@ A arquitetura futura poderia ser:
             │                             │                            │
            NFT                        SPL                      PDA
             │                             │                            │
-         Chicken               Economy                   Stats
+         FOWLGEN               Economy                   Stats
             │                             │                            │
             └───────────┼───────────┘
                                            │
@@ -216,9 +216,9 @@ NFT
 Unity reconhece o NFT
 Depois:
 MVP
-NFT Chicken
+NFT FOWLGEN
       ↓
-PDA ChickenData
+PDA FOWLGENData
       ↓
 Level / XP / atributos
       ↓
@@ -279,12 +279,12 @@ POC 04 — Unity ↔ Anchor
 POC 05 — Wallet & Transaction
  Carteira assina uma transação enviada pelo Unity.
 
-🟣 FASE 02 — Chicken On-Chain
-POC 06 — Chicken NFT
-POC 07 — Chicken PDA
-POC 08 — Chicken Data Account
+🟣 FASE 02 — FOWLGEN On-Chain
+POC 06 — FOWLGEN NFT
+POC 07 — FOWLGEN PDA
+POC 08 — FOWLGEN Data Account
 Exemplo conceitual:
-Chicken NFT
+FOWLGEN NFT
 │
 ├── 🔗 IDENTIDADE
 │   ├── mint
@@ -391,7 +391,7 @@ PlayerData
 🐔 FOWLGEN WARS
                            │
                            ▼
-                    🪙 CHICKEN NFT
+                    🪙 FOWLGEN NFT
                            │
               ┌────────────┴────────────┐
               │                         │
@@ -405,7 +405,7 @@ PlayerData
               │                         └── Tema
               │
               ▼
-        🧠 ChickenData PDA
+        🧠 FOWLGENData PDA
               │
        ┌──────┼─────────┐
        │      │         │
@@ -435,23 +435,23 @@ PlayerData
 
 
 
-POC 09 — Anchor Chicken Program
+POC 09 — Anchor FOWLGEN Program
 Criar instruções como:
-initialize_chicken()
-upgrade_chicken()
+initialize_FOWLGEN()
+upgrade_FOWLGEN()
 add_xp()
 update_stats()
 
 🟡 FASE 03 — SPL Token
-POC 10 — Chicken SPL Token
+POC 10 — FOWLGEN SPL Token
 POC 11 — Token Account
 POC 12 — Reward Program
-POC 13 — Earn Chicken Token
-POC 14 — Spend Chicken Token
+POC 13 — Earn FOWLGEN Token
+POC 14 — Spend FOWLGEN Token
 POC 15 — Upgrade Using Token
 
 🟢 FASE 04 — Gameplay
-POC 16 — Chicken Controller
+POC 16 — FOWLGEN Controller
 POC 17 — Arena
 POC 18 — Combat
 POC 19 — Enemy
@@ -461,10 +461,10 @@ POC 22 — Battle Result
 
 🔥 FASE 05 — Gameplay + Anchor
 Aqui começa a parte realmente interessante.
-POC 23 — NFT → Playable Chicken
+POC 23 — NFT → Playable FOWLGEN
 Wallet
  ↓
-Chicken NFT
+FOWLGEN NFT
  ↓
 PDA
  ↓
@@ -472,22 +472,22 @@ Stats
  ↓
 Unity
  ↓
-Playable Chicken
+Playable FOWLGEN
 POC 24 — On-Chain Stats → Gameplay
 POC 25 — Battle Result → Anchor
 POC 26 — Victory → SPL Reward
 POC 27 — SPL Reward → Upgrade
 POC 28 — Upgrade → PDA
 
-🏆 POC 29 — COMPLETE CHICKEN LOOP
+🏆 POC 29 — COMPLETE FOWLGEN LOOP
 Esse seria um dos principais objetivos técnicos do projeto:
        👛 WALLET
              │
              ▼
-       🐔 CHICKEN NFT
+       🐔 FOWLGEN NFT
              │
              ▼
-        🧬 CHICKEN PDA
+        🧬 FOWLGEN PDA
              │
              ▼
        📊 ATTRIBUTES
@@ -514,8 +514,8 @@ Esse seria um dos principais objetivos técnicos do projeto:
 🦀 Onde entra o Anchor?
 O Anchor será responsável pela regra on-chain, não pelo gameplay visual.
 Por exemplo:
-initialize_chicken()
-upgrade_chicken()
+initialize_FOWLGEN()
+upgrade_FOWLGEN()
 claim_reward()
 record_battle()
 A Unity chama essas instruções.
@@ -524,10 +524,10 @@ O programa Anchor valida as regras e modifica as contas necessárias.
 ⚠️ Uma decisão importante
 Eu não faria um programa Anchor gigantesco desde o começo.
 Começaria com:
-chicken_wars/
+fowlgen_wars/
 │
 ├── programs/
-│   └── chicken_wars/
+│   └── fowlgen_wars/
 │       └── src/
 │           └── lib.rs
 │

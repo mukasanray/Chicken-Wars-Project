@@ -1,4 +1,4 @@
-🐔 FOWLGEN WARS — FRASES DE COMBATE
+﻿🐔 FOWLGEN WARS — FRASES DE COMBATE
 
 A ideia pode ser transformar cada personagem em uma espécie de “comentarista maluco da própria batalha”. Misturar ditados brasileiros, trocadilhos, rimas, regionalismos e frases absurdamente épicas.
 

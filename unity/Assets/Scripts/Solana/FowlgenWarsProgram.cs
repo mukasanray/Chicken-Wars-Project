@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace ChickenWars.Solana
+namespace FowlgenWars.Solana
 {
     /// <summary>
-    /// Abstração para chamar as instruções do programa Chicken Wars on-chain.
+    /// Abstração para chamar as instruções do programa Fowlgen Wars on-chain.
     /// 
     /// Esta classe encapsula as chamadas ao smart contract via Solana SDK.
     /// O IDL (Interface Definition Language) gerado pelo Anchor define
@@ -12,8 +12,8 @@ namespace ChickenWars.Solana
     /// Fluxo:
     ///   Rust (lib.rs)
     ///     → anchor build
-    ///       → IDL (chicken_wars.json)
-    ///         → ChickenWarsProgram.cs (esta classe)
+    ///       → IDL (fowlgen_wars.json)
+    ///         → FowlgenWarsProgram.cs (esta classe)
     ///           → Solana SDK → Transaction → Cluster
     /// 
     /// IMPORTANTE: Não editar o IDL manualmente.
@@ -21,16 +21,16 @@ namespace ChickenWars.Solana
     /// 
     /// Evolução das instruções:
     ///   initialize (atual)
-    ///   → initialize_chicken
-    ///   → upgrade_chicken  
+    ///   → initialize_fowlgen
+    ///   → upgrade_fowlgen  
     ///   → record_battle
     ///   → claim_reward
     /// </summary>
-    public class ChickenWarsProgram : MonoBehaviour
+    public class FowlgenWarsProgram : MonoBehaviour
     {
         [Header("IDL")]
         [SerializeField]
-        [Tooltip("Referência ao IDL JSON do programa (Assets/Solana/IDL/chicken_wars.json)")]
+        [Tooltip("Referência ao IDL JSON do programa (Assets/Solana/IDL/fowlgen_wars.json)")]
         private TextAsset idlJson;
 
         public TextAsset IdlJson => idlJson;
@@ -95,7 +95,7 @@ namespace ChickenWars.Solana
         /// POC mínimo — prova que Unity consegue chamar o smart contract.
         /// 
         /// Resultado esperado no log do programa:
-        ///   "Chicken Wars program initialized!"
+        ///   "Fowlgen Wars program initialized!"
         ///   "Signer: <wallet_public_key>"
         /// </summary>
         public async void CallInitialize()
@@ -105,12 +105,12 @@ namespace ChickenWars.Solana
 
             if (!IsReady)
             {
-                Debug.LogError("[ChickenWarsProgram] Programa não está pronto. " +
+                Debug.LogError("[FowlgenWarsProgram] Programa não está pronto. " +
                     DescribeReadiness());
                 return;
             }
 
-            Debug.Log("[ChickenWarsProgram] Chamando instrução 'initialize'...");
+            Debug.Log("[FowlgenWarsProgram] Chamando instrução 'initialize'...");
 
             // TODO: Quando o Solana Unity SDK for instalado:
             //
@@ -128,10 +128,10 @@ namespace ChickenWars.Solana
             //    await SolanaConnection.ConfirmTransaction(signature);
             //
             // 5. Log resultado
-            //    Debug.Log($"[ChickenWarsProgram] Initialize confirmed: {signature}");
+            //    Debug.Log($"[FowlgenWarsProgram] Initialize confirmed: {signature}");
 
             await System.Threading.Tasks.Task.CompletedTask;
-            Debug.Log("[ChickenWarsProgram] Initialize chamado (placeholder — aguardando SDK).");
+            Debug.Log("[FowlgenWarsProgram] Initialize chamado (placeholder — aguardando SDK).");
         }
     }
 }

@@ -1,7 +1,7 @@
 {
-  "name": "chicken-wars-anchor",
+  "name": "fowlgen-wars-anchor",
   "version": "0.1.0",
-  "description": "Chicken Wars — Anchor tests and migrations",
+  "description": "Fowlgen Wars — Anchor tests and migrations",
   "private": true,
   "scripts": {
     "lint:fix": "prettier */*.js \"*/**/*{.js,.ts}\" -w",

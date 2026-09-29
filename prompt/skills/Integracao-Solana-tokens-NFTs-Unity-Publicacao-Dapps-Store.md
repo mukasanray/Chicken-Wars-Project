@@ -1,4 +1,4 @@
-# Integração Solana, tokens, NFTs e Unity
+﻿# Integração Solana, tokens, NFTs e Unity
 
 ## FOWLGEN WARS — Estudo técnico e roteiro de desenvolvimento
 
@@ -115,8 +115,8 @@ O primeiro protótipo deve utilizar uma rede de testes, como a Devnet, antes de 
 O programa on-chain deve ser criado e compilado seguindo o fluxo do guia principal:
 
 ```bash
-anchor init chicken_wars_contract
-cd chicken_wars_contract
+anchor init fowlgen_wars_contract
+cd fowlgen_wars_contract
 anchor build
 ```
 
@@ -134,7 +134,7 @@ anchor build
 
 ### Organização do projeto
 
-- `programs/chicken_wars_contract/src/lib.rs`: lógica principal do programa em Rust.
+- `programs/fowlgen_wars_contract/src/lib.rs`: lógica principal do programa em Rust.
 - `Anchor.toml`: configuração de redes, programas e ambiente.
 - `tests/`: testes do programa.
 - Projeto Unity: cliente off-chain e camada de apresentação.
@@ -170,11 +170,11 @@ Um NFT pode representar a identidade e a propriedade de uma galinha, personagem,
 ### Modelo NFT + PDA
 
 ```text
-NFT Chicken
+NFT FOWLGEN
     ↓
 Mint
     ↓
-PDA ChickenData
+PDA FOWLGENData
     ├── Level
     ├── Experiência
     ├── Atributos selecionados

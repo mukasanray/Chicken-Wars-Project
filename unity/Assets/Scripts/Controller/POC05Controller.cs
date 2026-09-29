@@ -1,7 +1,7 @@
 using UnityEngine;
-using ChickenWars.Solana;
+using FowlgenWars.Solana;
 
-namespace ChickenWars.POC
+namespace FowlgenWars.POC
 {
     public class POC05Controller : POCBaseController
     {

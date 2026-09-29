@@ -1,4 +1,4 @@
-Considerando tudo que já definimos para o FOWLGEN — partidas curtas, quatro habilidades pré-equipadas, personagens já no potencial máximo, progressão sem grind de poder, cartas, Essências, classes, bombas, destruição progressiva e necessidade de menos preparação e mais jogo — eu criaria as armadilhas como um sistema próprio de estratégia, mas sem transformar o jogo em um menu complicado.
+﻿Considerando tudo que já definimos para o FOWLGEN — partidas curtas, quatro habilidades pré-equipadas, personagens já no potencial máximo, progressão sem grind de poder, cartas, Essências, classes, bombas, destruição progressiva e necessidade de menos preparação e mais jogo — eu criaria as armadilhas como um sistema próprio de estratégia, mas sem transformar o jogo em um menu complicado.
 
 A referência técnica faz sentido: sistemas de armadilhas normalmente trabalham com ativação, dano, intervalo, área de efeito e diferentes comportamentos; também é importante que o jogador consiga entender o perigo e tenha alguma possibilidade de reação. 
 

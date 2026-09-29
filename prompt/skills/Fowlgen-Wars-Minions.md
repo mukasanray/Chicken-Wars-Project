@@ -1,4 +1,4 @@
-# FOWLGEN WARS — Minions, Geração e Avanço pelas Rotas
+﻿# FOWLGEN WARS — Minions, Geração e Avanço pelas Rotas
 
 ## Objetivo e status
 

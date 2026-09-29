@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ChickenWars.POC
+namespace FowlgenWars.POC
 {
     public class MainMenuController : POCBaseController
     {
@@ -22,7 +22,7 @@ namespace ChickenWars.POC
 
         static string SolanaSdkStatus()
         {
-            return ChickenWars.Solana.SolanaSdkProbe.IsSdkAssemblyLoaded(out string detail)
+            return FowlgenWars.Solana.SolanaSdkProbe.IsSdkAssemblyLoaded(out string detail)
                 ? detail
                 : "NOT INSTALLED";
         }

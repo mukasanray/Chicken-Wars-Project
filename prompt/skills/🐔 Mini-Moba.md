@@ -1,4 +1,4 @@
-# 🐔 MINI-MOBA
+﻿# 🐔 MINI-MOBA
 
 ## 🎮 Conceito da partida
 
@@ -118,4 +118,4 @@ E o diferencial é que o jogador não precisa passar 20 ou 30 minutos em uma par
 
 Entrou → comandou → lutou → evoluiu → saiu.
 
-Isso combina diretamente com o restante do Chicken Wars: cartas, personagens, evolução, maestria, runas, clãs, ranking competitivo e progressão contínua, enquanto o Galinheiro permanece como o coração da geração da tropa e do objetivo estratégico da partida.
+Isso combina diretamente com o restante do Fowlgen Wars: cartas, personagens, evolução, maestria, runas, clãs, ranking competitivo e progressão contínua, enquanto o Galinheiro permanece como o coração da geração da tropa e do objetivo estratégico da partida.

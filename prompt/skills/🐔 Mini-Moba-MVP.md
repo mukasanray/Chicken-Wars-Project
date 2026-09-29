@@ -1,4 +1,4 @@
-# 🐔 FOWLGEN WARS — Mini-MOBA MVP
+﻿# 🐔 FOWLGEN WARS — Mini-MOBA MVP
 
 ## Objetivo e status
 

@@ -1,7 +1,7 @@
 using UnityEngine;
-using ChickenWars.Solana;
+using FowlgenWars.Solana;
 
-namespace ChickenWars.POC
+namespace FowlgenWars.POC
 {
     public class POC04Controller : POCBaseController
     {
@@ -9,7 +9,7 @@ namespace ChickenWars.POC
         {
             SolanaRuntime.EnsureExists();
 
-            ChickenWarsProgram program = Object.FindFirstObjectByType<ChickenWarsProgram>();
+            FowlgenWarsProgram program = Object.FindFirstObjectByType<FowlgenWarsProgram>();
             string programId = SolanaManager.Instance != null && SolanaManager.Instance.Config != null
                 ? SolanaManager.Instance.Config.programId
                 : string.Empty;
@@ -20,22 +20,22 @@ namespace ChickenWars.POC
                 new[]
                 {
                     "Devnet",
-                    "chicken_wars",
+                    "fowlgen_wars",
                     string.IsNullOrWhiteSpace(programId) ? "NOT SET" : programId,
-                    program != null ? program.DescribeReadiness() : "ChickenWarsProgram missing"
+                    program != null ? program.DescribeReadiness() : "FowlgenWarsProgram missing"
                 });
 
             screenUI.AddButton("CALL INITIALIZE", CallProgram);
-            Log("Calls ChickenWarsProgram.CallInitialize() for instruction initialize from the IDL.");
+            Log("Calls FowlgenWarsProgram.CallInitialize() for instruction initialize from the IDL.");
         }
 
         void CallProgram()
         {
             SolanaRuntime.EnsureExists();
-            ChickenWarsProgram program = Object.FindFirstObjectByType<ChickenWarsProgram>();
+            FowlgenWarsProgram program = Object.FindFirstObjectByType<FowlgenWarsProgram>();
             if (program == null)
             {
-                Log("ChickenWarsProgram not found.");
+                Log("FowlgenWarsProgram not found.");
                 return;
             }
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ChickenWars.Solana
+namespace FowlgenWars.Solana
 {
     /// <summary>
     /// Gerenciamento de wallet do jogador.

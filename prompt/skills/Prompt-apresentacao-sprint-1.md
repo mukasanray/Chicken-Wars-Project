@@ -1,4 +1,4 @@
-# Prompt de Geração do Vídeo Técnico — Sprint 01
+﻿# Prompt de Geração do Vídeo Técnico — Sprint 01
 
 Gere um vídeo técnico do Sprint 01 do projeto Fowlgen Wars, com foco no desenvolvimento do game em Unity 3D e em suas integrações. A apresentação deve ser organizada, profissional e objetiva, cobrindo os seguintes temas:
 

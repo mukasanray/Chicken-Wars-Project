@@ -1,12 +1,12 @@
 [package]
-name = "chicken-wars"
+name = "fowlgen-wars"
 version = "0.1.0"
-description = "Chicken Wars — Solana on-chain program"
+description = "Fowlgen Wars — Solana on-chain program"
 edition = "2021"
 
 [lib]
 crate-type = ["cdylib", "lib"]
-name = "chicken_wars"
+name = "fowlgen_wars"
 
 [features]
 default = []

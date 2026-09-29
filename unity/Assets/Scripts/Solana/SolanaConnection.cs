@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ChickenWars.Solana
+namespace FowlgenWars.Solana
 {
     /// <summary>
     /// Gerencia a conexão com o cluster Solana.

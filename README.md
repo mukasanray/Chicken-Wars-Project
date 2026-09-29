@@ -1,4 +1,4 @@
-# 🐔⚔️ Chicken Wars
+# 🐔⚔️ Fowlgen Wars
 
 <p align="center">
   <strong>Uma guerra épica, caótica e estratégica onde galinhas dominam o campo de batalha!</strong>
@@ -12,7 +12,7 @@
 
 ## 🎯 Conceito
 
-**Chicken Wars** é um **Mini-MOBA** mobile onde cada jogador controla um exército completo de pequenos personagens em um mapa compacto. Partidas de **3 minutos**, combate constante, 4 rotas estratégicas.
+**Fowlgen Wars** é um **Mini-MOBA** mobile onde cada jogador controla um exército completo de pequenos personagens em um mapa compacto. Partidas de **3 minutos**, combate constante, 4 rotas estratégicas.
 
 > Mini mapa. Mini personagens. Mini tropas. 4 rotas. 5 arquétipos de combate. 1 jogador comandando tudo. 3 minutos para decidir a batalha.
 
@@ -42,13 +42,13 @@ GALINHEIRO → GERA TROPAS → AVANÇAM → ENFRENTAM → RECURSOS → FORTALECE
 ## 📁 Estrutura do Repositório
 
 ```
-ChickenWars/
+FowlgenWars/
 │
 ├── APP/                          # Site do projeto (futuro)
 │
 ├── program/                      # Anchor/Solana smart contracts
 │   ├── programs/
-│   │   └── chicken_wars/
+│   │   └── fowlgen_wars/
 │   │       └── src/
 │   │           └── lib.rs        # Contrato principal
 │   ├── tests/                    # Testes Anchor (TypeScript)
@@ -58,7 +58,7 @@ ChickenWars/
 │   └── package.json              # Dependências de teste
 │
 ├── unity/
-│   └── Chicken Wars/             # Unity 6000 (URP)
+│   └── Fowlgen Wars/             # Unity 6000 (URP)
 │       ├── Assets/
 │       │   ├── Art/              # Characters, Environment, Materials
 │       │   ├── Audio/
@@ -66,7 +66,7 @@ ChickenWars/
 │       │   ├── Scenes/
 │       │   ├── Scripts/
 │       │   │   ├── Core/         # GameBootstrap, GameManager
-│       │   │   ├── Gameplay/     # ChickenUnit, Battle, Arena
+│       │   │   ├── Gameplay/     # FowlgenUnit, Battle, Arena
 │       │   │   ├── Solana/       # SolanaManager, Wallet, Transaction
 │       │   │   └── UI/
 │       │   ├── Solana/
@@ -101,10 +101,10 @@ ChickenWars/
 git clone <REPOSITORIO>
 
 # 2. Abra no Unity Hub
-#    Add > unity/Chicken Wars/
+#    Add > unity/Fowlgen Wars/
 
 # 3. Play
-#    O console deve mostrar: "Chicken Wars iniciado. Version: 0.1.0"
+#    O console deve mostrar: "Fowlgen Wars iniciado. Version: 0.1.0"
 ```
 
 ### Anchor (Smart Contracts)
@@ -178,10 +178,10 @@ anchor test
 ```
 Unity (Gameplay)          Solana (Blockchain)
 ─────────────────         ──────────────────
-ChickenUnit               SolanaManager
+FowlgenUnit               SolanaManager
 Movement                  WalletManager
 Combat                    TransactionManager
-Animation                 ChickenWarsProgram
+Animation                 FowlgenWarsProgram
 UI                        SolanaConfig
 ```
 

@@ -1,4 +1,4 @@
-# FOWLGEN WARS — GDD do MVP
+﻿# FOWLGEN WARS — GDD do MVP
 
 ## Objetivo e status
 

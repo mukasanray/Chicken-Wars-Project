@@ -1,7 +1,7 @@
 using UnityEngine;
-using ChickenWars.Solana;
+using FowlgenWars.Solana;
 
-namespace ChickenWars.POC
+namespace FowlgenWars.POC
 {
     public class POC03Controller : POCBaseController
     {
@@ -26,7 +26,7 @@ namespace ChickenWars.POC
                 screenUI.SetRow(1, "-");
                 screenUI.SetRow(2, "-");
                 screenUI.SetRow(3, "-");
-                Log("IDL not found. Expected Assets/Solana/IDL/chicken_wars.json (Editor) or Resources/chicken_wars.");
+                Log("IDL not found. Expected Assets/Solana/IDL/fowlgen_wars.json (Editor) or Resources/fowlgen_wars.");
                 return;
             }
 

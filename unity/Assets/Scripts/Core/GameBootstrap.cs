@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace ChickenWars.Core
+namespace FowlgenWars.Core
 {
     /// <summary>
-    /// Entry point do Chicken Wars.
+    /// Entry point do Fowlgen Wars.
     /// Responsável por inicializar os sistemas core do jogo.
     /// Deve ser adicionado a um GameObject na primeira cena carregada.
     /// </summary>
@@ -14,9 +14,9 @@ namespace ChickenWars.Core
 
         private void Awake()
         {
-            Debug.Log($"[ChickenWars] Chicken Wars iniciado. Version: {gameVersion}");
-            Debug.Log($"[ChickenWars] Platform: {Application.platform}");
-            Debug.Log($"[ChickenWars] Unity: {Application.unityVersion}");
+            Debug.Log($"[FowlgenWars] Fowlgen Wars iniciado. Version: {gameVersion}");
+            Debug.Log($"[FowlgenWars] Platform: {Application.platform}");
+            Debug.Log($"[FowlgenWars] Unity: {Application.unityVersion}");
         }
     }
 }

@@ -1,4 +1,4 @@
-# 🐔 SISTEMA PADRÃO DE CRIATIVIDADE E DESIGN
+﻿# 🐔 SISTEMA PADRÃO DE CRIATIVIDADE E DESIGN
 
 Existe risco, mas isso não significa que vocês devam parar de usar IA. O ponto principal é a diferença entre usar a IA como ferramenta de criação e simplesmente pegar uma imagem gerada e colocá-la no jogo sem análise crítica.
 

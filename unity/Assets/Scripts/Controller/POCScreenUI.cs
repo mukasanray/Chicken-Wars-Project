@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-namespace ChickenWars.POC
+namespace FowlgenWars.POC
 {
     public class POCScreenUI : MonoBehaviour
     {
@@ -35,7 +35,7 @@ namespace ChickenWars.POC
             valueLabels.Clear();
             logLines.Clear();
 
-            CreateText("Title", "CHICKEN WARS", 48, new Vector2(0, 820), new Vector2(960, 80));
+            CreateText("Title", "FOWLGEN WARS", 48, new Vector2(0, 820), new Vector2(960, 80));
             CreateText("Subtitle", subtitle, 28, new Vector2(0, 740), new Vector2(960, 60));
 
             float y = 620;
@@ -125,7 +125,7 @@ namespace ChickenWars.POC
             if (logText != null)
                 logText.text = "LOG\n" + string.Join("\n", logLines);
 
-            Debug.Log("[Chicken Wars] " + message);
+            Debug.Log("[Fowlgen Wars] " + message);
         }
 
         public static void LoadMenu()

@@ -1,4 +1,4 @@
-# FOWLGEN WARS — Guia Completo de Configuração do Ambiente On-Chain
+﻿# FOWLGEN WARS — Guia Completo de Configuração do Ambiente On-Chain
 
 Este documento apresenta o passo a passo completo, desde a ativação inicial até a compilação do contrato inteligente, para configurar o ambiente de desenvolvimento do jogo FOWLGEN WARS utilizando WSL (Ubuntu), Rust, Solana e Anchor.
 
@@ -65,6 +65,6 @@ anchor build
 
 ## 4. Estrutura de pastas principais
 
-- `programs/chicken_wars_contract/src/lib.rs`: contém a lógica principal do contrato inteligente em Rust.
+- `programs/fowlgen_wars_contract/src/lib.rs`: contém a lógica principal do contrato inteligente em Rust.
 - `Anchor.toml`: ficheiro de configuração das redes (`localnet` e `devnet`).
 - `tests/`: scripts de teste em TypeScript.

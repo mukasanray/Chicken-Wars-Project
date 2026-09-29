@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: Chicken Wars
+  productName: Fowlgen Wars
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -860,14 +860,14 @@ PlayerSettings:
   editorAssembliesCompatibilityLevel: 1
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: Chicken Wars
+  metroPackageName: Fowlgen Wars
   metroPackageVersion: 
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
   metroCertificateIssuer: 
   metroCertificateNotAfter: 0000000000000000
-  metroApplicationDescription: Chicken Wars
+  metroApplicationDescription: Fowlgen Wars
   wsaImages: {}
   metroTileShortName: 
   metroTileShowName: 0
@@ -941,7 +941,7 @@ PlayerSettings:
   cloudProjectId: bafbf6a8-1adf-4d9c-af5b-95bf1763b4f4
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: Chicken Wars 2026-09-22_16-53-59
+  projectName: Fowlgen Wars 2026-09-22_16-53-59
   organizationId: marcos-pascoski
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0

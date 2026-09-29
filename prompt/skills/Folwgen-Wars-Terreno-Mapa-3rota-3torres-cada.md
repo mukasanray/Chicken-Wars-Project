@@ -1,4 +1,4 @@
-# FOWLGEN WARS — Mapa de Três Rotas Tres torres cada.
+﻿# FOWLGEN WARS — Mapa de Três Rotas Tres torres cada.
 
 ## Objetivo e status
 

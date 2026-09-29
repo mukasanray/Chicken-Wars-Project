@@ -1,6 +1,6 @@
-# 🐔 Chicken Wars
+# 🐔 Fowlgen Wars
 
-**Chicken Wars** é um jogo estratégico mobile desenvolvido em **Unity (C#)**, onde galinhas entram em batalhas táticas em tempo real.
+**Fowlgen Wars** é um jogo estratégico mobile desenvolvido em **Unity (C#)**, onde galinhas entram em batalhas táticas em tempo real.
 
 ## 🎮 Sobre o Jogo
 Liderando seu exército de galinhas em combates dinâmicos, gerando recursos e desenvolvendo estratégias para vencer os seus oponentes. O jogo combina mecânicas de estratégia com uma estética divertida e imersiva.

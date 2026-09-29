@@ -8,13 +8,13 @@ Em um vilarejo tranquilo e totalmente diferente de tudo o que já existiu, a vid
 - Zeuslinha:** Dona de um poder avassalador, embora não soubesse usá-lo direito. Achava que era a mais forte de todas, mas em uma luta de verdade só se dava bem por pura sorte; odiava a todos e pensava apenas em seus próprios bens.
 - Uranlinha:** Gostava de ficar na dela, pois sua interação com os outros costumava se tornar perigosa. Vivia afastada, mas, de alguma forma, sempre aparecia no momento certo.
 - Krakenlinha:** Onde Zeuslinha estava, Krakenlinha destilava ódio. As duas brigavam o tempo todo, parecendo verdadeiras irmãs. Ambas não eram muito espertas, mas, sendo a mais velha, Krakenlinha lutava muito melhor.
-- Nyanchicken:** Bastava gritar seu nome para surgir voando em uma velocidade implacável. Seu poder podia curar os outros, mas, ironicamente, nunca a si mesma; preocupava-se com todos e sempre tentava ajudar.
+- NyanFOWLGEN:** Bastava gritar seu nome para surgir voando em uma velocidade implacável. Seu poder podia curar os outros, mas, ironicamente, nunca a si mesma; preocupava-se com todos e sempre tentava ajudar.
 - Fenixchiken:** Seu poder de regeneração a tornava praticamente imortal. Suas chamas podiam alcançar as outras galinhas e ela ainda conseguia criar miragens impressionantes... pena que muitos achavam que ela era apenas uma lenda.
-- Raring chicken:** A parceira para todos os momentos. Ajudava, era forte, inteligente e tudo de bom, mas acabou pegando uma forte onda de depressão após o sumiço repentino de Ninjalinha, sua melhor amiga.
+- Raring FOWLGEN:** A parceira para todos os momentos. Ajudava, era forte, inteligente e tudo de bom, mas acabou pegando uma forte onda de depressão após o sumiço repentino de Ninjalinha, sua melhor amiga.
 - Invocalinha:** Possuía um poder impressionante capaz de criar um exército inteiro sem o menor problema, o que fazia de sua coragem, muitas vezes, a sua maior fraqueza.
 - Rainhagelinha:** Havia partido junto com Ninjalinha na expedição, então ninguém sabia ao certo como ela estava lá no fundo, mas sua personalidade extremamente vingativa e irritada eram marcas registradas de sua presença.
-- Resfriachicken:** Irmã mais nova de Rainhagelinha. Seu poder se igualava ao da irmã, mas ela se tornou muito mais solitária desde o desaparecimento dela, aparecendo raramente desde então.
-- Chainsawchicken:** Se alguém perguntasse sobre ela para qualquer outra galinha, a resposta seria de que nunca tinham ouvido falar. Ninguém sabia de sua existência, mas seu papel seria muito mais importante do que qualquer um imaginava, portando uma motosserra considerada mais perigosa que uma bomba atômica.
+- ResfriaFOWLGEN:** Irmã mais nova de Rainhagelinha. Seu poder se igualava ao da irmã, mas ela se tornou muito mais solitária desde o desaparecimento dela, aparecendo raramente desde então.
+- ChainsawFOWLGEN:** Se alguém perguntasse sobre ela para qualquer outra galinha, a resposta seria de que nunca tinham ouvido falar. Ninguém sabia de sua existência, mas seu papel seria muito mais importante do que qualquer um imaginava, portando uma motosserra considerada mais perigosa que uma bomba atômica.
 - ??????:** O motivo da guerra, o motivo de tudo. Quem quisesse saber o que realmente aconteceu, teria de ler e descobrir.
 
 O grande ponto de virada na vida dessas galinhas aconteceu quando Ninjalinha e Rainhagelinha se uniram e saíram em uma expedição secreta rumo ao desconhecido. O que estava do outro lado daquela jornada era um completo mistério para quem ficara para trás; e os moradores do vilarejo apenas sabiam que elas haviam cruzado os limites do mundo conhecido.
@@ -29,11 +29,11 @@ Até que, em um lugar onde as dimensões pareciam se tocar, todos se viram reuni
 >
 > — 1 mês, exatamente.
 >
-> — respondeu Nyanchicken, séria.
+> — respondeu NyanFOWLGEN, séria.
 >
 > — Já? Parece que foi hoje...
 >
-> — murmurou Raringchicken, cabisbaixa.
+> — murmurou RaringFOWLGEN, cabisbaixa.
 
 De repente, um som ensurdecedor de portal se abrindo ecoou pelo ar, rompendo a calmaria.
 
@@ -53,13 +53,13 @@ A luz do portal diminui e, cambaleando, do outro lado sai apenas Ninjalinha.
 
 > — Ninjalinha!!!
 >
-> — gritou Raringchicken, correndo em sua direção.
+> — gritou RaringFOWLGEN, correndo em sua direção.
 
 Ninjalinha não consegue dar mais passos e desmaia de exaustão absoluta no chão.
 
 > — MAS QUE... onde é que está a Rainhagelinha?!
 >
-> — gritou Resfriachicken, sentindo o peito apertar de angústia.
+> — gritou ResfriaFOWLGEN, sentindo o peito apertar de angústia.
 
 Com a voz fraca, quase inaudível, Ninjalinha balbucia antes de apagar de vez:
 
@@ -87,9 +87,9 @@ Enquanto Ninjalinha jazia desmaiada no chão, exausta e incapaz de continuar, o 
 >
 > — Não importa com quem nós vamos.
 >
-> — cortou Raringchicken, puxando algo debaixo da asa.
+> — cortou RaringFOWLGEN, puxando algo debaixo da asa.
 
-Raringchicken exibe o mapa estratégico rabiscado, indicando pontos críticos como o “Lixão de sucata”, o “Castelo do ?????”, a “Planície congelada”, a “Entrada”, o “Vale feiticeiro” e o “Penhasco”.
+RaringFOWLGEN exibe o mapa estratégico rabiscado, indicando pontos críticos como o “Lixão de sucata”, o “Castelo do ?????”, a “Planície congelada”, a “Entrada”, o “Vale feiticeiro” e o “Penhasco”.
 
 > — Tá, mas vamos assim mesmo? Não sabemos de nada e a Ninjalinha tá desmaiada...
 >
@@ -103,7 +103,7 @@ Sem olhar para trás, deixando a exausta Ninjalinha em segurança no ponto de pa
 
 > — Vamos pro castelo!
 >
-> — ordenou Raringchicken.
+> — ordenou RaringFOWLGEN.
 
 Enquanto avançavam pelo terreno desconhecido em direção ao castelo do misterioso inimigo, um som estrondoso e repentino ecoou pelos céus, quebrando o silêncio da dimensão sombria.
 
@@ -127,7 +127,7 @@ Perdendo o controle devido às provocações incessantes, Krakenlinha agarra Zeu
 >
 > — Agora alguém vai ter que buscar ela.
 >
-> — Raringchicken.
+> — RaringFOWLGEN.
 
 ## Capítulo 2 — O Frio da Morte e a Emboscada na Planície
 
@@ -207,7 +207,7 @@ O grupo avançava pelas imediações sombrias até avistarem a silhueta imponent
 
 > — Chegamos no castelo dele, o tal do...
 >
-> — murmurou Raringchicken, interrompida por um sussurro abafado que cortou o vento.
+> — murmurou RaringFOWLGEN, interrompida por um sussurro abafado que cortou o vento.
 >
 > — Socorro!... Me ajudem!
 >
@@ -215,27 +215,27 @@ O grupo avançava pelas imediações sombrias até avistarem a silhueta imponent
 >
 > — Essa foi a Uranlinha...
 >
-> — constatou Raringchicken, sobressaltada.
+> — constatou RaringFOWLGEN, sobressaltada.
 >
 > — Alguém precisa ir lá conferir.
 >
 > — eu passo lá com a Fenix em direção ao castelo; vocês vão por outro caminho, nós damos conta.
 >
-> — propôs Nyanchicken, decidida.
+> — propôs NyanFOWLGEN, decidida.
 >
 > — Ok, bota quente!
 >
-> — concordou Raringchicken.
+> — concordou RaringFOWLGEN.
 
 Separando-se do grupo, as duas companheiras avançaram sob as sombras da fortificação, mantendo a guarda alta.
 
 > — Vamos em silêncio.
 >
-> — sussurrou Fenixchicken.
+> — sussurrou FenixFOWLGEN.
 >
 > — Tá bom.
 >
-> — assentiu Nyanchicken.
+> — assentiu NyanFOWLGEN.
 
 Apoiadas pelo eco de seus próprios passos, Nyan e Fenix adentraram a sala central do castelo. No trono principal, a figura imponente de 000, a galinha líder, aguardava com um sorriso frio.
 
@@ -243,13 +243,13 @@ Apoiadas pelo eco de seus próprios passos, Nyan e Fenix adentraram a sala centr
 >
 > — debochou 000.
 
-A velocidade de 000 desafiava as leis da física; era quase um teletransporte contínuo. Em um piscar de olhos, ela reapareceu bem ao lado de Fenixchicken.
+A velocidade de 000 desafiava as leis da física; era quase um teletransporte contínuo. Em um piscar de olhos, ela reapareceu bem ao lado de FenixFOWLGEN.
 
-Fenix desferiu uma sequência de golpes rápidos, mas 000 desviou de todos com extrema facilidade antes de desferir um chute devastador na cabeça de Nyanchicken, de cima para baixo. O impacto foi tão brutal que Nyanchicken despencou, quebrando o chão e caindo direto no subsolo.
+Fenix desferiu uma sequência de golpes rápidos, mas 000 desviou de todos com extrema facilidade antes de desferir um chute devastador na cabeça de NyanFOWLGEN, de cima para baixo. O impacto foi tão brutal que NyanFOWLGEN despencou, quebrando o chão e caindo direto no subsolo.
 
 > — QUE FORÇA É ESSA?!
 >
-> — gritou Fenixchicken, horrorizada.
+> — gritou FenixFOWLGEN, horrorizada.
 >
 > — Meus olhos são robotizados, têm o triplo da força de alguém normal.
 >
@@ -275,7 +275,7 @@ Foi o suficiente para 000 acertá-la com um chute direto no olho.
 >
 > — MERDA!
 >
-> — praguejou Fenixchicken.
+> — praguejou FenixFOWLGEN.
 >
 > — Então toma essa!
 
@@ -283,7 +283,7 @@ Reunindo suas últimas forças, Fenix soltou uma rajada massiva de chamas que at
 
 > — Nossa, não esperava que seria tão forte...
 >
-> — respirou fundo Fenixchicken.
+> — respirou fundo FenixFOWLGEN.
 
 Mas o alívio durou pouco. Acionando propulsores secretos em suas botas, 000 planou de volta para o salão, voando em meio à fumaça.
 
@@ -291,55 +291,55 @@ Mas o alívio durou pouco. Acionando propulsores secretos em suas botas, 000 pla
 >
 > — desafiou 000.
 
-Cega pela adrenalina, Fenixchicken avançou de forma precipitada contra a líder.
+Cega pela adrenalina, FenixFOWLGEN avançou de forma precipitada contra a líder.
 
 > — Idiota... burra.
 >
 > — retrucou 000.
 
-Com uma precisão cirúrgica, 000 desviou do bote e fatiou os dois braços de Fenixchicken em um único movimento, deixando-a à beira da morte no chão de pedra.
+Com uma precisão cirúrgica, 000 desviou do bote e fatiou os dois braços de FenixFOWLGEN em um único movimento, deixando-a à beira da morte no chão de pedra.
 
 > — E agora? O que vai fazer? Nem sei como ainda está consciente...
 >
 > — debochou 000, observando a rival sangrar.
 
-Caída e desmembrada, Fenixchicken concentrou sua essência vital, estendeu os braços decepados no ar e, diante dos olhos arregalados da inimiga, viu sua carne e ossos se regenerarem instantaneamente.
+Caída e desmembrada, FenixFOWLGEN concentrou sua essência vital, estendeu os braços decepados no ar e, diante dos olhos arregalados da inimiga, viu sua carne e ossos se regenerarem instantaneamente.
 
 > — O QUÊ?!
 >
 > — gritou 000, incrédula diante da imortalidade da adversária.
 
-Enquanto Fenixchicken surpreendia 000 ao regenerar seus braços decepados, Nyanchicken recuperava a consciência no escuro absoluto do subsolo. O impacto do golpe de 000 a havia arremessado através das placas de metal e rocha, deixando-a soterrada em uma caverna oculta sob o castelo principal.
+Enquanto FenixFOWLGEN surpreendia 000 ao regenerar seus braços decepados, NyanFOWLGEN recuperava a consciência no escuro absoluto do subsolo. O impacto do golpe de 000 a havia arremessado através das placas de metal e rocha, deixando-a soterrada em uma caverna oculta sob o castelo principal.
 
 O ar ali embaixo era pesado, carregado com o cheiro de óleo queimado e circuitos antigos. À sua frente, a passagem principal estava totalmente bloqueada por pedras gigantescas. Tentar quebrar a parede na força bruta seria um suicídio certo — o teto desabaria de vez, esmagando o que restava de suas forças.
 
-Lembrando de sua essência protetora e sabendo que precisava encontrar uma saída para ajudar os outros, Nyanchicken optou por explorar o local. Munida apenas de sua espada e da luz fraca de seus próprios poderes de cura, ela começou a tatear pelas paredes úmidas daquela galeria subterrânea.
+Lembrando de sua essência protetora e sabendo que precisava encontrar uma saída para ajudar os outros, NyanFOWLGEN optou por explorar o local. Munida apenas de sua espada e da luz fraca de seus próprios poderes de cura, ela começou a tatear pelas paredes úmidas daquela galeria subterrânea.
 
 Quanto mais andava, mais estranho o lugar se tornava. As paredes de terra natural davam lugar a corredores metálicos, cabos de alta tensão e tubulações gigantescas que pulsavam com uma luz vermelha sinistra.
 
 > — Mas que lugar é este...?
 >
-> — murmurou Nyanchicken, avançando com cautela.
+> — murmurou NyanFOWLGEN, avançando com cautela.
 
 Seguindo por uma fresta estreita entre os tubos, ela encontrou uma câmara secreta. Era um laboratório abandonado, repleto de telas quebradas e tanques de vidro estilhaçados. Sobre uma bancada de metal central, havia arquivos e terminais piscando com dados confidenciais sobre a criação de 000 e dos clones cibernéticos de 007.
 
-Examinando os papéis e os registros digitais com o pouco de tempo que tinha, os olhos de Nyanchicken se arregalaram ao descobrir a verdade: o império de 000 mantinha toda a sua força conectada a um núcleo de energia central localizado logo acima, na sala do trono. Se aquele núcleo fosse destruído, os escudos do líder cairiam e suas habilidades sobre-humanas seriam neutralizadas.
+Examinando os papéis e os registros digitais com o pouco de tempo que tinha, os olhos de NyanFOWLGEN se arregalaram ao descobrir a verdade: o império de 000 mantinha toda a sua força conectada a um núcleo de energia central localizado logo acima, na sala do trono. Se aquele núcleo fosse destruído, os escudos do líder cairiam e suas habilidades sobre-humanas seriam neutralizadas.
 
 > — Eu preciso avisar os outros...
 >
 > — sussurrou ela, encontrando uma escotilha de ventilação que levava diretamente para a ala superior do castelo.
 
-Enquanto isso, a batalha de Fenixchicken contra 000 atingia um patamar crítico, preparando o terreno para a invasão definitiva que mudaria o rumo de toda a guerra.
+Enquanto isso, a batalha de FenixFOWLGEN contra 000 atingia um patamar crítico, preparando o terreno para a invasão definitiva que mudaria o rumo de toda a guerra.
 
 ## Capítulo 4 — A Caçada ao Cúmplice e a Armadilha do 007
 
-Enquanto Fenixchicken e Nyanchicken travavam uma batalha feroz contra a líder 000 na sala central do castelo — e o restante do grupo, incluindo Krakenlinha, avançava pela entrada principal —, Raringchicken e Invocalinha seguiram por uma ala lateral isolada das fortificações.
+Enquanto FenixFOWLGEN e NyanFOWLGEN travavam uma batalha feroz contra a líder 000 na sala central do castelo — e o restante do grupo, incluindo Krakenlinha, avançava pela entrada principal —, RaringFOWLGEN e Invocalinha seguiram por uma ala lateral isolada das fortificações.
 
 A atmosfera ali era pesada, cortada apenas pelo som abafado de engrenagens e passos metálicos ecoando à distância. Sem a presença de Ninjalinha, que havia ficado para trás do outro lado do portal, cabia àquelas duas desvendar os perigos que espreitavam nas sombras.
 
 > — Tem algo muito errado por aqui...
 >
-> — murmurou Raringchicken, apertando o cabo de sua espada com firmeza.
+> — murmurou RaringFOWLGEN, apertando o cabo de sua espada com firmeza.
 >
 > — Sinto que estamos sendo vigiadas.
 >
@@ -359,7 +359,7 @@ Avançando por um corredor estreito repleto de cabos expostos, elas começaram a
 >
 > — O 007?
 >
-> — Raringchicken franziu o cenho, tencionando os músculos.
+> — RaringFOWLGEN franziu o cenho, tencionando os músculos.
 >
 > — Então tem mais gente controlando essa loucura. Se ele está por perto, precisamos achá-lo antes que ele faça alguma besteira com o resto do grupo.
 
@@ -377,11 +377,11 @@ De cima de uma viga de aço, a silhueta cibernética de 007 emergiu, empunhando 
 
 > — Desculpa estragar a festinha, mas o passeio de vocês acaba aqui.
 >
-> — disparou 007, abrindo fogo em direção à dupla e dando início a um confronto implacável que testaria até o limite a coragem e a força de Raringchicken e Invocalinha.
+> — disparou 007, abrindo fogo em direção à dupla e dando início a um confronto implacável que testaria até o limite a coragem e a força de RaringFOWLGEN e Invocalinha.
 
 ## Capítulo 5 — A Porta da Fúria e o Encontro na Sala Central
 
-Enquanto Raringchicken e Invocalinha lutavam pela sobrevivência contra o implacável 007 nos corredores laterais do castelo, o restante do grupo de invasão avançava pelas entranhas da fortaleza.
+Enquanto RaringFOWLGEN e Invocalinha lutavam pela sobrevivência contra o implacável 007 nos corredores laterais do castelo, o restante do grupo de invasão avançava pelas entranhas da fortaleza.
 
 Na vanguarda dessa investida estava Krakenlinha, impaciente, nervosa e carregando todo o ódio acumulado de suas brigas passadas. Avançando pelos extensos corredores de metal escuro, o grupo finalmente parou diante de uma imensa porta blindada de aço maciço, adornada com o símbolo do temido líder do castelo.
 
@@ -403,7 +403,7 @@ A porta blindada cedeu de uma vez só, estilhaçando-se em dezenas de pedaços d
 >
 > — desafiou ela, já erguendo os punhos para a briga.
 
-Mas, assim que a poeira e a fumaça da porta destruída baixaram, o ímpeto de Krakenlinha travou na garganta. Diante dela, no meio da sala central destruída, o cenário era inacreditável: 000 estava recuperando o equilíbrio após a explosão de chamas, enquanto Fenixchicken — que momentos antes havia tido os dois braços decepados — estava de pé, com os membros completamente regenerados e encarando a líder cibernética com um olhar mortal.
+Mas, assim que a poeira e a fumaça da porta destruída baixaram, o ímpeto de Krakenlinha travou na garganta. Diante dela, no meio da sala central destruída, o cenário era inacreditável: 000 estava recuperando o equilíbrio após a explosão de chamas, enquanto FenixFOWLGEN — que momentos antes havia tido os dois braços decepados — estava de pé, com os membros completamente regenerados e encarando a líder cibernética com um olhar mortal.
 
 O silêncio tomou conta da sala por um segundo antes de Krakenlinha pestanejar, piscando surpresa:
 
@@ -417,17 +417,17 @@ O eco do chute brutal de Krakenlinha ainda vibrava nas paredes metálicas da sal
 >
 > — gaguejou Krakenlinha, perdendo por um segundo a pose de marrenta ao encarar o cenário dantesco.
 
-À sua frente, Fenixchicken estava de pé, respirando fundo, com os dois braços que haviam sido decepados momentos antes totalmente regenerados. Do outro lado da sala escorchada, 000 — a líder cibernética cujos olhos biônicos tinham o triplo da força normal — tentava recuperar o equilíbrio após a rajada de chamas que quase a derrubara.
+À sua frente, FenixFOWLGEN estava de pé, respirando fundo, com os dois braços que haviam sido decepados momentos antes totalmente regenerados. Do outro lado da sala escorchada, 000 — a líder cibernética cujos olhos biônicos tinham o triplo da força normal — tentava recuperar o equilíbrio após a rajada de chamas que quase a derrubara.
 
 > — Krakenlinha?! E você trouxe reforços?!
 >
-> — exclamou Fenixchicken, surpresa ao ver a companheira arrombar a entrada.
+> — exclamou FenixFOWLGEN, surpresa ao ver a companheira arrombar a entrada.
 
-Antes que 000 pudesse reagir à nova intrusa, o teto do subsolo estilhaçou-se. Nyanchicken emergiu por uma escotilha de ventilação, aterrissando agachada bem no centro da sala.
+Antes que 000 pudesse reagir à nova intrusa, o teto do subsolo estilhaçou-se. NyanFOWLGEN emergiu por uma escotilha de ventilação, aterrissando agachada bem no centro da sala.
 
 > — Eu achei o ponto fraco!
 >
-> — gritou Nyanchicken, apontando para o painel de energia central acima do trono.
+> — gritou NyanFOWLGEN, apontando para o painel de energia central acima do trono.
 >
 > — O núcleo de poder dela está ligado ao sistema de teletransporte! Se destruirmos aquilo, ela perde a velocidade absurda!
 >
@@ -435,21 +435,21 @@ Antes que 000 pudesse reagir à nova intrusa, o teto do subsolo estilhaçou-se. 
 >
 > — rugiu Krakenlinha, avançando sem hesitação para cima de 000.
 
-Percebendo que a situação saía de seu controle, a líder cibernética tentou acionar seus propulsores para se mover na velocidade de um relâmpago, mas o avanço combinado de Krakenlinha com os ataques de Fenixchicken a obrigou a recuar, entrando em total defensiva.
+Percebendo que a situação saía de seu controle, a líder cibernética tentou acionar seus propulsores para se mover na velocidade de um relâmpago, mas o avanço combinado de Krakenlinha com os ataques de FenixFOWLGEN a obrigou a recuar, entrando em total defensiva.
 
-E a maré virou de vez quando o restante das forças que invadiu o castelo — incluindo Resfriachicken, que acabara de chegar aos corredores centrais — irrompeu na sala. A guerra de facções e o destino daquela dimensão culminavam ali, em um confronto titânico onde todas as galinhas restantes avançaram juntas em um ataque total contra a tirania de 000.
+E a maré virou de vez quando o restante das forças que invadiu o castelo — incluindo ResfriaFOWLGEN, que acabara de chegar aos corredores centrais — irrompeu na sala. A guerra de facções e o destino daquela dimensão culminavam ali, em um confronto titânico onde todas as galinhas restantes avançaram juntas em um ataque total contra a tirania de 000.
 
 ## Capítulo 7 — O Julgamento Final: A Batalha na Sala do Trono
 
-Enquanto o confronto principal contra 000 atingia o seu ápice na sala central, os ecos de uma explosão lateral abriram caminho para a chegada de quem faltava. Feridas, mas implacáveis, Raringchicken e Invocalinha irromperam na sala, vindas diretamente dos corredores onde haviam enfrentado o implacável capanga.
+Enquanto o confronto principal contra 000 atingia o seu ápice na sala central, os ecos de uma explosão lateral abriram caminho para a chegada de quem faltava. Feridas, mas implacáveis, RaringFOWLGEN e Invocalinha irromperam na sala, vindas diretamente dos corredores onde haviam enfrentado o implacável capanga.
 
-Vendo que a derrota era iminente, 007 havia recuado em alta velocidade para se juntar à sua líder, buscando reforços desesperadamente. Pela primeira vez desde o início da guerra dimensional, todas as guerreiras sobreviventes estavam reunidas no mesmo lugar: Nyanchicken, Fenixchicken, Raringchicken, Invocalinha, Krakenlinha e Resfriachicken.
+Vendo que a derrota era iminente, 007 havia recuado em alta velocidade para se juntar à sua líder, buscando reforços desesperadamente. Pela primeira vez desde o início da guerra dimensional, todas as guerreiras sobreviventes estavam reunidas no mesmo lugar: NyanFOWLGEN, FenixFOWLGEN, RaringFOWLGEN, Invocalinha, Krakenlinha e ResfriaFOWLGEN.
 
 Do outro lado, acuados, mas letais, estavam os tiranos cibernéticos: 000 e 007.
 
 > — Acabou a linha para vocês!
 >
-> — gritou Raringchicken, desembainhando sua arma e apontando para os vilões.
+> — gritou RaringFOWLGEN, desembainhando sua arma e apontando para os vilões.
 >
 > — Acham mesmo que um punhado de galinhas vai nos derrotar?
 >
@@ -457,13 +457,13 @@ Do outro lado, acuados, mas letais, estavam os tiranos cibernéticos: 000 e 007.
 
 Ao seu lado, 007 engatilhava seu arsenal pesado, pronto para disparar.
 
-A sala do trono transformou-se em um verdadeiro inferno de fogo, penas, metal e feitiços. A velocidade assustadora de 000 tentava fatiar o grupo, mas a regeneração constante de Fenixchicken e a cura rápida de Nyanchicken mantinham as guerreiras de pé.
+A sala do trono transformou-se em um verdadeiro inferno de fogo, penas, metal e feitiços. A velocidade assustadora de 000 tentava fatiar o grupo, mas a regeneração constante de FenixFOWLGEN e a cura rápida de NyanFOWLGEN mantinham as guerreiras de pé.
 
-Invocalinha conjurava fileiras de clones para distrair 007, enquanto Krakenlinha e Resfriachicken desferiam golpes brutais combinados de gelo e força bruta contra as defesas dos ciborgues.
+Invocalinha conjurava fileiras de clones para distrair 007, enquanto Krakenlinha e ResfriaFOWLGEN desferiam golpes brutais combinados de gelo e força bruta contra as defesas dos ciborgues.
 
-Raringchicken avançou em um duelo de lâminas corpo a corpo contra 007, faíscas voando a cada impacto, até conseguir desarmar o capanga em um golpe decisivo.
+RaringFOWLGEN avançou em um duelo de lâminas corpo a corpo contra 007, faíscas voando a cada impacto, até conseguir desarmar o capanga em um golpe decisivo.
 
-Encurralados, feridos e com o núcleo de energia do castelo ruindo por causa dos danos causados por Nyanchicken, 000 e 007 prepararam um ataque suicida final para levar todas consigo.
+Encurralados, feridos e com o núcleo de energia do castelo ruindo por causa dos danos causados por NyanFOWLGEN, 000 e 007 prepararam um ataque suicida final para levar todas consigo.
 
 > — Se nós vamos cair, vocês vêm junto!
 >
@@ -475,9 +475,9 @@ Mas antes que o golpe final fosse desferido, um som ensurdecedor cortou o ar —
 
 > VVRRRUUUMMM! VVRRRUUUMMM!
 
-De uma fenda dimensional que se abriu bem no teto da sala do trono, despencou a figura até então desconhecida e lendária: Chainsawchicken.
+De uma fenda dimensional que se abriu bem no teto da sala do trono, despencou a figura até então desconhecida e lendária: ChainsawFOWLGEN.
 
-Com um sorriso sádico sob o capuz e portando uma motosserra incandescente considerada mais perigosa do que uma bomba atômica, ela caiu direto sobre os tiranos. Em um único movimento fluido e devastador, Chainsawchicken desferiu um corte horizontal tão violento que fatiou os circuitos de 007 ao meio e atravessou o peito blindado de 000, destruindo o núcleo de energia central de uma vez por todas.
+Com um sorriso sádico sob o capuz e portando uma motosserra incandescente considerada mais perigosa do que uma bomba atômica, ela caiu direto sobre os tiranos. Em um único movimento fluido e devastador, ChainsawFOWLGEN desferiu um corte horizontal tão violento que fatiou os circuitos de 007 ao meio e atravessou o peito blindado de 000, destruindo o núcleo de energia central de uma vez por todas.
 
 > — O que... que barulho...
 >

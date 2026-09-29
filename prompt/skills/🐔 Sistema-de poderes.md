@@ -1,4 +1,4 @@
-# Sistema de 4 habilidades pré-equipadas, justamente para manter a partida rápida. O jogador não deveria perder tempo abrindo inventário, escolhendo item ou equipando poder durante a partida.
+﻿# Sistema de 4 habilidades pré-equipadas, justamente para manter a partida rápida. O jogador não deveria perder tempo abrindo inventário, escolhendo item ou equipando poder durante a partida.
 
 🐔 SISTEMA DE PODERES
 

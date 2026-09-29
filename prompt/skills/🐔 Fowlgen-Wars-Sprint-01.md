@@ -1,4 +1,4 @@
-# 🐔 FOWLGEN WARS — SPRINT 01
+﻿# 🐔 FOWLGEN WARS — SPRINT 01
 
 Imersão, divisão de funções e primeiros artefatos
 🎯 Objetivo da Sprint
@@ -32,8 +32,8 @@ Um documento curto acompanhando o vídeo.
 Ele deve explicar:
 FOWLGEN WARS
 Um universo de galinhas em guerra, com diferentes espécies, personagens, classes, poderes, ambientes e histórias.
-A apresentação que você possui também apresenta “Chicken History: Caos”, mas deixa explícito que essa história é não canônica e representa uma ideia de como o futuro do jogo poderá ser apresentado em animação.
-Chicken animations.pptx
+A apresentação que você possui também apresenta “FOWLGEN History: Caos”, mas deixa explícito que essa história é não canônica e representa uma ideia de como o futuro do jogo poderá ser apresentado em animação.
+FOWLGEN animations.pptx
 Isso é importante para a equipe entender:
 Nem tudo que está sendo imaginado agora precisa entrar no primeiro jogo.
 🥚 MVP INICIAL

@@ -1,11 +1,11 @@
 using UnityEngine;
 
-namespace ChickenWars.Solana
+namespace FowlgenWars.Solana
 {
     /// <summary>
     /// ScriptableObject para configuração da conexão Solana.
     /// 
-    /// Criado via: Assets > Create > Chicken Wars > Solana Config
+    /// Criado via: Assets > Create > Fowlgen Wars > Solana Config
     /// 
     /// IMPORTANTE: Nunca coloque chaves privadas, seed phrases ou secrets aqui.
     /// Este arquivo é versionado no Git.
@@ -18,7 +18,7 @@ namespace ChickenWars.Solana
     /// </summary>
     [CreateAssetMenu(
         fileName = "SolanaConfig",
-        menuName = "Chicken Wars/Solana Config"
+        menuName = "Fowlgen Wars/Solana Config"
     )]
     public class SolanaConfig : ScriptableObject
     {
@@ -27,7 +27,7 @@ namespace ChickenWars.Solana
         public string rpcUrl = "https://api.devnet.solana.com";
 
         [Header("Program")]
-        [Tooltip("Program ID do contrato Chicken Wars (gerado por anchor keys list).")]
+        [Tooltip("Program ID do contrato Fowlgen Wars (gerado por anchor keys list).")]
         public string programId = "";
 
         [Header("Settings")]

@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace ChickenWars.Solana
+namespace FowlgenWars.Solana
 {
     /// <summary>
     /// Detects whether a Solana Unity SDK assembly is loaded.

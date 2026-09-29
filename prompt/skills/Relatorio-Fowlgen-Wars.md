@@ -1,4 +1,4 @@
-# Relatório FOWLGEN WARS
+﻿# Relatório FOWLGEN WARS
 
 Introdução
 Será que é possível criar um jogo Web3 dinâmico, divertido e com partidas de apenas 3 minutos, onde a blockchain serve exclusivamente para registrar o progresso e a real propriedade do jogador? Bem-vindo ao desenvolvimento de FOWLGEN WARS! Este relatório técnico detalha a fundação do nosso ecossistema de galinhas em guerra, unindo o motor gráfico Unity à rede de alta performance Solana.

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace ChickenWars.POC
+namespace FowlgenWars.POC
 {
     public class POC01Controller : POCBaseController
     {

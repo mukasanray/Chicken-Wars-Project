@@ -6,5 +6,5 @@ module.exports = async function (provider) {
   anchor.setProvider(provider);
 
   // Add your deploy script here
-  console.log("Chicken Wars — Migration deploy");
+  console.log("Fowlgen Wars — Migration deploy");
 };

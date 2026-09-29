@@ -1,4 +1,4 @@
-# 🐔 FOWLGEN WARS — Sistema de cores, essências e classificação
+﻿# 🐔 FOWLGEN WARS — Sistema de cores, essências e classificação
 
 A ideia pode ser transformada em um sistema de identidade universal do FOWLGEN, no qual a cor é apenas a primeira camada de leitura.
 

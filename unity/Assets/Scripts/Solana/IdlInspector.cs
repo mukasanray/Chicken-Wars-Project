@@ -3,19 +3,19 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
-namespace ChickenWars.Solana
+namespace FowlgenWars.Solana
 {
     /// <summary>
     /// Reads fields from the Anchor IDL JSON without a third-party JSON package.
-    /// Source of truth: Assets/Solana/IDL/chicken_wars.json (generated from the program).
+    /// Source of truth: Assets/Solana/IDL/fowlgen_wars.json (generated from the program).
     /// </summary>
     public static class IdlInspector
     {
-        const string EditorIdlPath = "Assets/Solana/IDL/chicken_wars.json";
+        const string EditorIdlPath = "Assets/Solana/IDL/fowlgen_wars.json";
 
         public static TextAsset LoadIdlAsset()
         {
-            TextAsset fromResources = Resources.Load<TextAsset>("chicken_wars");
+            TextAsset fromResources = Resources.Load<TextAsset>("fowlgen_wars");
             if (fromResources != null)
                 return fromResources;
 

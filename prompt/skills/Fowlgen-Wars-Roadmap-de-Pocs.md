@@ -1,4 +1,4 @@
-# 🔵 FOWLGEN WARS — Roadmap Completo de POCs
+﻿# 🔵 FOWLGEN WARS — Roadmap Completo de POCs
 
 Este documento reúne a Fase 01 e as fases seguintes do roadmap técnico do FOWLGEN WARS. A execução começa pela fundação Unity + Solana + Anchor e avança até o ciclo completo de NFT, PDA, SPL Token, gameplay e publicação.
 
@@ -201,7 +201,7 @@ Se o airdrop estiver indisponível, usar um faucet oficial da Devnet. A wallet d
 ```text
 FOWLGEN-WARS/
 ├── UnityProject/
-├── chicken_wars_contract/
+├── fowlgen_wars_contract/
 ├── docs/
 └── README.md
 ```
@@ -337,18 +337,18 @@ Criar, compilar e testar o programa Anchor que será chamado pelo Unity.
 No Ubuntu/WSL:
 
 ```bash
-anchor init chicken_wars_contract
-cd chicken_wars_contract
+anchor init fowlgen_wars_contract
+cd fowlgen_wars_contract
 anchor build
 ```
 
 ### Estrutura esperada
 
 ```text
-chicken_wars_contract/
+fowlgen_wars_contract/
 ├── Anchor.toml
 ├── programs/
-│   └── chicken_wars_contract/
+│   └── fowlgen_wars_contract/
 │       └── src/
 │           └── lib.rs
 ├── tests/
@@ -627,9 +627,9 @@ Para cada POC, registrar:
 
 ---
 
-## 🟣 FASE 02 — Chicken on-chain
+## 🟣 FASE 02 — FOWLGEN on-chain
 
-### POC 06 — Chicken NFT
+### POC 06 — FOWLGEN NFT
 
 #### Objetivo
 
@@ -643,13 +643,13 @@ Para a primeira POC, o NFT deve conter somente identidade e metadados estáveis.
 | --- | --- |
 | Nome, imagem, espécie e raridade inicial | Metadados do NFT |
 | Dono do ativo | Ownership da conta/token |
-| Level, XP e evolução | ChickenData PDA |
+| Level, XP e evolução | FOWLGENData PDA |
 | Combate em tempo real | Unity/off-chain |
 | Resultado verificável e recompensa | Programa Anchor |
 
 #### Passos
 
-1. Definir o schema mínimo do Chicken NFT.
+1. Definir o schema mínimo do FOWLGEN NFT.
 2. Preparar nome, imagem e URI dos metadados.
 3. Escolher a implementação de NFT, preferencialmente Metaplex Core para o estudo atual.
 4. Criar o NFT na Devnet.
@@ -661,12 +661,12 @@ Para a primeira POC, o NFT deve conter somente identidade e metadados estáveis.
 
 ```json
 {
-  "name": "Chicken #001",
+  "name": "FOWLGEN #001",
   "symbol": "FOWL",
   "description": "Personagem do universo FOWLGEN WARS",
-  "image": "https://.../chicken-001.png",
+  "image": "https://.../FOWLGEN-001.png",
   "attributes": [
-    { "trait_type": "Species", "value": "Chicken" },
+    { "trait_type": "Species", "value": "FOWLGEN" },
     { "trait_type": "Rarity", "value": "Common" },
     { "trait_type": "Class", "value": "Warrior" }
   ]
@@ -691,20 +691,20 @@ Para a primeira POC, o NFT deve conter somente identidade e metadados estáveis.
 
 ---
 
-### POC 07 — Chicken PDA
+### POC 07 — FOWLGEN PDA
 
 #### Objetivo
 
 Criar uma conta derivada determinística para guardar o estado verificável do personagem.
 
 ```text
-Chicken NFT
+FOWLGEN NFT
     ↓
 Mint ou asset ID
     ↓
 Seeds conhecidas
     ↓
-ChickenData PDA
+FOWLGENData PDA
 ```
 
 #### Modelo de seeds
@@ -712,7 +712,7 @@ ChickenData PDA
 Escolher uma única convenção e mantê-la em Rust, testes e Unity:
 
 ```text
-["chicken", owner_pubkey, mint_pubkey]
+["FOWLGEN", owner_pubkey, mint_pubkey]
 ```
 
 A seed deve ser documentada. Alterar a seed depois da publicação cria outro endereço e pode perder a associação com o estado anterior.
@@ -735,7 +735,7 @@ A seed deve ser documentada. Alterar a seed depois da publicação cria outro en
 
 ---
 
-### POC 08 — Chicken Data Account
+### POC 08 — FOWLGEN Data Account
 
 #### Objetivo
 
@@ -770,7 +770,7 @@ pub enum Species {
     Rooster,
     Hen,
     Chameleon,
-    BattleChicken,
+    BattleFOWLGEN,
     MythicBird,
 }
 
@@ -800,7 +800,7 @@ pub enum Status {
 }
 
 #[account]
-pub struct ChickenData {
+pub struct FOWLGENData {
     // IDENTIDADE
     pub owner: Pubkey,
     pub mint: Pubkey,
@@ -897,7 +897,7 @@ pub struct PlayerAnalytics {
 #### Modelo conceitual da relação
 
 ```text
-Chicken NFT
+FOWLGEN NFT
 ├── Identidade
 │   ├── mint
 │   ├── owner
@@ -957,7 +957,7 @@ Chicken NFT
     └── status
 ```
 
-Chicken NFT
+FOWLGEN NFT
 │
 ├── 🔗 IDENTIDADE
 │   ├── mint
@@ -1064,7 +1064,7 @@ PlayerData
 🐔 FOWLGEN WARS
                            │
                            ▼
-                    🪙 CHICKEN NFT
+                    🪙 FOWLGEN NFT
                            │
               ┌────────────┴────────────┐
               │                         │
@@ -1078,7 +1078,7 @@ PlayerData
               │                         └── Tema
               │
               ▼
-        🧠 ChickenData PDA
+        🧠 FOWLGENData PDA
               │
        ┌──────┼─────────┐
        │      │         │
@@ -1118,7 +1118,7 @@ PlayerData
 
 1. Definir os tipos e limites dos campos.
 2. Calcular o espaço da conta, incluindo discriminator e padding quando necessário.
-3. Criar a conta no `initialize_chicken`.
+3. Criar a conta no `initialize_FOWLGEN`.
 4. Ler a conta em um teste Anchor.
 5. Ler a conta no Unity.
 6. Exibir os atributos em uma tela de diagnóstico.
@@ -1132,26 +1132,26 @@ PlayerData
 
 ---
 
-### POC 09 — Anchor Chicken Program
+### POC 09 — Anchor FOWLGEN Program
 
 #### Objetivo
 
-Criar as instruções que alteram o ChickenData PDA, sempre com validação de autoridade e regras de negócio.
+Criar as instruções que alteram o FOWLGENData PDA, sempre com validação de autoridade e regras de negócio.
 
 #### Instruções iniciais
 
 ```rust
-initialize_chicken()
-upgrade_chicken()
+initialize_FOWLGEN()
+upgrade_FOWLGEN()
 add_xp()
 update_stats()
 ```
 
 #### Ordem de implementação
 
-1. `initialize_chicken`: cria e inicializa o PDA.
+1. `initialize_FOWLGEN`: cria e inicializa o PDA.
 2. `add_xp`: aceita apenas a autoridade definida pelo protótipo.
-3. `upgrade_chicken`: valida custo, nível e limites.
+3. `upgrade_FOWLGEN`: valida custo, nível e limites.
 4. `update_stats`: restringe quais atributos podem ser alterados.
 
 #### Regras mínimas
@@ -1219,7 +1219,7 @@ Validar conexão e entrada de dois clientes independentes em uma mesma sessão F
 
 ## 🟡 FASE 03 — SPL Token e recompensas
 
-### POC 10 — Chicken SPL Token
+### POC 10 — FOWLGEN SPL Token
 
 #### Objetivo
 
@@ -1256,7 +1256,7 @@ Conceitos essenciais:
 
 #### Objetivo
 
-Garantir que o jogador possui e consulta a conta correta para o Chicken Token.
+Garantir que o jogador possui e consulta a conta correta para o FOWLGEN Token.
 
 #### Passos
 
@@ -1270,7 +1270,7 @@ Garantir que o jogador possui e consulta a conta correta para o Chicken Token.
 
 - A ATA é encontrada de forma determinística.
 - O owner da conta é a wallet esperada.
-- O mint da conta é o Chicken Token.
+- O mint da conta é o FOWLGEN Token.
 - Um mint diferente não é aceito pelo fluxo.
 
 ---
@@ -1316,7 +1316,7 @@ Unity atualiza a interface
 
 ---
 
-### POC 13 — Earn Chicken Token
+### POC 13 — Earn FOWLGEN Token
 
 1. Concluir uma ação de teste no Unity.
 2. Gerar um identificador único de resultado.
@@ -1328,7 +1328,7 @@ Unity atualiza a interface
 
 **Aceite:** uma ação válida gera uma recompensa confirmada e uma ação repetida não gera recompensa duplicada.
 
-### POC 14 — Spend Chicken Token
+### POC 14 — Spend FOWLGEN Token
 
 1. Definir o preço de um upgrade de teste.
 2. Verificar saldo antes de enviar a transação.
@@ -1340,9 +1340,9 @@ Unity atualiza a interface
 
 ### POC 15 — Upgrade Using Token
 
-1. Selecionar um Chicken NFT e seu ChickenData PDA.
+1. Selecionar um FOWLGEN NFT e seu FOWLGENData PDA.
 2. Confirmar que a wallet é owner.
-3. Confirmar saldo do Chicken Token.
+3. Confirmar saldo do FOWLGEN Token.
 4. Consumir o custo definido.
 5. Atualizar o nível ou atributo permitido.
 6. Emitir evento de upgrade.
@@ -1358,7 +1358,7 @@ Nesta fase, o objetivo é construir o jogo sem transformar cada movimento em uma
 
 Primeiro valide movimento, arena, Minions e combate localmente. Depois execute as POCs N02 e N03 com dois clientes FishNet. O loop local deve continuar funcionando sem rede e sem blockchain.
 
-### POC 16 — Chicken Controller
+### POC 16 — FOWLGEN Controller
 
 - Criar prefab da galinha.
 - Implementar input e movimento.
@@ -1477,28 +1477,28 @@ Primeiro valide movimento, arena, Minions e combate localmente. Depois execute a
 
 ## 🔥 FASE 05 — Gameplay + Anchor
 
-### POC 23 — NFT → Playable Chicken
+### POC 23 — NFT → Playable FOWLGEN
 
 ```text
 Wallet
   ↓
-Chicken NFT
+FOWLGEN NFT
   ↓
-Chicken PDA
+FOWLGEN PDA
   ↓
 Atributos selecionados
   ↓
 Unity
   ↓
-Playable Chicken
+Playable FOWLGEN
 ```
 
 #### Passos
 
 1. Conectar a wallet.
 2. Consultar NFTs/ativos da wallet.
-3. Selecionar o Chicken NFT.
-4. Derivar o ChickenData PDA.
+3. Selecionar o FOWLGEN NFT.
+4. Derivar o FOWLGENData PDA.
 5. Ler os atributos.
 6. Mapear os atributos para o prefab do Unity.
 7. Usar valores padrão somente quando a leitura falhar de forma explícita.
@@ -1542,14 +1542,14 @@ Playable Chicken
 2. Mostrar custo e resultado esperado.
 3. Solicitar assinatura.
 4. Consumir o token dentro da instrução Anchor.
-5. Atualizar o ChickenData PDA.
+5. Atualizar o FOWLGENData PDA.
 6. Recarregar saldo e atributos.
 
 **Aceite:** saldo, upgrade e PDA permanecem consistentes depois da confirmação.
 
 ### POC 28 — Upgrade → PDA
 
-- Persistir a evolução no ChickenData PDA.
+- Persistir a evolução no FOWLGENData PDA.
 - Rejeitar alteração sem owner ou autoridade.
 - Recarregar o estado depois de reconectar o Unity.
 - Testar transação rejeitada, RPC indisponível e assinatura cancelada.
@@ -1558,14 +1558,14 @@ Playable Chicken
 
 ---
 
-## 🏆 POC 29 — Complete Chicken Loop
+## 🏆 POC 29 — Complete FOWLGEN Loop
 
 ```text
 👛 WALLET
     ↓
-🐔 CHICKEN NFT
+🐔 FOWLGEN NFT
     ↓
-🧬 CHICKEN PDA
+🧬 FOWLGEN PDA
     ↓
 📊 ATTRIBUTES
     ↓
@@ -1587,8 +1587,8 @@ Playable Chicken
 
 1. Abrir o Unity em ambiente de desenvolvimento.
 2. Conectar uma wallet de teste.
-3. Carregar o Chicken NFT.
-4. Consultar o ChickenData PDA.
+3. Carregar o FOWLGEN NFT.
+4. Consultar o FOWLGENData PDA.
 5. Criar o personagem jogável.
 6. Executar uma partida off-chain.
 7. Registrar o resultado.
@@ -1614,7 +1614,7 @@ Playable Chicken
 
 ## 📱 FASE 06 — Preparação para publicação
 
-A publicação só deve ser considerada depois de o Complete Chicken Loop funcionar na Devnet.
+A publicação só deve ser considerada depois de o Complete FOWLGEN Loop funcionar na Devnet.
 
 ### Checklist
 

@@ -1,4 +1,4 @@
-# FOWLGEN WARS — Lista de Nomes de Personagens
+﻿# FOWLGEN WARS — Lista de Nomes de Personagens
 
 Lista organizada conforme as categorias fornecidas pelo usuário. A classificação abaixo registra apenas gênero e alinhamento; não define espécie, classe, rota, essência, habilidades ou história.
 

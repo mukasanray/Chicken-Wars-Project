@@ -3,11 +3,11 @@ using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using ChickenWars.POC;
-using ChickenWars.Solana;
-using ChickenWars.Core;
+using FowlgenWars.POC;
+using FowlgenWars.Solana;
+using FowlgenWars.Core;
 
-public static class ChickenWarsPOCInstaller
+public static class FowlgenWarsPOCInstaller
 {
     const string MenuScene = "Assets/Scenes/Game/MainMenu.unity";
     const string Poc01 = "Assets/Scenes/POC/POC_01_ProjectFoundation.unity";
@@ -16,7 +16,7 @@ public static class ChickenWarsPOCInstaller
     const string Poc04 = "Assets/Scenes/POC/POC_04_UnityAnchor.unity";
     const string Poc05 = "Assets/Scenes/POC/POC_05_WalletTransaction.unity";
 
-    [MenuItem("Chicken Wars/Rebuild POC Scenes + UI")]
+    [MenuItem("Fowlgen Wars/Rebuild POC Scenes + UI")]
     public static void Install()
     {
         EnsureFolders();
@@ -32,7 +32,7 @@ public static class ChickenWarsPOCInstaller
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         EditorUtility.DisplayDialog(
-            "Chicken Wars",
+            "Fowlgen Wars",
             "POC scenes rebuilt.\nPlay MainMenu, then open each POC.\nSolana Unity SDK is still not in Packages — RPC/wallet/tx stay placeholders until you add it.",
             "OK");
     }

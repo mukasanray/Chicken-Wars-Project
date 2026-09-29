@@ -1,9 +1,9 @@
 using UnityEngine;
 
-namespace ChickenWars.Gameplay
+namespace FowlgenWars.Gameplay
 {
     /// <summary>
-    /// Unidade base do Chicken Wars.
+    /// Unidade base do Fowlgen Wars.
     /// Representa um personagem/tropa individual no campo de batalha.
     /// 
     /// IMPORTANTE: Esta classe NÃO deve conhecer Solana/blockchain.
@@ -16,7 +16,7 @@ namespace ChickenWars.Gameplay
     /// - Animation (states, transitions)
     /// - Identity (link com NFT/PDA — camada separada)
     /// </summary>
-    public class ChickenUnit : MonoBehaviour
+    public class FowlgenUnit : MonoBehaviour
     {
         [Header("Stats")]
         [SerializeField] private float moveSpeed = 2f;
@@ -74,7 +74,7 @@ namespace ChickenWars.Gameplay
 
             currentHealth -= damage;
 
-            Debug.Log($"[ChickenWars] {name} recebeu {damage} de dano. HP: {currentHealth}/{maxHealth}");
+            Debug.Log($"[FowlgenWars] {name} recebeu {damage} de dano. HP: {currentHealth}/{maxHealth}");
 
             if (currentHealth <= 0)
             {
@@ -93,7 +93,7 @@ namespace ChickenWars.Gameplay
         /// </summary>
         private void Die()
         {
-            Debug.Log($"[ChickenWars] {name} morreu.");
+            Debug.Log($"[FowlgenWars] {name} morreu.");
 
             // Futuramente: evento de morte para o sistema de batalha
             // OnUnitDied?.Invoke(this);

@@ -1,4 +1,4 @@
-No xadrez, conceitos como controle de centro, desenvolvimento, segurança do rei, tempo, estrutura e iniciativa determinam planos e não apenas movimentos isolados. 
+﻿No xadrez, conceitos como controle de centro, desenvolvimento, segurança do rei, tempo, estrutura e iniciativa determinam planos e não apenas movimentos isolados. 
 
 ♟️ FOWLGEN — CAMADA ESTRATÉGICA INSPIRADA NO XADREZ
 
