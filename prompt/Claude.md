@@ -20,8 +20,7 @@ Considere os seguintes arquivos como fontes de design, planejamento, processo ou
 - [`🐔 A-Logica-do-Fowlgen-Wars.md`](skills/%F0%9F%90%94%20A-Logica-do-Fowlgen-Wars.md): etapas de evolução do projeto e objetivo de chegar a uma demo jogável validada com usuários.
 - [`🐔 Fowlgen-Wars-Sprint-01.md`](skills/%F0%9F%90%94%20Fowlgen-Wars-Sprint-01.md): objetivos da Sprint 01, protótipo simples inspirado em Pong, papéis e artefatos.
 - [`Prompt-apresentacao-sprint-1.md`](skills/Prompt-apresentacao-sprint-1.md): regras para relatar a Sprint 01 sem inventar e distinguindo realizado, em teste, pendente e planejado. A instrução para ignorar o roadmap alterado é específica desse vídeo/relatório, não uma regra geral para outras tarefas.
-- [`Relatorio-Fowlgen-Wars.md`](skills/Relatorio-Fowlgen-Wars.md): registro de resultados, testes reprovados e próximos passos relatados para a Sprint 01. Confira o estado atual antes de reutilizar essas informações.
-- O documento de organização `fowlgen_wars_organizacao.md`, citado em versões anteriores do índice, não está presente na árvore atual; não depender de seu conteúdo até que seja restaurado.
+- [`Fowlgen-Wars-Estrutura-da-Equipe-Planejamento-kanban-Fase2.md`](files/Fowlgen-Wars-Estrutura-da-Equipe-Planejamento-kanban-Fase2.md): documento oficial de organização da equipe ativa (6 integrantes), matriz de responsabilidades, nova distribuição de QA e planejamento Kanban da Fase 2.
 - [`Fowlgen-Wars-Telas-Game.md`](skills/Fowlgen-Wars-Telas-Game.md): prompt de telas mobile em landscape e controller de toque; joystick é proposta pendente de validação, enquanto os quatro slots de poder estão documentados.
 - [`Folwgen-Wars-Terreno-Mapa-3rota-3torres-cada.md`](skills/Folwgen-Wars-Terreno-Mapa-3rota-3torres-cada.md): especificação da arena com três rotas e 18 torres; a função das torres permanece pendente.
 - [`Fowlgen-Wars-Sistema-de-Arenas.md`](skills/Fowlgen-Wars-Sistema-de-Arenas.md): sistema de arena base única com skins temáticas (Fazenda, Medieval, Egípcia, Samurai, Futurista, Caos), variações de clima/horário e regras de fair play (sem vantagem competitiva).
@@ -50,11 +49,11 @@ Considere os seguintes arquivos como fontes de design, planejamento, processo ou
 - [`Fowlgen-Wars-Estudo-de-Cores.md`](skills/Fowlgen-Wars-Estudo-de-Cores.md): estudo e matriz de cores de arenas/mapas MOBA (Wild Rift, Mobile Legends, HoK, Clash Royale, AoV e Rush Royale), ergonomia e regras de contraste cenário vs VFX/heróis.
 - [`Fowlgen-Wars-A-Era-Passada.md`](skills/Fowlgen-wars-A-Era-Passada.md): lore. Use como cânone somente quando a documentação do projeto assim indicar; não introduza conteúdo narrativo não confirmado.
 
-O PDF `skills/Site Fowlgenwars.pdf` é uma referência visual disponível no workspace. Consulte-o quando a tarefa envolver o site ou apresentação visual; não infira conteúdo que não possa ser lido/confirmado.
+O PDF `files/pdf/Site Fowlgenwars.pdf` é uma referência visual disponível no workspace. Consulte-o quando a tarefa envolver o site ou apresentação visual; não infira conteúdo que não possa ser lido/confirmado.
 
 ## Divergências conhecidas
 
-- Os documentos de organização, Sprint 01 e relatório não usam a mesma quantidade de integrantes nem a mesma divisão de papéis. Confirme a equipe vigente antes de atribuir tarefas ou publicar números.
+- Os documentos históricos da Sprint 01 e relatórios anteriores registram estruturas antigas de equipe. A composição oficial da Fase 2 está consolidada em [`Fowlgen-Wars-Estrutura-da-Equipe-Planejamento-kanban-Fase2.md`](files/Fowlgen-Wars-Estrutura-da-Equipe-Planejamento-kanban-Fase2.md) com 6 integrantes ativos (Samuel, Marcos, Alexandre, Emanoel, Junior e Maria Clara).
 - As duas versões do roadmap de POCs divergem em plataforma e estrutura técnica. A instrução do prompt de apresentação para ignorar a versão alterada aplica-se somente àquele relatório; para implementação, o Product Owner deve confirmar qual roadmap está ativo.
 - A Sprint 01 relata falhas de QA em movimentação, colisão, UI e áudio, enquanto outros documentos descrevem sistemas mais amplos. Não considere esses sistemas validados sem nova evidência no projeto atual.
 
