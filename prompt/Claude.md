@@ -24,6 +24,7 @@ Considere os seguintes arquivos como fontes de design, planejamento, processo ou
 - O documento de organização `fowlgen_wars_organizacao.md`, citado em versões anteriores do índice, não está presente na árvore atual; não depender de seu conteúdo até que seja restaurado.
 - [`Fowlgen-Wars-Telas-Game.md`](skills/Fowlgen-Wars-Telas-Game.md): prompt de telas mobile em landscape e controller de toque; joystick é proposta pendente de validação, enquanto os quatro slots de poder estão documentados.
 - [`Folwgen-Wars-Terreno-Mapa-3rota-3torres-cada.md`](skills/Folwgen-Wars-Terreno-Mapa-3rota-3torres-cada.md): especificação da arena com três rotas e 18 torres; a função das torres permanece pendente.
+- [`Fowlgen-Wars-Sistema-de-Arenas.md`](skills/Fowlgen-Wars-Sistema-de-Arenas.md): sistema de arena base única com skins temáticas (Fazenda, Medieval, Egípcia, Samurai, Futurista, Caos), variações de clima/horário e regras de fair play (sem vantagem competitiva).
 - [`Fowlgen-Wars-GDD-MVP.md`](skills/Fowlgen-Wars-GDD-MVP.md): visão consolidada do Mini-MOBA MVP; complementa o arquivo Mini-MOBA MVP existente, sem substituí-lo.
 - [`Fowlgen-Wars-Regras-de-Combate-e-Torres.md`](skills/Fowlgen-Wars-Regras-de-Combate-e-Torres.md): registra fatos confirmados e decisões ainda pendentes de combate, torres e condição de resultado.
 - [`Fowlgen-Wars-Roadmap-de-Pocs.md`](skills/Fowlgen-Wars-Roadmap-de-Pocs.md): roadmap canônico solicitado; POC FishNet inicia na Fase 02 e continua com sincronização de gameplay na Fase 04. FishNet permanece não validado até evidência.
