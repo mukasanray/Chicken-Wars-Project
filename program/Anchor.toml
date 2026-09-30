@@ -1,3 +1,5 @@
+skip_local_validator = true
+
 [toolchain]
 
 [features]
@@ -5,17 +7,13 @@ resolution = true
 skip-lint = false
 
 [programs.localnet]
-fowlgen_wars = "11111111111111111111111111111111"
-
-[programs.devnet]
-fowlgen_wars = "11111111111111111111111111111111"
-
-[registry]
-url = "https://api.apr.dev"
+fowlgen_wars_contract = "11111111111111111111111111111111"
 
 [provider]
-cluster = "Devnet"
+cluster = "localnet"
 wallet = "~/.config/solana/id.json"
 
 [scripts]
-test = "yarn run ts-mocha -p ./tsconfig.json -t 1000000 tests/**/*.ts"
+test = "cargo test"
+
+[hooks]
