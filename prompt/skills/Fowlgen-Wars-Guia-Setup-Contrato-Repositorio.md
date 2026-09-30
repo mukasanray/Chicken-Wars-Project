@@ -17,9 +17,22 @@ Guia passo a passo para configurar o ambiente de desenvolvimento on-chain (**WSL
 
 ---
 
-## 2. Preparação do Ambiente no WSL (Ubuntu)
+## ⚡ Instalação Automatizada via `Install.sh`
 
-Abra o terminal do **WSL (Ubuntu)** no Windows e execute as etapas abaixo:
+Para automatizar 100% da instalação e compilação do contrato no Ubuntu / WSL2 em um único comando:
+
+```bash
+chmod +x Install.sh
+./Install.sh
+```
+
+O script [`Install.sh`](file:///d:/Dev/FowlgenWars/Install.sh) instala todas as dependências do sistema, Node.js v20, Yarn, Rust, Solana CLI v1.18.26, AVM, Anchor CLI, configura a Devnet e executa a compilação do contrato na pasta `program/`.
+
+---
+
+## 2. Preparação Manual do Ambiente no WSL (Ubuntu)
+
+Caso deseje executar os passos manualmente no terminal do **WSL (Ubuntu)**, siga as instruções abaixo:
 
 ### Passo 2.1 — Atualizar o Sistema e Instalar Pacotes Essenciais
 ```bash
