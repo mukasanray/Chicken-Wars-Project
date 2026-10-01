@@ -239,7 +239,7 @@ func_primeira_instalacao() {
     echo -e "${YELLOW}${BOLD}Como Testar e Publicar o Contrato:${NC}"
     echo -e "  1. ${BOLD}cd ${PROGRAM_DIR}${NC}"
     echo -e "  2. ${BOLD}anchor test${NC}                    -> Executa os testes automatizados TypeScript"
-    echo -e "  3. ${BOLD}anchor deploy${NC}                  -> Publica o contrato na Solana Devnet"
+    echo -e "  3. ${BOLD}anchor program deploy${NC}          -> Publica o contrato na Solana Devnet"
     echo -e "  4. ${BOLD}anchor test --skip-local-validator${NC} -> Valida o contrato direto na Devnet"
     echo ""
     echo -e "${PURPLE}Para atualizar as variáveis de ambiente no seu terminal execute:${NC}"
@@ -377,8 +377,8 @@ func_deploy_contrato() {
     anchor keys sync
     anchor build
 
-    echo -e "\n${YELLOW}Executando: anchor deploy --provider.cluster ${CHOSEN_CLUSTER} --provider.wallet ${CONFIGURED_WALLET}${NC}"
-    if anchor deploy --provider.cluster "$CHOSEN_CLUSTER" --provider.wallet "$CONFIGURED_WALLET"; then
+    echo -e "\n${YELLOW}Executando: anchor program deploy --provider.cluster ${CHOSEN_CLUSTER} --provider.wallet ${CONFIGURED_WALLET}${NC}"
+    if anchor program deploy --provider.cluster "$CHOSEN_CLUSTER" --provider.wallet "$CONFIGURED_WALLET"; then
         echo -e "\n${GREEN}${BOLD}🎉 DEPLOY / UPGRADE EXECUTADO COM SUCESSO!${NC}"
         
         echo ""
