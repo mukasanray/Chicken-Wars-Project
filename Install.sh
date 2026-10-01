@@ -1,17 +1,19 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# 🐔 FOWLGEN WARS — INSTALADOR AUTOMATIZADO DO ANCHOR FRAMEWORK (UBUNTU / WSL2)
+# 🐔 FOWLGEN WARS — PAINEL DE CONTROLE & INSTALADOR ON-CHAIN (UBUNTU / WSL2)
 # ==============================================================================
 # Repositório Oficial: https://github.com/mukasanray/Fowlgen-Wars-Project.git
-# Comportamento:
-#   Cria a pasta './fowlgenwars' no local exato da execução, clona o repositório
-#   para conter a pasta 'fowlgenwars/program', instala a stack completa
-#   (Node, Rust, Solana, Anchor) e compila o contrato.
+# Comportamento Modular:
+#   1. Primeira Instalação Completa (Linux, Node 22 LTS, Rust, Solana, Anchor)
+#   2. Atualização de Ambiente, Repositório e Compilação
+#   3. Deploy & Upgrade do Smart Contract (Localnet, Devnet, Mainnet)
+#   4. Gestão de Carteiras (Criar, Recuperar, Consultar Saldos, Airdrop)
+#   5. Execução de Testes Automatizados (Anchor / Cargo)
+#   6. Diagnóstico do Ambiente (Health Check)
+#   7. Gerenciador do Validador Local (solana-test-validator)
 # ==============================================================================
 
-set -e # Interrompe a execução imediatamente se qualquer comando falhar
-
-# Paleta de Cores para o Terminal
+# Cores e Formatação para o Terminal
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
@@ -21,307 +23,641 @@ CYAN='\033[0;36m'
 BOLD='\033[1m'
 NC='\033[0m' # Sem cor
 
-clear
-echo -e "${PURPLE}${BOLD}"
-echo "  ███████╗ ██████╗ ██╗    ██╗██╗      ██████╗ ███████╗███╗   ██╗"
-echo "  ██╔════╝██╔═══██╗██║    ██║██║     ██╔════╝ ██╔════╝████╗  ██║"
-echo "  █████╗  ██║   ██║██║ █╗ ██║██║     ██║  ███╗█████╗  ██╔██╗ ██║"
-echo "  ██╔══╝  ██║   ██║██║███╗██║██║     ██║   ██║██╔══╝  ██║╚██╗██║"
-echo "  ██║     ╚██████╔╝╚███╔███╔╝███████╗╚██████╔╝███████╗██║ ╚████║"
-echo "  ╚═╝      ╚═════╝  ╚══╝╚══╝ ╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝"
-echo "                    ⚔️  W A R S  ⚔️                                "
-echo -e "${NC}"
-echo -e "${CYAN}${BOLD}Instalador do Ambiente On-Chain & Anchor Framework — FOWLGEN WARS${NC}"
-echo -e "${YELLOW}Repositório Oficial:${NC} https://github.com/mukasanray/Fowlgen-Wars-Project.git"
-echo "------------------------------------------------------------------"
-
-# Diretório base onde o instalador foi chamado
+# Diretórios de Trabalho
 CURRENT_EXEC_DIR="$(pwd)"
-BASE_DIR="$CURRENT_EXEC_DIR/fowlgenwars"
-PROGRAM_DIR="$BASE_DIR/program"
-
-# ------------------------------------------------------------------------------
-# 1. Dependências Base do Sistema Operacional (Ubuntu/Debian)
-# ------------------------------------------------------------------------------
-echo -e "\n${BLUE}${BOLD}[1/8] Instalando dependências e compiladores essenciais do Linux...${NC}"
-sudo apt update && sudo apt upgrade -y
-sudo apt install -y build-essential pkg-config libssl-dev libudev-dev \
-                    libclang-dev protobuf-compiler git curl wget tar bzip2
-
-# ------------------------------------------------------------------------------
-# 2. Criar Pasta 'fowlgenwars' e Baixar a Pasta /program do Repositório
-# ------------------------------------------------------------------------------
-echo -e "\n${BLUE}${BOLD}[2/8] Configurando pasta 'fowlgenwars' no local de execução...${NC}"
-
 REPO_URL="https://github.com/mukasanray/Fowlgen-Wars-Project.git"
 
-if [ -d "$BASE_DIR/.git" ]; then
-    echo -e "${GREEN}✓ Pasta 'fowlgenwars' já encontrada com repositório em:${NC} ${BOLD}${BASE_DIR}${NC}"
-    echo -e "${YELLOW}Atualizando código via 'git pull origin main'...${NC}"
-    cd "$BASE_DIR"
-    git pull origin main || true
-elif [ -d "$PROGRAM_DIR" ] && [ -f "$PROGRAM_DIR/Anchor.toml" ]; then
-    echo -e "${GREEN}✓ Pasta 'fowlgenwars/program' já existe e está pronta.${NC}"
+# Identificação inteligente de diretórios
+if [ -d "$CURRENT_EXEC_DIR/program" ] && [ -f "$CURRENT_EXEC_DIR/program/Anchor.toml" ]; then
+    BASE_DIR="$CURRENT_EXEC_DIR"
+    PROGRAM_DIR="$CURRENT_EXEC_DIR/program"
+elif [ -d "$CURRENT_EXEC_DIR/fowlgenwars/program" ]; then
+    BASE_DIR="$CURRENT_EXEC_DIR/fowlgenwars"
+    PROGRAM_DIR="$BASE_DIR/program"
 else
-    echo -e "${YELLOW}Criando pasta e clonando repositório em:${NC} ${BOLD}${BASE_DIR}${NC}"
-    cd "$CURRENT_EXEC_DIR"
-    git clone "$REPO_URL" "$BASE_DIR"
-    echo -e "${GREEN}✓ Repositório baixado com sucesso! Pasta do contrato disponível em:${NC} ${BOLD}${PROGRAM_DIR}${NC}"
+    BASE_DIR="$CURRENT_EXEC_DIR/fowlgenwars"
+    PROGRAM_DIR="$BASE_DIR/program"
 fi
 
-# ------------------------------------------------------------------------------
-# 3. Node.js (v22 LTS Recomendado), npm e Yarn
-# ------------------------------------------------------------------------------
-echo -e "\n${BLUE}${BOLD}[3/8] Verificando e configurando Node.js (v22 LTS), npm e Yarn...${NC}"
-NODE_MAJOR=$(node -v 2>/dev/null | cut -d'.' -f1 | tr -d 'v' || echo "0")
-
-if [ "$NODE_MAJOR" -lt 22 ]; then
-    echo -e "${YELLOW}Instalando/Atualizando para Node.js v22.x LTS (compatível com commander@15 e Anchor CLI)...${NC}"
-    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
-    sudo apt update
-    sudo apt install -y nodejs
-fi
-
-echo -e "${YELLOW}Atualizando npm para a versão mais recente...${NC}"
-sudo npm install -g npm@latest
-
-if ! command -v yarn &> /dev/null; then
-    echo -e "${YELLOW}Instalando Yarn globalmente via npm...${NC}"
-    sudo npm install -g yarn
-fi
-
-echo -e "${GREEN}✓ Node.js: $(node -v) | npm: $(npm -v) | Yarn: $(yarn -v)${NC}"
+# Variáveis Globais de Ambiente
+export PATH="$HOME/.cargo/bin:$HOME/.avm/bin:$HOME/solana-release/bin:$PATH"
 
 # ------------------------------------------------------------------------------
-# 4. Compilador Rust & Cargo
+# Funções Auxiliares de Interface
 # ------------------------------------------------------------------------------
-echo -e "\n${BLUE}${BOLD}[4/8] Verificando e configurando Compilador Rust...${NC}"
-if ! command -v rustc &> /dev/null; then
-    echo -e "${YELLOW}Instalando Rust via rustup oficial...${NC}"
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-    source "$HOME/.cargo/env"
-else
-    echo -e "${GREEN}✓ Rust já instalado. Sincronizando com toolchain estável...${NC}"
-    rustup update stable
-fi
+pausar() {
+    echo ""
+    read -rp "Pressione [Enter] para continuar..." _
+}
 
-export PATH="$HOME/.cargo/bin:$PATH"
-source "$HOME/.cargo/env" 2>/dev/null || true
-echo -e "${GREEN}✓ Rust: $(rustc --version) | Cargo: $(cargo --version)${NC}"
+banner() {
+    clear
+    echo -e "${PURPLE}${BOLD}"
+    echo "  ███████╗ ██████╗ ██╗    ██╗██╗      ██████╗ ███████╗███╗   ██╗"
+    echo "  ██╔════╝██╔═══██╗██║    ██║██║     ██╔════╝ ██╔════╝████╗  ██║"
+    echo "  █████╗  ██║   ██║██║ █╗ ██║██║     ██║  ███╗█████╗  ██╔██╗ ██║"
+    echo "  ██╔══╝  ██║   ██║██║███╗██║██║     ██║   ██║██╔══╝  ██║╚██╗██║"
+    echo "  ██║     ╚██████╔╝╚███╔███╔╝███████╗╚██████╔╝███████╗██║ ╚████║"
+    echo "  ╚═╝      ╚═════╝  ╚══╝╚══╝ ╚══════╝ ╚═════╝ ╚══════╝╚═╝  ╚═══╝"
+    echo "                    ⚔️  W A R S  ⚔️                                "
+    echo -e "${NC}"
+    echo -e "${CYAN}${BOLD}Painel de Controle On-Chain & Anchor Framework — FOWLGEN WARS${NC}"
+    echo -e "${YELLOW}Repositório Oficial:${NC} https://github.com/mukasanray/Fowlgen-Wars-Project.git"
+    echo "------------------------------------------------------------------"
+}
 
-# ------------------------------------------------------------------------------
-# 5. Solana CLI (v1.18.26 Oficial do Projeto)
-# ------------------------------------------------------------------------------
-SOLANA_VERSION="v1.18.26"
-echo -e "\n${BLUE}${BOLD}[5/8] Instalando e configurando Solana CLI (${SOLANA_VERSION})...${NC}"
-
-if ! command -v solana &> /dev/null || [[ "$(solana --version 2>/dev/null)" != *"${SOLANA_VERSION#v}"* ]]; then
-    echo -e "${YELLOW}Baixando Solana CLI ${SOLANA_VERSION}...${NC}"
-    cd "$HOME"
-    wget -q --show-progress "https://github.com/solana-labs/solana/releases/download/${SOLANA_VERSION}/solana-release-x86_64-unknown-linux-gnu.tar.bz2"
-    rm -rf "$HOME/solana-release"
-    tar jxf solana-release-x86_64-unknown-linux-gnu.tar.bz2
-    rm -f solana-release-x86_64-unknown-linux-gnu.tar.bz2
-
-    if ! grep -q 'solana-release/bin' "$HOME/.bashrc"; then
-        echo 'export PATH="$HOME/solana-release/bin:$PATH"' >> "$HOME/.bashrc"
+obter_carteira_configurada() {
+    local wallet=""
+    if [ -f "$PROGRAM_DIR/Anchor.toml" ]; then
+        wallet=$(grep -E '^\s*wallet\s*=' "$PROGRAM_DIR/Anchor.toml" | head -n1 | cut -d'=' -f2 | tr -d ' "' | tr -d "'" | sed "s|^~|$HOME|")
     fi
-fi
-
-export PATH="$HOME/solana-release/bin:$PATH"
-echo -e "${GREEN}✓ Solana CLI: $(solana --version)${NC}"
-
-# ------------------------------------------------------------------------------
-# 6. AVM (Anchor Version Manager) & Anchor CLI
-# ------------------------------------------------------------------------------
-echo -e "\n${BLUE}${BOLD}[6/8] Instalando AVM e Anchor Framework...${NC}"
-if ! command -v avm &> /dev/null; then
-    echo -e "${YELLOW}Compilando AVM via cargo (aguarde alguns minutos)...${NC}"
-    cargo install --git https://github.com/coral-xyz/anchor avm --locked
-fi
-
-if ! grep -q '.avm/bin' "$HOME/.bashrc"; then
-    echo 'export PATH="$HOME/.avm/bin:$PATH"' >> "$HOME/.bashrc"
-fi
-export PATH="$HOME/.avm/bin:$PATH"
-
-echo -e "${YELLOW}Ativando versão mais recente do Anchor...${NC}"
-avm install latest
-avm use latest
-
-echo -e "${GREEN}✓ Anchor Framework: $(anchor --version)${NC}"
+    if [ -z "$wallet" ]; then
+        wallet="$HOME/.config/solana/id.json"
+    fi
+    echo "$wallet"
+}
 
 # ------------------------------------------------------------------------------
-# 7. Configuração da Solana Devnet & Wallet Local
+# 1. PRIMEIRA INSTALAÇÃO (Stack Completa do Zero)
 # ------------------------------------------------------------------------------
-echo -e "\n${BLUE}${BOLD}[7/8] Configurando Solana Devnet e Carteira Local...${NC}"
-solana config set --url devnet
+func_primeira_instalacao() {
+    banner
+    echo -e "${BLUE}${BOLD}>>> [1] Iniciando Instalação Completa do Ambiente On-Chain...${NC}\n"
 
-mkdir -p "$HOME/.config/solana"
-if [ ! -f "$HOME/.config/solana/id.json" ]; then
-    echo -e "${YELLOW}Gerando nova carteira Devnet em ~/.config/solana/id.json...${NC}"
-    solana-keygen new --no-bip39-passphrase --outfile "$HOME/.config/solana/id.json"
-fi
+    # 1. Dependências do Linux
+    echo -e "${BLUE}${BOLD}[1/8] Instalando dependências e compiladores essenciais do Linux...${NC}"
+    sudo apt update && sudo apt upgrade -y
+    sudo apt install -y build-essential pkg-config libssl-dev libudev-dev \
+                        libclang-dev protobuf-compiler git curl wget tar bzip2
 
-DEV_WALLET=$(solana address)
-echo -e "${GREEN}✓ Endereço da Carteira Devnet:${NC} ${BOLD}${DEV_WALLET}${NC}"
+    # 2. Configurar pasta e clonar repositório se necessário
+    echo -e "\n${BLUE}${BOLD}[2/8] Configurando repositório e pasta 'fowlgenwars'...${NC}"
+    if [ -d "$BASE_DIR/.git" ]; then
+        echo -e "${GREEN}✓ Repositório já encontrado em:${NC} ${BOLD}${BASE_DIR}${NC}"
+        cd "$BASE_DIR" && git pull origin main || true
+    elif [ -d "$PROGRAM_DIR" ] && [ -f "$PROGRAM_DIR/Anchor.toml" ]; then
+        echo -e "${GREEN}✓ Pasta do contrato já existe em:${NC} ${BOLD}${PROGRAM_DIR}${NC}"
+    else
+        echo -e "${YELLOW}Clonando repositório oficial em:${NC} ${BOLD}${BASE_DIR}${NC}"
+        git clone "$REPO_URL" "$BASE_DIR"
+        PROGRAM_DIR="$BASE_DIR/program"
+    fi
 
-echo -e "${YELLOW}Solicitando SOL de teste via Airdrop na Devnet...${NC}"
-solana airdrop 2 "$DEV_WALLET" 2>/dev/null || echo -e "${YELLOW}⚠️  Aviso: Limite de airdrop atingido. Acesse https://faucet.solana.com para solicitar saldo.${NC}"
-echo -e "${GREEN}✓ Saldo Devnet Atual: $(solana balance)${NC}"
+    # 3. Node.js v22 LTS e Yarn
+    echo -e "\n${BLUE}${BOLD}[3/8] Verificando e configurando Node.js (v22 LTS), npm e Yarn...${NC}"
+    NODE_MAJOR=$(node -v 2>/dev/null | cut -d'.' -f1 | tr -d 'v' || echo "0")
+    if [ "$NODE_MAJOR" -lt 22 ]; then
+        echo -e "${YELLOW}Instalando/Atualizando para Node.js v22.x LTS...${NC}"
+        curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+        sudo apt update
+        sudo apt install -y nodejs
+    fi
 
-# ------------------------------------------------------------------------------
-# 8. Setup do Contrato na Pasta fowlgenwars/program
-# ------------------------------------------------------------------------------
-echo -e "\n${BLUE}${BOLD}[8/8] Configurando e compilando o smart contract em '${PROGRAM_DIR}'...${NC}"
+    echo -e "${YELLOW}Atualizando npm para versão estável mais recente...${NC}"
+    sudo npm install -g npm@latest
 
-if [ -d "$PROGRAM_DIR" ]; then
-    cd "$PROGRAM_DIR"
+    if ! command -v yarn &> /dev/null; then
+        echo -e "${YELLOW}Instalando Yarn globalmente via npm...${NC}"
+        sudo npm install -g yarn
+    fi
+    echo -e "${GREEN}✓ Node.js: $(node -v) | npm: $(npm -v) | Yarn: $(yarn -v)${NC}"
 
-    echo -e "${YELLOW}Instalando dependências TypeScript (yarn install)...${NC}"
-    yarn install
+    # 4. Rust & Cargo
+    echo -e "\n${BLUE}${BOLD}[4/8] Verificando e configurando Compilador Rust...${NC}"
+    if ! command -v rustc &> /dev/null; then
+        echo -e "${YELLOW}Instalando Rust via rustup oficial...${NC}"
+        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
+        source "$HOME/.cargo/env"
+    else
+        echo -e "${GREEN}✓ Rust já instalado. Atualizando para estável...${NC}"
+        rustup update stable
+    fi
+    source "$HOME/.cargo/env" 2>/dev/null || true
+    echo -e "${GREEN}✓ Rust: $(rustc --version) | Cargo: $(cargo --version)${NC}"
 
-    echo -e "${YELLOW}Sincronizando Program ID (anchor keys sync)...${NC}"
-    anchor keys sync
+    # 5. Solana CLI v1.18.26
+    SOLANA_VERSION="v1.18.26"
+    echo -e "\n${BLUE}${BOLD}[5/8] Instalando Solana CLI (${SOLANA_VERSION})...${NC}"
+    if ! command -v solana &> /dev/null || [[ "$(solana --version 2>/dev/null)" != *"${SOLANA_VERSION#v}"* ]]; then
+        cd "$HOME"
+        wget -q --show-progress "https://github.com/solana-labs/solana/releases/download/${SOLANA_VERSION}/solana-release-x86_64-unknown-linux-gnu.tar.bz2"
+        rm -rf "$HOME/solana-release"
+        tar jxf solana-release-x86_64-unknown-linux-gnu.tar.bz2
+        rm -f solana-release-x86_64-unknown-linux-gnu.tar.bz2
 
-    echo -e "${YELLOW}Limpando downloads incompletos de platform-tools da Solana...${NC}"
-    # 1. Limpa o download que ficou pela metade
-    rm -rf "$HOME/.cache/solana/v1.41"
-    rm -rf "$HOME/.cache/solana/v1.4"* 2>/dev/null || true
+        if ! grep -q 'solana-release/bin' "$HOME/.bashrc"; then
+            echo 'export PATH="$HOME/solana-release/bin:$PATH"' >> "$HOME/.bashrc"
+        fi
+    fi
+    export PATH="$HOME/solana-release/bin:$PATH"
+    echo -e "${GREEN}✓ Solana CLI: $(solana --version)${NC}"
 
-    echo -e "${YELLOW}Executando compilação do contrato (anchor build)...${NC}"
-    # 2. Entra na pasta e roda a compilação de novo
-    cd "$PROGRAM_DIR"
+    # 6. AVM e Anchor CLI
+    echo -e "\n${BLUE}${BOLD}[6/8] Instalando AVM e Anchor Framework...${NC}"
+    if ! command -v avm &> /dev/null; then
+        echo -e "${YELLOW}Compilando AVM via Cargo...${NC}"
+        cargo install --git https://github.com/coral-xyz/anchor avm --locked
+    fi
 
-    if ! anchor build; then
-        echo -e "${YELLOW}⚠️ Primeira tentativa falhou ou download foi interrompido. Limpando cache e tentando novamente...${NC}"
-        # 1. Limpa o download que ficou pela metade
-        rm -rf "$HOME/.cache/solana/v1.41"
-        rm -rf "$HOME/.cache/solana/v1.4"* 2>/dev/null || true
-        # 2. Entra na pasta e roda a compilação de novo
+    if ! grep -q '.avm/bin' "$HOME/.bashrc"; then
+        echo 'export PATH="$HOME/.avm/bin:$PATH"' >> "$HOME/.bashrc"
+    fi
+    export PATH="$HOME/.avm/bin:$PATH"
+
+    avm install latest
+    avm use latest
+    echo -e "${GREEN}✓ Anchor Framework: $(anchor --version)${NC}"
+
+    # 7. Carteira Local e Config Devnet
+    echo -e "\n${BLUE}${BOLD}[7/8] Configurando Carteira Local e Rede Padrão...${NC}"
+    solana config set --url devnet
+    mkdir -p "$HOME/.config/solana"
+    if [ ! -f "$HOME/.config/solana/id.json" ]; then
+        echo -e "${YELLOW}Gerando carteira padrão em ~/.config/solana/id.json...${NC}"
+        solana-keygen new --no-bip39-passphrase --outfile "$HOME/.config/solana/id.json"
+    fi
+    DEV_WALLET=$(solana address)
+    echo -e "${GREEN}✓ Carteira Devnet Ativa:${NC} ${BOLD}${DEV_WALLET}${NC}"
+    solana airdrop 2 "$DEV_WALLET" 2>/dev/null || echo -e "${YELLOW}Aviso: Airdrop indisponível ou limite atingido.${NC}"
+
+    # 8. Setup do Contrato e Compilação
+    echo -e "\n${BLUE}${BOLD}[8/8] Configurando dependências e compilando o contrato em '${PROGRAM_DIR}'...${NC}"
+    if [ -d "$PROGRAM_DIR" ]; then
         cd "$PROGRAM_DIR"
+        yarn install
+        anchor keys sync
+        rm -rf "$HOME/.cache/solana/v1.41" "$HOME/.cache/solana/v1.4"* 2>/dev/null || true
         anchor build
+        echo -e "${GREEN}✓ Contrato compilado com sucesso!${NC}"
     fi
 
-    echo -e "${GREEN}✓ Contrato compilado e IDL gerado em: ${PROGRAM_DIR}/target/idl/fowlgen_wars_contract.json${NC}"
+    echo -e "\n${GREEN}${BOLD}🎉 PRIMEIRA INSTALAÇÃO CONCLUÍDA COM SUCESSO!${NC}"
+    pausar
+}
 
-    # --------------------------------------------------------------------------
-    # Verificação e Opção Interativa de Deploy
-    # --------------------------------------------------------------------------
-    echo -e "\n${CYAN}${BOLD}Deseja realizar o deploy do smart contract agora?${NC}"
-    echo -e "  ${BOLD}[1]${NC} Não (Apenas compilar - Recomendado para continuar o setup)"
-    echo -e "  ${BOLD}[2]${NC} Sim, no cluster ${BOLD}localnet${NC} (Validador local de teste)"
-    echo -e "  ${BOLD}[3]${NC} Sim, no cluster ${BOLD}devnet${NC}   (Solana Devnet pública de teste)"
-    echo -e "  ${BOLD}[4]${NC} Sim, no cluster ${BOLD}mainnet${NC}  (Solana Mainnet-Beta - CUIDADO: Fundos Reais!)"
-    
-    CHOSEN_CLUSTER=""
-    read -rp "Selecione uma opção [1-4] (Padrão: 1): " DEPLOY_OPT
-    DEPLOY_OPT=${DEPLOY_OPT:-1}
+# ------------------------------------------------------------------------------
+# 2. ATUALIZAR AMBIENTE & RECOMPILAR CONTRATO
+# ------------------------------------------------------------------------------
+func_atualizar_ambiente() {
+    banner
+    echo -e "${BLUE}${BOLD}>>> [2] Atualizando Repositório, Dependências e Contrato...${NC}\n"
 
-    case "$DEPLOY_OPT" in
-        2) CHOSEN_CLUSTER="localnet" ;;
-        3) CHOSEN_CLUSTER="devnet" ;;
-        4) CHOSEN_CLUSTER="mainnet" ;;
-        *) CHOSEN_CLUSTER="" ;;
+    if [ -d "$BASE_DIR/.git" ]; then
+        echo -e "${YELLOW}Puxando alterações mais recentes do repositório (git pull)...${NC}"
+        cd "$BASE_DIR"
+        git pull origin main
+    fi
+
+    echo -e "\n${YELLOW}Sincronizando compilador Rust...${NC}"
+    rustup update stable
+
+    if [ -d "$PROGRAM_DIR" ]; then
+        cd "$PROGRAM_DIR"
+        echo -e "\n${YELLOW}Atualizando dependências TypeScript (yarn install)...${NC}"
+        yarn install
+
+        echo -e "\n${YELLOW}Sincronizando Program ID (anchor keys sync)...${NC}"
+        anchor keys sync
+
+        echo -e "\n${YELLOW}Recompilando smart contract (anchor build)...${NC}"
+        anchor build
+        echo -e "\n${GREEN}${BOLD}✓ Ambiente e contrato atualizados com sucesso!${NC}"
+    else
+        echo -e "${RED}Erro: Diretório do contrato não encontrado em ${PROGRAM_DIR}.${NC}"
+    fi
+    pausar
+}
+
+# ------------------------------------------------------------------------------
+# 3. DEPLOY & UPGRADE DO SMART CONTRACT
+# ------------------------------------------------------------------------------
+func_deploy_contrato() {
+    banner
+    echo -e "${BLUE}${BOLD}>>> [3] Deploy / Atualização do Smart Contract${NC}\n"
+
+    if [ ! -d "$PROGRAM_DIR" ]; then
+        echo -e "${RED}Erro: Pasta do contrato não encontrada em: ${PROGRAM_DIR}${NC}"
+        pausar
+        return
+    fi
+
+    cd "$PROGRAM_DIR"
+
+    echo "Selecione o cluster de destino para o Deploy/Upgrade:"
+    echo -e "  ${BOLD}[1]${NC} localnet (Validador local de teste)"
+    echo -e "  ${BOLD}[2]${NC} devnet   (Solana Devnet pública de testes - Recomendado)"
+    echo -e "  ${BOLD}[3]${NC} mainnet  (Solana Mainnet-Beta - CUIDADO: Fundos Reais!)"
+    echo -e "  ${BOLD}[0]${NC} Cancelar e voltar ao menu"
+    echo ""
+    read -rp "Opção [0-3]: " CLUSTER_OPT
+
+    local CHOSEN_CLUSTER=""
+    case "$CLUSTER_OPT" in
+        1) CHOSEN_CLUSTER="localnet" ;;
+        2) CHOSEN_CLUSTER="devnet" ;;
+        3) CHOSEN_CLUSTER="mainnet" ;;
+        0) return ;;
+        *) echo -e "${RED}Opção inválida.${NC}"; pausar; return ;;
     esac
 
-    if [ -n "$CHOSEN_CLUSTER" ]; then
-        echo -e "\n${BLUE}${BOLD}--- Validação de Ambiente para Deploy (${CHOSEN_CLUSTER}) ---${NC}"
-        
-        # 1. Ler a carteira configurada no Anchor.toml
-        CONFIGURED_WALLET=$(grep -E '^\s*wallet\s*=' Anchor.toml | head -n1 | cut -d'=' -f2 | tr -d ' "' | tr -d "'" | sed "s|^~|$HOME|")
-        CONFIGURED_WALLET=${CONFIGURED_WALLET:-"$HOME/.config/solana/id.json"}
+    echo -e "\n${BLUE}${BOLD}--- Verificando Pré-Requisitos para Deploy (${CHOSEN_CLUSTER}) ---${NC}"
+    
+    # 1. Carteira configurada
+    local CONFIGURED_WALLET
+    CONFIGURED_WALLET=$(obter_carteira_configurada)
+    echo -e "${CYAN}Carteira configurada:${NC} ${BOLD}${CONFIGURED_WALLET}${NC}"
 
-        echo -e "${YELLOW}Carteira configurada no Anchor.toml:${NC} ${BOLD}${CONFIGURED_WALLET}${NC}"
+    if [ ! -f "$CONFIGURED_WALLET" ]; then
+        echo -e "${RED}❌ ERRO: Arquivo de chave não encontrado em: ${CONFIGURED_WALLET}${NC}"
+        echo -e "${YELLOW}Use a opção [4] do menu para criar ou importar uma carteira válida.${NC}"
+        pausar
+        return
+    fi
 
-        # 2. Validar se o arquivo da carteira existe
-        if [ ! -f "$CONFIGURED_WALLET" ]; then
-            echo -e "${RED}❌ ERRO: Arquivo de carteira não encontrado em: ${CONFIGURED_WALLET}${NC}"
-            echo -e "${YELLOW}Crie ou aponte uma carteira válida no Anchor.toml antes de prosseguir com o deploy.${NC}"
-        else
-            WALLET_PUBKEY=$(solana-keygen pubkey "$CONFIGURED_WALLET" 2>/dev/null || echo "")
-            echo -e "${GREEN}✓ Carteira encontrada! Chave Pública:${NC} ${BOLD}${WALLET_PUBKEY}${NC}"
+    local WALLET_PUBKEY
+    WALLET_PUBKEY=$(solana-keygen pubkey "$CONFIGURED_WALLET" 2>/dev/null || echo "")
+    echo -e "${GREEN}✓ Chave Pública:${NC} ${BOLD}${WALLET_PUBKEY}${NC}"
 
-            # 3. Validar se o Anchor.toml e o saldo atendem ao cluster
-            if [ "$CHOSEN_CLUSTER" == "mainnet" ]; then
-                if ! grep -q '\[programs\.mainnet\]' Anchor.toml; then
-                    echo -e "${YELLOW}⚠️ Aviso: O bloco [programs.mainnet] está comentado ou ausente no Anchor.toml.${NC}"
-                    echo -e "${YELLOW}Descomente a seção [programs.mainnet] no Anchor.toml para deploys em Mainnet.${NC}"
-                fi
+    # 2. Validações por cluster
+    if [ "$CHOSEN_CLUSTER" == "mainnet" ]; then
+        if ! grep -q '\[programs\.mainnet\]' Anchor.toml; then
+            echo -e "${YELLOW}⚠️ Aviso: [programs.mainnet] está ausente ou comentado no Anchor.toml.${NC}"
+        fi
 
-                echo -e "\n${RED}${BOLD}🚨 CUIDADO: DEPLOY NA MAINNET (PRODUÇÃO) CONSOME SOL REAL!${NC}"
-                MAINNET_BAL=$(solana balance "$WALLET_PUBKEY" --url mainnet-beta 2>/dev/null || echo "0 SOL")
-                echo -e "${CYAN}Saldo atual na Mainnet:${NC} ${BOLD}${MAINNET_BAL}${NC}"
-                read -rp "Para confirmar que deseja prosseguir na MAINNET, digite 'CONFIRMAR-MAINNET': " MAINNET_CONFIRM
-                if [ "$MAINNET_CONFIRM" != "CONFIRMAR-MAINNET" ]; then
-                    echo -e "${YELLOW}Deploy na Mainnet cancelado com segurança.${NC}"
-                    CHOSEN_CLUSTER=""
-                fi
-            elif [ "$CHOSEN_CLUSTER" == "devnet" ]; then
-                DEV_BAL=$(solana balance "$WALLET_PUBKEY" --url devnet 2>/dev/null || echo "0 SOL")
-                echo -e "${CYAN}Saldo na Devnet:${NC} ${BOLD}${DEV_BAL}${NC}"
-                if [[ "$DEV_BAL" == "0 SOL"* ]]; then
-                    echo -e "${YELLOW}Tentando airdrop de 2 SOL na Devnet para custear o deploy...${NC}"
-                    solana airdrop 2 "$WALLET_PUBKEY" --url devnet 2>/dev/null || true
-                    echo -e "${CYAN}Novo saldo Devnet:${NC} $(solana balance "$WALLET_PUBKEY" --url devnet 2>/dev/null || echo '0 SOL')"
-                fi
-            elif [ "$CHOSEN_CLUSTER" == "localnet" ]; then
-                echo -e "${CYAN}Verificando validador local (127.0.0.1:8899)...${NC}"
-                if ! curl -s http://127.0.0.1:8899 >/dev/null 2>&1; then
-                    echo -e "${YELLOW}⚠️ Aviso: O validador local (solana-test-validator) não parece estar rodando.${NC}"
-                    echo -e "${YELLOW}Para rodar localmente, abra outro terminal e execute: solana-test-validator${NC}"
-                else
-                    echo -e "${GREEN}✓ Validador local ativo e respondendo.${NC}"
-                fi
+        echo -e "\n${RED}${BOLD}🚨 ATENÇÃO CRÍTICA: DEPLOY NA MAINNET CONSOME SOL REAL!${NC}"
+        local MAINNET_BAL
+        MAINNET_BAL=$(solana balance "$WALLET_PUBKEY" --url mainnet-beta 2>/dev/null || echo "0 SOL")
+        echo -e "${CYAN}Saldo da carteira na Mainnet:${NC} ${BOLD}${MAINNET_BAL}${NC}"
+        read -rp "Para confirmar a publicação na MAINNET, digite 'CONFIRMAR-MAINNET': " CONFIRM_TXT
+        if [ "$CONFIRM_TXT" != "CONFIRMAR-MAINNET" ]; then
+            echo -e "${YELLOW}Operação cancelada pelo usuário.${NC}"
+            pausar
+            return
+        fi
+    elif [ "$CHOSEN_CLUSTER" == "devnet" ]; then
+        local DEV_BAL
+        DEV_BAL=$(solana balance "$WALLET_PUBKEY" --url devnet 2>/dev/null || echo "0 SOL")
+        echo -e "${CYAN}Saldo na Devnet:${NC} ${BOLD}${DEV_BAL}${NC}"
+        if [[ "$DEV_BAL" == "0 SOL"* ]]; then
+            echo -e "${YELLOW}Solicitando 2 SOL de teste via airdrop...${NC}"
+            solana airdrop 2 "$WALLET_PUBKEY" --url devnet 2>/dev/null || true
+            echo -e "${CYAN}Saldo atualizado:${NC} $(solana balance "$WALLET_PUBKEY" --url devnet 2>/dev/null || echo '0 SOL')"
+        fi
+    elif [ "$CHOSEN_CLUSTER" == "localnet" ]; then
+        echo -e "${CYAN}Checando validador local (127.0.0.1:8899)...${NC}"
+        if ! curl -s http://127.0.0.1:8899 >/dev/null 2>&1; then
+            echo -e "${YELLOW}⚠️ O validador local não está ativo.${NC}"
+            read -rp "Deseja iniciá-lo em segundo plano agora? (s/N): " START_VAL
+            if [[ "$START_VAL" =~ ^[sS]$ ]]; then
+                nohup solana-test-validator --reset > "$HOME/solana-test-validator.log" 2>&1 &
+                echo -e "${GREEN}Validador local iniciado em segundo plano.${NC}"
+                sleep 4
+            else
+                echo -e "${YELLOW}Operação cancelada.${NC}"
+                pausar
+                return
             fi
+        else
+            echo -e "${GREEN}✓ Validador local ativo.${NC}"
+        fi
+    fi
 
-            # 4. Executar deploy se validado
-            if [ -n "$CHOSEN_CLUSTER" ]; then
-                echo -e "\n${YELLOW}Sincronizando Program ID (anchor keys sync)...${NC}"
-                anchor keys sync
-                
-                echo -e "${YELLOW}Executando: anchor deploy --provider.cluster ${CHOSEN_CLUSTER} --provider.wallet ${CONFIGURED_WALLET}${NC}"
-                if anchor deploy --provider.cluster "$CHOSEN_CLUSTER" --provider.wallet "$CONFIGURED_WALLET"; then
-                    echo -e "\n${GREEN}${BOLD}🎉 DEPLOY CONCLUÍDO COM SUCESSO NO CLUSTER ${CHOSEN_CLUSTER}!${NC}"
-                else
-                    echo -e "\n${RED}⚠️ Falha no deploy no cluster ${CHOSEN_CLUSTER}. Verifique logs e saldo acima.${NC}"
-                fi
+    # 3. Sincronizar chaves e recompilar
+    echo -e "\n${YELLOW}Sincronizando chaves e compilando binário...${NC}"
+    anchor keys sync
+    anchor build
+
+    # 4. Executar deploy / upgrade
+    echo -e "\n${YELLOW}Executando: anchor deploy --provider.cluster ${CHOSEN_CLUSTER} --provider.wallet ${CONFIGURED_WALLET}${NC}"
+    if anchor deploy --provider.cluster "$CHOSEN_CLUSTER" --provider.wallet "$CONFIGURED_WALLET"; then
+        echo -e "\n${GREEN}${BOLD}🎉 DEPLOY / UPGRADE EXECUTADO COM SUCESSO!${NC}"
+        
+        # Opção de atualizar o IDL
+        echo ""
+        read -rp "Deseja inicializar/atualizar o IDL on-chain agora? (S/n): " UPGRADE_IDL
+        if [[ ! "$UPGRADE_IDL" =~ ^[nN]$ ]]; then
+            local PROG_ID
+            PROG_ID=$(anchor keys list 2>/dev/null | grep fowlgen_wars_contract | awk '{print $2}')
+            if [ -n "$PROG_ID" ] && [ -f "target/idl/fowlgen_wars_contract.json" ]; then
+                echo -e "${YELLOW}Atualizando IDL on-chain para o Program ID: ${PROG_ID}...${NC}"
+                anchor idl upgrade "$PROG_ID" -f target/idl/fowlgen_wars_contract.json --provider.cluster "$CHOSEN_CLUSTER" 2>/dev/null || \
+                anchor idl init "$PROG_ID" -f target/idl/fowlgen_wars_contract.json --provider.cluster "$CHOSEN_CLUSTER" 2>/dev/null || true
+                echo -e "${GREEN}✓ Operação de IDL concluída.${NC}"
             fi
         fi
     else
-        echo -e "${CYAN}Deploy ignorado nesta etapa. O contrato está compilado e pronto para deploy manual.${NC}"
+        echo -e "\n${RED}⚠️ Falha na execução do deploy. Verifique se a carteira possui saldo suficiente para rent.${NC}"
     fi
-else
-    echo -e "${RED}Erro: Pasta do contrato não encontrada em ${PROGRAM_DIR}.${NC}"
-    exit 1
-fi
+    pausar
+}
 
 # ------------------------------------------------------------------------------
-# Resumo Final e Comandos de Operação
+# 4. GESTÃO DE CARTEIRAS (WALLETS)
 # ------------------------------------------------------------------------------
-echo -e "\n${GREEN}${BOLD}=================================================================="
-echo "    🎉 INSTALAÇÃO E SETUP DO FOWLGEN WARS CONCLUÍDOS COM SUCESSO! "
-echo "==================================================================${NC}"
-echo -e "${CYAN}${BOLD}Pasta Criada e Configurada:${NC}"
-echo -e "  • Pasta do Projeto:  ${BOLD}${BASE_DIR}${NC}"
-echo -e "  • Pasta do Contrato: ${BOLD}${PROGRAM_DIR}${NC}"
-echo -e "  • Node.js:           ${BOLD}$(node -v)${NC}"
-echo -e "  • npm:               ${BOLD}$(npm -v)${NC}"
-echo -e "  • Yarn:              ${BOLD}$(yarn -v)${NC}"
-echo -e "  • Rust:              ${BOLD}$(rustc --version)${NC}"
-echo -e "  • Solana CLI:        ${BOLD}$(solana --version)${NC}"
-echo -e "  • Anchor Framework:  ${BOLD}$(anchor --version)${NC}"
-echo -e "  • Carteira Local:    ${BOLD}${DEV_WALLET}${NC}"
-echo ""
-echo -e "${YELLOW}${BOLD}Como Testar e Publicar o Contrato:${NC}"
-echo -e "  1. ${BOLD}cd ${PROGRAM_DIR}${NC}"
-echo -e "  2. ${BOLD}anchor keys sync${NC}                   -> Sincroniza o Program ID real em lib.rs e Anchor.toml"
-echo -e "  3. ${BOLD}anchor build${NC}                       -> Recompila com o Program ID correto"
-echo -e "  4. ${BOLD}anchor test${NC}                        -> Executa os testes automatizados TypeScript"
-echo -e "  5. ${BOLD}anchor deploy${NC}                      -> Publica no cluster configurado no Anchor.toml (localnet)"
-echo -e "     ou: ${BOLD}anchor deploy --provider.cluster devnet${NC}  -> Publica na Solana Devnet"
-echo -e "     ou: ${BOLD}anchor deploy --provider.cluster mainnet${NC} -> Publica na Solana Mainnet (quando for lançar)"
-echo ""
-echo -e "${PURPLE}Para atualizar as variáveis de ambiente no seu terminal execute:${NC}"
-echo -e "  ${BOLD}source ~/.bashrc${NC}"
-echo "=================================================================="
+func_gerenciar_carteiras() {
+    while true; do
+        banner
+        echo -e "${BLUE}${BOLD}>>> [4] Gerenciador de Carteiras (Solana Wallets)${NC}\n"
+
+        local CURRENT_WALLET
+        CURRENT_WALLET=$(obter_carteira_configurada)
+        local PUBKEY=""
+        if [ -f "$CURRENT_WALLET" ]; then
+            PUBKEY=$(solana-keygen pubkey "$CURRENT_WALLET" 2>/dev/null || echo "Inacessível")
+        fi
+
+        echo -e "Carteira Atual no Anchor.toml: ${BOLD}${CURRENT_WALLET}${NC}"
+        echo -e "Chave Pública:                 ${CYAN}${BOLD}${PUBKEY:-'Nenhuma carteira configurada'}${NC}\n"
+
+        echo "Escolha a operação desejada:"
+        echo -e "  ${BOLD}[1]${NC} Consultar saldos nos clusters (Localnet, Devnet, Mainnet)"
+        echo -e "  ${BOLD}[2]${NC} Criar NOVA carteira de desenvolvimento (Keypair)"
+        echo -e "  ${BOLD}[3]${NC} Recuperar carteira existente via Seed Phrase (Mnemônica)"
+        echo -e "  ${BOLD}[4]${NC} Vincular arquivo de carteira (.json) existente ao Anchor.toml"
+        echo -e "  ${BOLD}[5]${NC} Solicitar Airdrop de 2 SOL na Devnet"
+        echo -e "  ${BOLD}[0]${NC} Voltar ao menu principal"
+        echo ""
+        read -rp "Opção [0-5]: " W_OPT
+
+        case "$W_OPT" in
+            1)
+                if [ -n "$PUBKEY" ]; then
+                    echo -e "\n${YELLOW}Consultando saldos...${NC}"
+                    echo -e "  • Localnet (8899): $(solana balance "$PUBKEY" --url http://127.0.0.1:8899 2>/dev/null || echo 'Validador Offline')"
+                    echo -e "  • Devnet:          $(solana balance "$PUBKEY" --url devnet 2>/dev/null || echo 'Erro ao consultar')"
+                    echo -e "  • Mainnet:         $(solana balance "$PUBKEY" --url mainnet-beta 2>/dev/null || echo 'Erro ao consultar')"
+                else
+                    echo -e "${RED}Nenhuma carteira válida ativa para consultar.${NC}"
+                fi
+                pausar
+                ;;
+            2)
+                echo ""
+                read -rp "Digite o nome para o arquivo (ex: carteira_teste): " NEW_NAME
+                NEW_NAME=${NEW_NAME:-"carteira_teste"}
+                local OUT_PATH="$HOME/.config/solana/${NEW_NAME}.json"
+                mkdir -p "$HOME/.config/solana"
+                solana-keygen new --outfile "$OUT_PATH"
+                echo -e "\n${GREEN}✓ Nova carteira criada em:${NC} ${BOLD}${OUT_PATH}${NC}"
+                read -rp "Deseja configurar esta carteira como padrão no Anchor.toml? (S/n): " SET_DEF
+                if [[ ! "$SET_DEF" =~ ^[nN]$ ]]; then
+                    sed -i "s|^\s*wallet\s*=.*|wallet = \"${OUT_PATH}\"|" "$PROGRAM_DIR/Anchor.toml"
+                    echo -e "${GREEN}✓ Anchor.toml atualizado com a nova carteira!${NC}"
+                fi
+                pausar
+                ;;
+            3)
+                echo ""
+                read -rp "Digite o nome para salvar a carteira recuperada (ex: carteira_recuperada): " REC_NAME
+                REC_NAME=${REC_NAME:-"carteira_recuperada"}
+                local REC_PATH="$HOME/.config/solana/${REC_NAME}.json"
+                mkdir -p "$HOME/.config/solana"
+                echo -e "${YELLOW}Digite a sua frase semente (12 ou 24 palavras) quando solicitado:${NC}"
+                solana-keygen recover "prompt://?key=0/0" --outfile "$REC_PATH"
+                echo -e "\n${GREEN}✓ Carteira recuperada em:${NC} ${BOLD}${REC_PATH}${NC}"
+                read -rp "Deseja vincular esta carteira no Anchor.toml? (S/n): " SET_REC
+                if [[ ! "$SET_REC" =~ ^[nN]$ ]]; then
+                    sed -i "s|^\s*wallet\s*=.*|wallet = \"${REC_PATH}\"|" "$PROGRAM_DIR/Anchor.toml"
+                    echo -e "${GREEN}✓ Anchor.toml atualizado!${NC}"
+                fi
+                pausar
+                ;;
+            4)
+                echo ""
+                read -rp "Digite o caminho absoluto do arquivo .json: " JSON_PATH
+                JSON_PATH=$(eval echo "$JSON_PATH")
+                if [ -f "$JSON_PATH" ]; then
+                    sed -i "s|^\s*wallet\s*=.*|wallet = \"${JSON_PATH}\"|" "$PROGRAM_DIR/Anchor.toml"
+                    echo -e "${GREEN}✓ Anchor.toml atualizado com:${NC} ${JSON_PATH}"
+                else
+                    echo -e "${RED}Arquivo não encontrado.${NC}"
+                fi
+                pausar
+                ;;
+            5)
+                if [ -n "$PUBKEY" ]; then
+                    echo -e "\n${YELLOW}Solicitando 2 SOL na Devnet para ${PUBKEY}...${NC}"
+                    solana airdrop 2 "$PUBKEY" --url devnet || echo -e "${YELLOW}Falha no airdrop. Use o faucet web: https://faucet.solana.com${NC}"
+                    echo -e "Novo Saldo Devnet: $(solana balance "$PUBKEY" --url devnet 2>/dev/null || echo '0 SOL')"
+                else
+                    echo -e "${RED}Nenhuma carteira ativa encontrada.${NC}"
+                fi
+                pausar
+                ;;
+            0)
+                break
+                ;;
+            *)
+                echo -e "${RED}Opção inválida.${NC}"
+                pausar
+                ;;
+        esac
+    done
+}
+
+# ------------------------------------------------------------------------------
+# 5. EXECUTAR TESTES AUTOMATIZADOS
+# ------------------------------------------------------------------------------
+func_executar_testes() {
+    banner
+    echo -e "${BLUE}${BOLD}>>> [5] Execução de Testes Automatizados${NC}\n"
+
+    if [ ! -d "$PROGRAM_DIR" ]; then
+        echo -e "${RED}Erro: Pasta do contrato não encontrada em: ${PROGRAM_DIR}${NC}"
+        pausar
+        return
+    fi
+
+    cd "$PROGRAM_DIR"
+
+    echo "Escolha a modalidade de testes:"
+    echo -e "  ${BOLD}[1]${NC} anchor test (Validador local efêmero gerenciado pelo Anchor)"
+    echo -e "  ${BOLD}[2]${NC} anchor test --skip-local-validator (Executa direto no cluster do Anchor.toml)"
+    echo -e "  ${BOLD}[3]${NC} cargo test  (Testes unitários puros em Rust)"
+    echo -e "  ${BOLD}[0]${NC} Voltar ao menu principal"
+    echo ""
+    read -rp "Opção [0-3]: " T_OPT
+
+    case "$T_OPT" in
+        1)
+            echo -e "\n${YELLOW}Executando 'anchor test'...${NC}"
+            anchor test
+            ;;
+        2)
+            echo -e "\n${YELLOW}Executando 'anchor test --skip-local-validator'...${NC}"
+            anchor test --skip-local-validator
+            ;;
+        3)
+            echo -e "\n${YELLOW}Executando 'cargo test'...${NC}"
+            cargo test
+            ;;
+        0)
+            return
+            ;;
+        *)
+            echo -e "${RED}Opção inválida.${NC}"
+            ;;
+    esac
+    pausar
+}
+
+# ------------------------------------------------------------------------------
+# 6. DIAGNÓSTICO DO AMBIENTE (Health Check)
+# ------------------------------------------------------------------------------
+func_diagnostico_healthcheck() {
+    banner
+    echo -e "${BLUE}${BOLD}>>> [6] Diagnóstico de Saúde do Ambiente (Health Check)${NC}\n"
+
+    check_tool() {
+        local name="$1"
+        local cmd="$2"
+        if command -v "$name" &>/dev/null; then
+            echo -e "  [${GREEN}OK${NC}] ${BOLD}${name}${NC}: $($cmd 2>/dev/null | head -n1)"
+        else
+            echo -e "  [${RED}FALHA${NC}] ${BOLD}${name}${NC}: Não instalado ou não encontrado no PATH"
+        fi
+    }
+
+    echo -e "${CYAN}${BOLD}Ferramentas e Compiladores:${NC}"
+    check_tool "node" "node -v"
+    check_tool "npm" "npm -v"
+    check_tool "yarn" "yarn -v"
+    check_tool "rustc" "rustc --version"
+    check_tool "cargo" "cargo --version"
+    check_tool "solana" "solana --version"
+    check_tool "avm" "avm --version"
+    check_tool "anchor" "anchor --version"
+    check_tool "git" "git --version"
+
+    echo -e "\n${CYAN}${BOLD}Configurações Ativas do Anchor.toml:${NC}"
+    if [ -f "$PROGRAM_DIR/Anchor.toml" ]; then
+        local CLUSTER_CFG
+        CLUSTER_CFG=$(grep -E '^\s*cluster\s*=' "$PROGRAM_DIR/Anchor.toml" | cut -d'=' -f2 | tr -d ' "' | tr -d "'")
+        local WALLET_CFG
+        WALLET_CFG=$(obter_carteira_configurada)
+        
+        echo -e "  • Cluster Padrão:     ${BOLD}${CLUSTER_CFG}${NC}"
+        echo -e "  • Caminho da Carteira:${BOLD}${WALLET_CFG}${NC}"
+        
+        if [ -f "$WALLET_CFG" ]; then
+            local PUB
+            PUB=$(solana-keygen pubkey "$WALLET_CFG" 2>/dev/null || echo "")
+            echo -e "  • Chave Pública:      ${GREEN}${BOLD}${PUB}${NC}"
+            echo -e "  • Saldo na Devnet:    $(solana balance "$PUB" --url devnet 2>/dev/null || echo 'Sem conexão')"
+        else
+            echo -e "  • Status da Carteira: ${RED}Arquivo não encontrado no disco!${NC}"
+        fi
+    else
+        echo -e "  ${YELLOW}Arquivo Anchor.toml não localizado em ${PROGRAM_DIR}${NC}"
+    fi
+
+    echo -e "\n${CYAN}${BOLD}Status de Serviços Locais:${NC}"
+    if curl -s http://127.0.0.1:8899 >/dev/null 2>&1; then
+        echo -e "  • solana-test-validator: [${GREEN}EM EXECUÇÃO${NC}] na porta 8899"
+    else
+        echo -e "  • solana-test-validator: [${YELLOW}PARADO${NC}]"
+    fi
+
+    pausar
+}
+
+# ------------------------------------------------------------------------------
+# 7. GERENCIADOR DO VALIDADOR LOCAL
+# ------------------------------------------------------------------------------
+func_validador_local() {
+    banner
+    echo -e "${BLUE}${BOLD}>>> [7] Gerenciador do Validador Local (solana-test-validator)${NC}\n"
+
+    local STATUS="PARADO"
+    if curl -s http://127.0.0.1:8899 >/dev/null 2>&1; then
+        STATUS="${GREEN}ATIVO / RESPONDENDO NA PORTA 8899${NC}"
+    fi
+
+    echo -e "Status Atual: ${BOLD}${STATUS}${NC}\n"
+    echo "Opções:"
+    echo -e "  ${BOLD}[1]${NC} Iniciar validador local em segundo plano"
+    echo -e "  ${BOLD}[2]${NC} Parar validador local em execução"
+    echo -e "  ${BOLD}[3]${NC} Ver últimas 20 linhas do log"
+    echo -e "  ${BOLD}[0]${NC} Voltar ao menu principal"
+    echo ""
+    read -rp "Opção [0-3]: " V_OPT
+
+    case "$V_OPT" in
+        1)
+            if curl -s http://127.0.0.1:8899 >/dev/null 2>&1; then
+                echo -e "${YELLOW}O validador já está em execução.${NC}"
+            else
+                echo -e "${YELLOW}Iniciando solana-test-validator...${NC}"
+                nohup solana-test-validator --reset > "$HOME/solana-test-validator.log" 2>&1 &
+                sleep 3
+                if curl -s http://127.0.0.1:8899 >/dev/null 2>&1; then
+                    echo -e "${GREEN}✓ Validador local iniciado com sucesso! Log em: ~/solana-test-validator.log${NC}"
+                else
+                    echo -e "${YELLOW}Iniciado. Aguarde alguns instantes até a porta 8899 abrir.${NC}"
+                fi
+            fi
+            ;;
+        2)
+            echo -e "${YELLOW}Parando processos do solana-test-validator...${NC}"
+            pkill -f solana-test-validator || true
+            sleep 1
+            echo -e "${GREEN}✓ Validador finalizado.${NC}"
+            ;;
+        3)
+            if [ -f "$HOME/solana-test-validator.log" ]; then
+                echo -e "\n${CYAN}--- Últimas linhas do log ---${NC}"
+                tail -n 20 "$HOME/solana-test-validator.log"
+            else
+                echo -e "${YELLOW}Nenhum log encontrado em ~/solana-test-validator.log${NC}"
+            fi
+            ;;
+        0)
+            return
+            ;;
+        *)
+            echo -e "${RED}Opção inválida.${NC}"
+            ;;
+    esac
+    pausar
+}
+
+# ------------------------------------------------------------------------------
+# LOOP PRINCIPAL (MENU INTERATIVO)
+# ------------------------------------------------------------------------------
+main_menu() {
+    while true; do
+        banner
+        echo -e "${CYAN}${BOLD}MENU PRINCIPAL:${NC}"
+        echo -e "  ${BOLD}[1]${NC} 🚀 Primeira Instalação (Stack Completa do Zero)"
+        echo -e "  ${BOLD}[2]${NC} 🔄 Atualizar Ambiente & Recompilar Contrato"
+        echo -e "  ${BOLD}[3]${NC} 📦 Deploy / Atualizar Smart Contract (Localnet / Devnet / Mainnet)"
+        echo -e "  ${BOLD}[4]${NC} 👛 Gerenciar Carteiras (Criar, Recuperar, Consultar Saldos, Airdrop)"
+        echo -e "  ${BOLD}[5]${NC} 🧪 Executar Testes Automatizados (Anchor / Cargo)"
+        echo -e "  ${BOLD}[6]${NC} 🩺 Diagnóstico do Ambiente (Health Check)"
+        echo -e "  ${BOLD}[7]${NC} ⚙️  Gerenciar Validador Local (solana-test-validator)"
+        echo -e "  ${BOLD}[0]${NC} ❌ Sair"
+        echo "------------------------------------------------------------------"
+        read -rp "Selecione uma opção [0-7]: " MAIN_OPT
+
+        case "$MAIN_OPT" in
+            1) func_primeira_instalacao ;;
+            2) func_atualizar_ambiente ;;
+            3) func_deploy_contrato ;;
+            4) func_gerenciar_carteiras ;;
+            5) func_executar_testes ;;
+            6) func_diagnostico_healthcheck ;;
+            7) func_validador_local ;;
+            0)
+                echo -e "\n${GREEN}Até logo e boas batalhas no FOWLGEN WARS! 🐔⚔️${NC}\n"
+                exit 0
+                ;;
+            *)
+                echo -e "\n${RED}Opção inválida. Escolha entre 0 e 7.${NC}"
+                sleep 1.5
+                ;;
+        esac
+    done
+}
+
+# Inicia o menu principal
+main_menu
