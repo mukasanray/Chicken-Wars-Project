@@ -39,7 +39,7 @@ else
     PROGRAM_DIR="$BASE_DIR/program"
 fi
 
-export PATH="$HOME/.cargo/bin:$HOME/.avm/bin:$HOME/solana-release/bin:$PATH"
+export PATH="$HOME/.local/share/solana/install/active_release/bin:$HOME/.cargo/bin:$HOME/.avm/bin:$HOME/solana-release/bin:$PATH"
 
 pausar() {
     echo ""
@@ -429,14 +429,31 @@ func_gerenciar_carteiras() {
 
         case "$W_OPT" in
             1)
+                echo -e "\n${YELLOW}${BOLD}Consultando saldos com 'solana balance'...${NC}\n"
                 if [ -n "$PUBKEY" ]; then
-                    echo -e "\n${YELLOW}Consultando saldos...${NC}"
-                    echo -e "  • Localnet (8899): $(solana balance "$PUBKEY" --url http://127.0.0.1:8899 2>/dev/null || echo 'Validador Offline')"
-                    echo -e "  • Devnet:          $(solana balance "$PUBKEY" --url devnet 2>/dev/null || echo 'Erro ao consultar')"
-                    echo -e "  • Mainnet:         $(solana balance "$PUBKEY" --url mainnet-beta 2>/dev/null || echo 'Erro ao consultar')"
+                    echo -e "${CYAN}${BOLD}Carteira Ativa no Anchor.toml:${NC} ${BOLD}${CURRENT_WALLET}${NC}"
+                    echo -e "  • Endereço:        ${BOLD}${PUBKEY}${NC}"
+                    echo -e "  • Devnet:          $(solana balance --url devnet "$PUBKEY" 2>/dev/null || echo 'Erro ao consultar')"
+                    echo -e "  • Mainnet:         $(solana balance --url mainnet-beta "$PUBKEY" 2>/dev/null || echo 'Erro ao consultar')"
+                    echo -e "  • Localnet (8899): $(solana balance --url http://127.0.0.1:8899 "$PUBKEY" 2>/dev/null || echo 'Validador Offline')"
                 else
-                    echo -e "${RED}Nenhuma carteira válida ativa para consultar.${NC}"
+                    echo -e "${RED}Nenhuma carteira ativa encontrada no Anchor.toml.${NC}"
                 fi
+
+                # Lista também todas as outras carteiras do sistema
+                local all_wallets=("$HOME/.config/solana"/*.json)
+                echo -e "\n${CYAN}${BOLD}Todas as Carteiras encontradas em ~/.config/solana/:${NC}"
+                for w in "${all_wallets[@]}"; do
+                    if [ -f "$w" ]; then
+                        local w_name
+                        w_name=$(basename "$w")
+                        local w_pub
+                        w_pub=$(solana-keygen pubkey "$w" 2>/dev/null || echo "Inválida")
+                        local w_bal
+                        w_bal=$(solana balance --url devnet "$w_pub" 2>/dev/null || echo "0 SOL")
+                        echo -e "  • ${BOLD}${w_name}${NC} (${w_pub}) -> Devnet: ${GREEN}${BOLD}${w_bal}${NC}"
+                    fi
+                done
                 pausar
                 ;;
             2)
