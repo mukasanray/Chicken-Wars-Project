@@ -104,22 +104,29 @@ func_primeira_instalacao() {
 
     # 3. Node.js (v22 LTS Recomendado) e Yarn
     echo -e "\n${BLUE}${BOLD}[3/8] Verificando e configurando Node.js (v22 LTS) e Yarn...${NC}"
-    NODE_MAJOR=$(node -v 2>/dev/null | cut -d'.' -f1 | tr -d 'v' || echo "0")
+    local NODE_MAJOR="0"
+    if command -v node &> /dev/null; then
+        NODE_MAJOR=$(node -v 2>/dev/null | cut -d'.' -f1 | tr -d 'v')
+        NODE_MAJOR=${NODE_MAJOR:-0}
+    fi
     if [ "$NODE_MAJOR" -lt 22 ]; then
         echo -e "${YELLOW}Instalando/Atualizando para Node.js v22.x LTS...${NC}"
         curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
         sudo apt update
         sudo apt install -y nodejs
+        hash -r
     fi
 
     echo -e "${YELLOW}Atualizando npm para versão mais recente...${NC}"
-    sudo npm install -g npm@latest
+    sudo npm install -g npm@latest || true
+    hash -r
 
     if ! command -v yarn &> /dev/null; then
         echo -e "${YELLOW}Instalando Yarn globalmente via npm...${NC}"
         sudo npm install -g yarn
+        hash -r
     fi
-    echo -e "${GREEN}✓ Node.js: $(node -v) | Yarn: $(yarn -v)${NC}"
+    echo -e "${GREEN}✓ Node.js: $(node -v 2>/dev/null) | Yarn: $(yarn -v 2>/dev/null)${NC}"
 
     # 4. Compilador Rust & Cargo
     echo -e "\n${BLUE}${BOLD}[4/8] Verificando e configurando Compilador Rust...${NC}"
@@ -225,15 +232,15 @@ func_primeira_instalacao() {
     # Resumo Final e Comandos de Operação (Original)
     echo -e "\n${GREEN}${BOLD}=================================================================="
     echo "    🎉 INSTALAÇÃO E SETUP DO FOWLGEN WARS CONCLUÍDOS COM SUCESSO! "
-    echo "==================================================================${NC}"
+    echo -e "==================================================================${NC}"
     echo -e "${CYAN}${BOLD}Pasta Criada e Configurada:${NC}"
     echo -e "  • Pasta do Projeto:  ${BOLD}${BASE_DIR}${NC}"
     echo -e "  • Pasta do Contrato: ${BOLD}${PROGRAM_DIR}${NC}"
-    echo -e "  • Node.js:           ${BOLD}$(node -v)${NC}"
-    echo -e "  • Yarn:              ${BOLD}$(yarn -v)${NC}"
-    echo -e "  • Rust:              ${BOLD}$(rustc --version)${NC}"
-    echo -e "  • Solana CLI:        ${BOLD}$(solana --version)${NC}"
-    echo -e "  • Anchor Framework:  ${BOLD}$(anchor --version)${NC}"
+    echo -e "  • Node.js:           ${BOLD}$(node -v 2>/dev/null || echo 'Não instalado')${NC}"
+    echo -e "  • Yarn:              ${BOLD}$(yarn -v 2>/dev/null || echo 'Não instalado')${NC}"
+    echo -e "  • Rust:              ${BOLD}$(rustc --version 2>/dev/null || echo 'Não instalado')${NC}"
+    echo -e "  • Solana CLI:        ${BOLD}$(solana --version 2>/dev/null || echo 'Não instalado')${NC}"
+    echo -e "  • Anchor Framework:  ${BOLD}$(anchor --version 2>/dev/null || echo 'Não instalado')${NC}"
     echo -e "  • Carteira Devnet:   ${BOLD}${DEV_WALLET}${NC}"
     echo ""
     echo -e "${YELLOW}${BOLD}Como Testar e Publicar o Contrato:${NC}"
