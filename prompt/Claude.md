@@ -50,6 +50,7 @@ Considere os seguintes arquivos como fontes de design, planejamento, processo ou
 - [`Fowlgen-Wars-Estudo-de-Cores.md`](skills/Fowlgen-Wars-Estudo-de-Cores.md): estudo e matriz de cores de arenas/mapas MOBA (Wild Rift, Mobile Legends, HoK, Clash Royale, AoV e Rush Royale), ergonomia e regras de contraste cenário vs VFX/heróis.
 - [`Fowlgen-Wars-A-Era-Passada.md`](skills/Fowlgen-wars-A-Era-Passada.md): lore. Use como cânone somente quando a documentação do projeto assim indicar; não introduza conteúdo narrativo não confirmado.
 - [`Fowlgen-Wars-Conceitos-de-Logotipo.md`](skills/Fowlgen-Wars-Conceitos-de-Logotipo.md): conceitos de logotipo, identidade visual da marca (estilos épico, cartoon, minimalista, pixel e identidade recomendada), sistema de logos e frase conceitual.
+- [`Fowlgen-Wars-Guia-MCP-Unity-Metaplex-Antigravity.md`](skills/Fowlgen-Wars-Guia-MCP-Unity-Metaplex-Antigravity.md): guia de configuração de MCP Servers, Skills e Agents para Unity (ivanmurzak/unity-mcp e Unity AI Assistant) e Metaplex Core na IDE Antigravity.
 
 O PDF `files/pdf/Site Fowlgenwars.pdf` é uma referência visual disponível no workspace. Consulte-o quando a tarefa envolver o site ou apresentação visual; não infira conteúdo que não possa ser lido/confirmado.
 
