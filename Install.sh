@@ -70,21 +70,27 @@ else
 fi
 
 # ------------------------------------------------------------------------------
-# 3. Node.js (v20 LTS) e Yarn
+# 3. Node.js (v22 LTS Recomendado), npm e Yarn
 # ------------------------------------------------------------------------------
-echo -e "\n${BLUE}${BOLD}[3/8] Verificando e configurando Node.js (v20) e Yarn...${NC}"
-if ! command -v node &> /dev/null || [[ $(node -v | cut -d'.' -f1 | tr -d 'v') -lt 18 ]]; then
-    echo -e "${YELLOW}Instalando Node.js v20.x LTS...${NC}"
-    curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+echo -e "\n${BLUE}${BOLD}[3/8] Verificando e configurando Node.js (v22 LTS), npm e Yarn...${NC}"
+NODE_MAJOR=$(node -v 2>/dev/null | cut -d'.' -f1 | tr -d 'v' || echo "0")
+
+if [ "$NODE_MAJOR" -lt 22 ]; then
+    echo -e "${YELLOW}Instalando/Atualizando para Node.js v22.x LTS (compatível com commander@15 e Anchor CLI)...${NC}"
+    curl -fsSL https://deb.nodesource.com/setup_22.x | sudo -E bash -
+    sudo apt update
     sudo apt install -y nodejs
 fi
+
+echo -e "${YELLOW}Atualizando npm para a versão mais recente...${NC}"
+sudo npm install -g npm@latest
 
 if ! command -v yarn &> /dev/null; then
     echo -e "${YELLOW}Instalando Yarn globalmente via npm...${NC}"
     sudo npm install -g yarn
 fi
 
-echo -e "${GREEN}✓ Node.js: $(node -v) | Yarn: $(yarn -v)${NC}"
+echo -e "${GREEN}✓ Node.js: $(node -v) | npm: $(npm -v) | Yarn: $(yarn -v)${NC}"
 
 # ------------------------------------------------------------------------------
 # 4. Compilador Rust & Cargo
@@ -197,7 +203,94 @@ if [ -d "$PROGRAM_DIR" ]; then
         anchor build
     fi
 
-    echo -e "${GREEN}✓ Contrato compilado e IDL gerado em: ${PROGRAM_DIR}/target/idl/fowlgen_wars.json${NC}"
+    echo -e "${GREEN}✓ Contrato compilado e IDL gerado em: ${PROGRAM_DIR}/target/idl/fowlgen_wars_contract.json${NC}"
+
+    # --------------------------------------------------------------------------
+    # Verificação e Opção Interativa de Deploy
+    # --------------------------------------------------------------------------
+    echo -e "\n${CYAN}${BOLD}Deseja realizar o deploy do smart contract agora?${NC}"
+    echo -e "  ${BOLD}[1]${NC} Não (Apenas compilar - Recomendado para continuar o setup)"
+    echo -e "  ${BOLD}[2]${NC} Sim, no cluster ${BOLD}localnet${NC} (Validador local de teste)"
+    echo -e "  ${BOLD}[3]${NC} Sim, no cluster ${BOLD}devnet${NC}   (Solana Devnet pública de teste)"
+    echo -e "  ${BOLD}[4]${NC} Sim, no cluster ${BOLD}mainnet${NC}  (Solana Mainnet-Beta - CUIDADO: Fundos Reais!)"
+    
+    CHOSEN_CLUSTER=""
+    read -rp "Selecione uma opção [1-4] (Padrão: 1): " DEPLOY_OPT
+    DEPLOY_OPT=${DEPLOY_OPT:-1}
+
+    case "$DEPLOY_OPT" in
+        2) CHOSEN_CLUSTER="localnet" ;;
+        3) CHOSEN_CLUSTER="devnet" ;;
+        4) CHOSEN_CLUSTER="mainnet" ;;
+        *) CHOSEN_CLUSTER="" ;;
+    esac
+
+    if [ -n "$CHOSEN_CLUSTER" ]; then
+        echo -e "\n${BLUE}${BOLD}--- Validação de Ambiente para Deploy (${CHOSEN_CLUSTER}) ---${NC}"
+        
+        # 1. Ler a carteira configurada no Anchor.toml
+        CONFIGURED_WALLET=$(grep -E '^\s*wallet\s*=' Anchor.toml | head -n1 | cut -d'=' -f2 | tr -d ' "' | tr -d "'" | sed "s|^~|$HOME|")
+        CONFIGURED_WALLET=${CONFIGURED_WALLET:-"$HOME/.config/solana/id.json"}
+
+        echo -e "${YELLOW}Carteira configurada no Anchor.toml:${NC} ${BOLD}${CONFIGURED_WALLET}${NC}"
+
+        # 2. Validar se o arquivo da carteira existe
+        if [ ! -f "$CONFIGURED_WALLET" ]; then
+            echo -e "${RED}❌ ERRO: Arquivo de carteira não encontrado em: ${CONFIGURED_WALLET}${NC}"
+            echo -e "${YELLOW}Crie ou aponte uma carteira válida no Anchor.toml antes de prosseguir com o deploy.${NC}"
+        else
+            WALLET_PUBKEY=$(solana-keygen pubkey "$CONFIGURED_WALLET" 2>/dev/null || echo "")
+            echo -e "${GREEN}✓ Carteira encontrada! Chave Pública:${NC} ${BOLD}${WALLET_PUBKEY}${NC}"
+
+            # 3. Validar se o Anchor.toml e o saldo atendem ao cluster
+            if [ "$CHOSEN_CLUSTER" == "mainnet" ]; then
+                if ! grep -q '\[programs\.mainnet\]' Anchor.toml; then
+                    echo -e "${YELLOW}⚠️ Aviso: O bloco [programs.mainnet] está comentado ou ausente no Anchor.toml.${NC}"
+                    echo -e "${YELLOW}Descomente a seção [programs.mainnet] no Anchor.toml para deploys em Mainnet.${NC}"
+                fi
+
+                echo -e "\n${RED}${BOLD}🚨 CUIDADO: DEPLOY NA MAINNET (PRODUÇÃO) CONSOME SOL REAL!${NC}"
+                MAINNET_BAL=$(solana balance "$WALLET_PUBKEY" --url mainnet-beta 2>/dev/null || echo "0 SOL")
+                echo -e "${CYAN}Saldo atual na Mainnet:${NC} ${BOLD}${MAINNET_BAL}${NC}"
+                read -rp "Para confirmar que deseja prosseguir na MAINNET, digite 'CONFIRMAR-MAINNET': " MAINNET_CONFIRM
+                if [ "$MAINNET_CONFIRM" != "CONFIRMAR-MAINNET" ]; then
+                    echo -e "${YELLOW}Deploy na Mainnet cancelado com segurança.${NC}"
+                    CHOSEN_CLUSTER=""
+                fi
+            elif [ "$CHOSEN_CLUSTER" == "devnet" ]; then
+                DEV_BAL=$(solana balance "$WALLET_PUBKEY" --url devnet 2>/dev/null || echo "0 SOL")
+                echo -e "${CYAN}Saldo na Devnet:${NC} ${BOLD}${DEV_BAL}${NC}"
+                if [[ "$DEV_BAL" == "0 SOL"* ]]; then
+                    echo -e "${YELLOW}Tentando airdrop de 2 SOL na Devnet para custear o deploy...${NC}"
+                    solana airdrop 2 "$WALLET_PUBKEY" --url devnet 2>/dev/null || true
+                    echo -e "${CYAN}Novo saldo Devnet:${NC} $(solana balance "$WALLET_PUBKEY" --url devnet 2>/dev/null || echo '0 SOL')"
+                fi
+            elif [ "$CHOSEN_CLUSTER" == "localnet" ]; then
+                echo -e "${CYAN}Verificando validador local (127.0.0.1:8899)...${NC}"
+                if ! curl -s http://127.0.0.1:8899 >/dev/null 2>&1; then
+                    echo -e "${YELLOW}⚠️ Aviso: O validador local (solana-test-validator) não parece estar rodando.${NC}"
+                    echo -e "${YELLOW}Para rodar localmente, abra outro terminal e execute: solana-test-validator${NC}"
+                else
+                    echo -e "${GREEN}✓ Validador local ativo e respondendo.${NC}"
+                fi
+            fi
+
+            # 4. Executar deploy se validado
+            if [ -n "$CHOSEN_CLUSTER" ]; then
+                echo -e "\n${YELLOW}Sincronizando Program ID (anchor keys sync)...${NC}"
+                anchor keys sync
+                
+                echo -e "${YELLOW}Executando: anchor deploy --provider.cluster ${CHOSEN_CLUSTER} --provider.wallet ${CONFIGURED_WALLET}${NC}"
+                if anchor deploy --provider.cluster "$CHOSEN_CLUSTER" --provider.wallet "$CONFIGURED_WALLET"; then
+                    echo -e "\n${GREEN}${BOLD}🎉 DEPLOY CONCLUÍDO COM SUCESSO NO CLUSTER ${CHOSEN_CLUSTER}!${NC}"
+                else
+                    echo -e "\n${RED}⚠️ Falha no deploy no cluster ${CHOSEN_CLUSTER}. Verifique logs e saldo acima.${NC}"
+                fi
+            fi
+        fi
+    else
+        echo -e "${CYAN}Deploy ignorado nesta etapa. O contrato está compilado e pronto para deploy manual.${NC}"
+    fi
 else
     echo -e "${RED}Erro: Pasta do contrato não encontrada em ${PROGRAM_DIR}.${NC}"
     exit 1
@@ -213,17 +306,21 @@ echo -e "${CYAN}${BOLD}Pasta Criada e Configurada:${NC}"
 echo -e "  • Pasta do Projeto:  ${BOLD}${BASE_DIR}${NC}"
 echo -e "  • Pasta do Contrato: ${BOLD}${PROGRAM_DIR}${NC}"
 echo -e "  • Node.js:           ${BOLD}$(node -v)${NC}"
+echo -e "  • npm:               ${BOLD}$(npm -v)${NC}"
 echo -e "  • Yarn:              ${BOLD}$(yarn -v)${NC}"
 echo -e "  • Rust:              ${BOLD}$(rustc --version)${NC}"
 echo -e "  • Solana CLI:        ${BOLD}$(solana --version)${NC}"
 echo -e "  • Anchor Framework:  ${BOLD}$(anchor --version)${NC}"
-echo -e "  • Carteira Devnet:   ${BOLD}${DEV_WALLET}${NC}"
+echo -e "  • Carteira Local:    ${BOLD}${DEV_WALLET}${NC}"
 echo ""
 echo -e "${YELLOW}${BOLD}Como Testar e Publicar o Contrato:${NC}"
 echo -e "  1. ${BOLD}cd ${PROGRAM_DIR}${NC}"
-echo -e "  2. ${BOLD}anchor test${NC}                    -> Executa os testes automatizados TypeScript"
-echo -e "  3. ${BOLD}anchor deploy${NC}                  -> Publica o contrato na Solana Devnet"
-echo -e "  4. ${BOLD}anchor test --skip-local-validator${NC} -> Valida o contrato direto na Devnet"
+echo -e "  2. ${BOLD}anchor keys sync${NC}                   -> Sincroniza o Program ID real em lib.rs e Anchor.toml"
+echo -e "  3. ${BOLD}anchor build${NC}                       -> Recompila com o Program ID correto"
+echo -e "  4. ${BOLD}anchor test${NC}                        -> Executa os testes automatizados TypeScript"
+echo -e "  5. ${BOLD}anchor deploy${NC}                      -> Publica no cluster configurado no Anchor.toml (localnet)"
+echo -e "     ou: ${BOLD}anchor deploy --provider.cluster devnet${NC}  -> Publica na Solana Devnet"
+echo -e "     ou: ${BOLD}anchor deploy --provider.cluster mainnet${NC} -> Publica na Solana Mainnet (quando for lançar)"
 echo ""
 echo -e "${PURPLE}Para atualizar as variáveis de ambiente no seu terminal execute:${NC}"
 echo -e "  ${BOLD}source ~/.bashrc${NC}"
