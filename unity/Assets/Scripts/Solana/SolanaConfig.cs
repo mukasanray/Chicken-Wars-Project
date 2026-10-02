@@ -27,8 +27,8 @@ namespace FowlgenWars.Solana
         public string rpcUrl = "https://api.devnet.solana.com";
 
         [Header("Program")]
-        [Tooltip("Program ID do contrato Fowlgen Wars (gerado por anchor keys list).")]
-        public string programId = "";
+        [Tooltip("Program ID do contrato Fowlgen Wars.")]
+        public string programId = "81MprTi78xQvtVg9aaK4s4Cw9K62CU6PtcPYsChLNyxE";
 
         [Header("Settings")]
         [Tooltip("Timeout em segundos para chamadas RPC.")]

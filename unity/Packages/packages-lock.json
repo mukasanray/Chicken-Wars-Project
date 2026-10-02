@@ -1,5 +1,15 @@
 {
   "dependencies": {
+    "com.solana.unity_sdk": {
+      "version": "https://github.com/magicblock-labs/Solana.Unity-SDK.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {
+        "com.unity.nuget.newtonsoft-json": "3.0.2",
+        "com.unity.textmeshpro": "3.0.6"
+      },
+      "hash": "bd0d30f648ed2368c0775e8c2eecd578eb6e4999"
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 1,
@@ -243,6 +253,14 @@
       "dependencies": {
         "com.unity.test-framework": "1.1.33",
         "com.unity.modules.jsonserialize": "1.0.0"
+      }
+    },
+    "com.unity.textmeshpro": {
+      "version": "5.0.0",
+      "depth": 1,
+      "source": "builtin",
+      "dependencies": {
+        "com.unity.ugui": "2.0.0"
       }
     },
     "com.unity.timeline": {

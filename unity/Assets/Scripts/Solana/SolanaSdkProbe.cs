@@ -11,7 +11,7 @@ namespace FowlgenWars.Solana
     {
         public static bool IsSdkAssemblyLoaded(out string detail)
         {
-            foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies())
+            foreach (var assembly in UnityEngine.Assemblies.CurrentAssemblies.GetLoadedAssemblies())
             {
                 string name = assembly.GetName().Name;
                 if (string.IsNullOrEmpty(name))

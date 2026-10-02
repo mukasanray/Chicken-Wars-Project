@@ -7,8 +7,8 @@ namespace FowlgenWars.POC
         protected override void InitializeScreen()
         {
             screenUI.Configure(
-                "POC 01 / PROJECT FOUNDATION",
-                new[] { "Unity", "Platform", "Scene", "Product" },
+                "POC 01 / ESTRUTURA BASE UNITY",
+                new[] { "Unity", "Plataforma", "Cena", "Produto" },
                 new[]
                 {
                     Application.unityVersion,
@@ -17,15 +17,16 @@ namespace FowlgenWars.POC
                     Application.productName
                 });
 
-            screenUI.AddButton("TEST UNITY", TestFoundation);
-            Log("Unity scene loaded. Foundation check is local (no blockchain).");
+            screenUI.AddButton("TESTAR UNITY", TestFoundation);
+            Log("Cena do Unity carregada. Verificação base concluída.");
         }
 
         void TestFoundation()
         {
             screenUI.SetRow(0, Application.unityVersion);
             screenUI.SetRow(1, Application.platform.ToString());
-            Log("POC 01 OK: Play Mode, canvas and button are running.");
+            screenUI.ShowToast("? Teste Base do Unity Executado com Sucesso!", Color.green);
+            Log("POC 01 OK: Modo Play, Canvas e botões estão operando corretamente.");
         }
     }
 }

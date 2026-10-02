@@ -8,13 +8,13 @@ namespace FowlgenWars.POC
         protected override void InitializeScreen()
         {
             screenUI.Configure(
-                "POC 03 / ANCHOR WORKSPACE",
-                new[] { "IDL file", "Program name", "Program ID", "Instructions" },
+                "POC 03 / IDL DO SMART CONTRACT",
+                new[] { "Arquivo IDL", "Nome do Contrato", "Program ID", "Instruções" },
                 new[] { "-", "-", "-", "-" });
 
-            screenUI.AddButton("VERIFY IDL", VerifyIdl);
+            screenUI.AddButton("VERIFICAR CONTRATO", VerifyIdl);
             VerifyIdl();
-            Log("Anchor program lives in /program (Rust). This screen only verifies the IDL copied into Unity.");
+            Log("Verifies Anchor IDL in Assets/Resources/fowlgen_wars_contract.json.");
         }
 
         void VerifyIdl()
@@ -22,11 +22,12 @@ namespace FowlgenWars.POC
             TextAsset idl = IdlInspector.LoadIdlAsset();
             if (idl == null)
             {
-                screenUI.SetRow(0, "MISSING");
+                screenUI.SetRow(0, "AUSENTE");
                 screenUI.SetRow(1, "-");
                 screenUI.SetRow(2, "-");
                 screenUI.SetRow(3, "-");
-                Log("IDL not found. Expected Assets/Solana/IDL/fowlgen_wars.json (Editor) or Resources/fowlgen_wars.");
+                screenUI.ShowToast("❌ IDL do Contrato Não Encontrado!", Color.red);
+                Log("IDL não encontrado. Esperado Assets/Resources/fowlgen_wars_contract.json.");
                 return;
             }
 
@@ -36,14 +37,20 @@ namespace FowlgenWars.POC
             string[] instructions = IdlInspector.ReadInstructionNames(json);
 
             screenUI.SetRow(0, idl.name + ".json");
-            screenUI.SetRow(1, string.IsNullOrEmpty(name) ? "(none)" : name);
-            screenUI.SetRow(2, string.IsNullOrEmpty(address) ? "(none)" : Truncate(address, 20));
-            screenUI.SetRow(3, instructions.Length == 0 ? "(none)" : string.Join(", ", instructions));
+            screenUI.SetRow(1, string.IsNullOrEmpty(name) ? "(nenhum)" : name);
+            screenUI.SetRow(2, string.IsNullOrEmpty(address) ? "(nenhum)" : Truncate(address, 20));
+            screenUI.SetRow(3, instructions.Length == 0 ? "(nenhuma)" : string.Join(", ", instructions));
 
             if (IdlInspector.IsPlaceholderProgramId(address))
-                Log("IDL loaded. Program ID is still 11111111111111111111111111111111 — run anchor keys list / sync / build / deploy, then replace the IDL.");
+            {
+                screenUI.ShowToast("⚠️ IDL Carregado com Program ID Placeholder", Color.yellow);
+                Log("IDL carregado. Program ID é um placeholder.");
+            }
             else
-                Log("IDL loaded with program ID " + address + ".");
+            {
+                screenUI.ShowToast("✅ IDL do Contrato Verificado!", Color.green);
+                Log($"POC 03 SUCESSO: IDL '{idl.name}.json' verificado. Program ID: {address}, Instruções: {string.Join(", ", instructions)}");
+            }
         }
 
         static string Truncate(string value, int keep)
@@ -54,3 +61,4 @@ namespace FowlgenWars.POC
         }
     }
 }
+

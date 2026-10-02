@@ -1,30 +1,14 @@
+using System.Collections;
 using UnityEngine;
+using UnityEngine.Networking;
 
 namespace FowlgenWars.Solana
 {
     /// <summary>
     /// Gerencia a conexão com o cluster Solana.
-    /// 
-    /// Responsabilidades:
-    /// - Testar conectividade com o RPC
-    /// - Monitorar status da conexão
-    /// - Reconectar quando necessário
-    /// 
-    /// IMPORTANTE: A implementação concreta depende do Solana Unity SDK escolhido.
-    /// Esta classe fornece a interface e o padrão que será preenchido.
-    /// 
-    /// Fluxo esperado:
-    /// SolanaConnection.Connect()
-    ///   → SDK.CreateClient(rpcUrl)
-    ///   → SDK.GetLatestBlockhash()  // health check
-    ///   → Connected = true
-    ///   → Log: "Connected to Solana Devnet"
     /// </summary>
     public class SolanaConnection : MonoBehaviour
     {
-        /// <summary>
-        /// Status atual da conexão.
-        /// </summary>
         public enum ConnectionStatus
         {
             Disconnected,
@@ -40,19 +24,10 @@ namespace FowlgenWars.Solana
         private ConnectionStatus status = ConnectionStatus.Disconnected;
         private float lastHealthCheck;
 
-        /// <summary>
-        /// Status atual da conexão com o cluster.
-        /// </summary>
         public ConnectionStatus Status => status;
-
-        /// <summary>
-        /// Indica se está conectado ao cluster.
-        /// </summary>
         public bool IsConnected => status == ConnectionStatus.Connected;
+        public string LastBlockhash { get; private set; } = string.Empty;
 
-        /// <summary>
-        /// Tenta conectar ao cluster Solana usando o config do SolanaManager.
-        /// </summary>
         public void Connect()
         {
             if (SolanaManager.Instance == null || !SolanaManager.Instance.IsInitialized)
@@ -63,25 +38,49 @@ namespace FowlgenWars.Solana
             }
 
             var config = SolanaManager.Instance.Config;
-
             Debug.Log($"[SolanaConnection] Conectando ao cluster: {config.rpcUrl}");
             status = ConnectionStatus.Connecting;
 
-            // TODO: Quando o Solana Unity SDK for instalado:
-            // 1. Criar RPC client com config.rpcUrl
-            // 2. Chamar GetLatestBlockhash() como health check
-            // 3. Se sucesso: status = Connected
-            // 4. Se falha: status = Error
-
-            // Placeholder — simula conexão bem-sucedida para POC
-            status = ConnectionStatus.Connected;
-            lastHealthCheck = Time.time;
-            Debug.Log("[SolanaConnection] Connected to Solana Devnet (placeholder)");
+            StartCoroutine(CheckConnectionRoutine(config.rpcUrl));
         }
 
-        /// <summary>
-        /// Desconecta do cluster.
-        /// </summary>
+        private IEnumerator CheckConnectionRoutine(string rpcUrl)
+        {
+            string jsonBody = "{\"jsonrpc\":\"2.0\",\"id\":1,\"method\":\"getLatestBlockhash\",\"params\":[{\"commitment\":\"confirmed\"}]}";
+            byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(jsonBody);
+
+            using (UnityWebRequest request = new UnityWebRequest(rpcUrl, "POST"))
+            {
+                request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+                request.downloadHandler = new DownloadHandlerBuffer();
+                request.SetRequestHeader("Content-Type", "application/json");
+
+                yield return request.SendWebRequest();
+
+                if (request.result == UnityWebRequest.Result.Success)
+                {
+                    status = ConnectionStatus.Connected;
+                    lastHealthCheck = Time.time;
+                    string response = request.downloadHandler.text;
+                    Debug.Log($"[SolanaConnection] Connected to Solana Devnet! Response: {response}");
+
+                    int blockhashIdx = response.IndexOf("\"blockhash\":\"");
+                    if (blockhashIdx >= 0)
+                    {
+                        int start = blockhashIdx + 13;
+                        int end = response.IndexOf("\"", start);
+                        if (end > start)
+                            LastBlockhash = response.Substring(start, end - start);
+                    }
+                }
+                else
+                {
+                    status = ConnectionStatus.Error;
+                    Debug.LogError($"[SolanaConnection] RPC Connection failed: {request.error}");
+                }
+            }
+        }
+
         public void Disconnect()
         {
             status = ConnectionStatus.Disconnected;
@@ -90,12 +89,13 @@ namespace FowlgenWars.Solana
 
         private void Update()
         {
-            // Health check periódico quando conectado
             if (IsConnected && Time.time - lastHealthCheck > healthCheckInterval)
             {
                 lastHealthCheck = Time.time;
-                // TODO: GetLatestBlockhash() como heartbeat
+                if (SolanaManager.Instance != null && SolanaManager.Instance.Config != null)
+                    StartCoroutine(CheckConnectionRoutine(SolanaManager.Instance.Config.rpcUrl));
             }
         }
     }
 }
+

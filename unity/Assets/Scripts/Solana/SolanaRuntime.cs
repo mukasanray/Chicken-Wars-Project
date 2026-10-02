@@ -23,7 +23,7 @@ namespace FowlgenWars.Solana
             if (Instance != null)
                 return Instance;
 
-            SolanaRuntime existing = FindFirstObjectByType<SolanaRuntime>();
+            SolanaRuntime existing = FindAnyObjectByType<SolanaRuntime>();
             if (existing != null)
             {
                 Instance = existing;
@@ -54,6 +54,16 @@ namespace FowlgenWars.Solana
             {
                 runtimeConfig = ScriptableObject.CreateInstance<SolanaConfig>();
                 runtimeConfig.name = "RuntimeSolanaConfig";
+            }
+
+            TextAsset idlAsset = IdlInspector.LoadIdlAsset();
+            if (idlAsset != null)
+            {
+                string idlAddress = IdlInspector.ReadAddress(idlAsset.text);
+                if (!string.IsNullOrWhiteSpace(idlAddress) && (string.IsNullOrWhiteSpace(runtimeConfig.programId) || IdlInspector.IsPlaceholderProgramId(runtimeConfig.programId)))
+                {
+                    runtimeConfig.programId = idlAddress;
+                }
             }
 
             SolanaManager manager = GetComponent<SolanaManager>();

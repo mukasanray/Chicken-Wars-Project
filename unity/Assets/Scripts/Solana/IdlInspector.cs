@@ -11,15 +11,26 @@ namespace FowlgenWars.Solana
     /// </summary>
     public static class IdlInspector
     {
+        const string ContractResourcesPath = "fowlgen_wars_contract";
+        const string LegacyResourcesPath = "fowlgen_wars";
+        const string EditorContractIdlPath = "Assets/Resources/fowlgen_wars_contract.json";
         const string EditorIdlPath = "Assets/Solana/IDL/fowlgen_wars.json";
 
         public static TextAsset LoadIdlAsset()
         {
-            TextAsset fromResources = Resources.Load<TextAsset>("fowlgen_wars");
+            TextAsset fromResources = Resources.Load<TextAsset>(ContractResourcesPath);
+            if (fromResources != null)
+                return fromResources;
+
+            fromResources = Resources.Load<TextAsset>(LegacyResourcesPath);
             if (fromResources != null)
                 return fromResources;
 
 #if UNITY_EDITOR
+            TextAsset fromEditor = UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>(EditorContractIdlPath);
+            if (fromEditor != null)
+                return fromEditor;
+
             return UnityEditor.AssetDatabase.LoadAssetAtPath<TextAsset>(EditorIdlPath);
 #else
             return null;

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,6 +9,9 @@ using UnityEngine.UI;
 
 namespace FowlgenWars.POC
 {
+    /// <summary>
+    /// UI do Fowlgen Wars com fontes grandes, legíveis e cores harmoniosas para smartphones (1080x2340).
+    /// </summary>
     public class POCScreenUI : MonoBehaviour
     {
         public const string MenuSceneName = "MainMenu";
@@ -18,10 +22,12 @@ namespace FowlgenWars.POC
         readonly List<string> logLines = new List<string>();
         Text logText;
         Transform buttonColumn;
+        Text toastText;
+        Coroutine toastCoroutine;
 
         public static POCScreenUI EnsureOn(GameObject host)
         {
-            POCScreenUI existing = FindFirstObjectByType<POCScreenUI>();
+            POCScreenUI existing = FindAnyObjectByType<POCScreenUI>();
             if (existing != null)
                 return existing;
 
@@ -35,33 +41,36 @@ namespace FowlgenWars.POC
             valueLabels.Clear();
             logLines.Clear();
 
-            CreateText("Title", "FOWLGEN WARS", 48, new Vector2(0, 820), new Vector2(960, 80));
-            CreateText("Subtitle", subtitle, 28, new Vector2(0, 740), new Vector2(960, 60));
+            // Título & Subtítulo Grandes e Legíveis
+            CreateText("Title", "FOWLGEN WARS", 52, new Vector2(0, 810), new Vector2(980, 90), TextAnchor.MiddleCenter, Color.white, FontStyle.Bold);
+            CreateText("Subtitle", subtitle, 32, new Vector2(0, 730), new Vector2(980, 60), TextAnchor.MiddleCenter, new Color(0.85f, 0.90f, 1.0f, 1f), FontStyle.Bold);
 
+            // Tabela de Dados (Rótulos e Valores Grandes)
             float y = 620;
             int count = Math.Min(labels.Length, values.Length);
             for (int i = 0; i < count; i++)
             {
-                CreateText("Label_" + i, labels[i], 24, new Vector2(-260, y), new Vector2(420, 48), TextAnchor.MiddleLeft);
-                valueLabels.Add(CreateText("Value_" + i, values[i], 22, new Vector2(260, y), new Vector2(420, 48), TextAnchor.MiddleRight));
-                y -= 70;
+                CreateText("Label_" + i, labels[i], 30, new Vector2(-280, y), new Vector2(440, 56), TextAnchor.MiddleLeft, new Color(0.90f, 0.90f, 0.95f, 1f), FontStyle.Bold);
+                valueLabels.Add(CreateText("Value_" + i, values[i], 28, new Vector2(280, y), new Vector2(440, 56), TextAnchor.MiddleRight, new Color(0.40f, 0.95f, 0.65f, 1f), FontStyle.Bold));
+                y -= 76;
             }
 
+            // Coluna de Botões
             buttonColumn = new GameObject("Buttons", typeof(RectTransform)).transform;
             buttonColumn.SetParent(canvas.transform, false);
             var columnRect = buttonColumn.GetComponent<RectTransform>();
-            columnRect.anchoredPosition = new Vector2(0, y - 80);
-            columnRect.sizeDelta = new Vector2(640, 400);
+            columnRect.anchoredPosition = new Vector2(0, y - 60);
+            columnRect.sizeDelta = new Vector2(920, 500);
 
-            logText = CreateText("Log", "LOG\nReady.", 20, new Vector2(0, -780), new Vector2(960, 220), TextAnchor.UpperLeft);
+            // Banner Flutuante de Notificação (Toast)
+            toastText = CreateText("Toast", "", 28, new Vector2(0, -650), new Vector2(980, 64), TextAnchor.MiddleCenter, Color.yellow, FontStyle.Bold);
+            toastText.gameObject.SetActive(false);
+
+            // Log de Execução Legível
+            logText = CreateText("Log", "LOGS DA SESSÃO:\nPronto.", 24, new Vector2(0, -780), new Vector2(980, 220), TextAnchor.UpperLeft, new Color(0.90f, 0.95f, 1.0f, 1f));
 
             if (SceneManager.GetActiveScene().name != MenuSceneName)
-                AddButton("BACK TO MENU", LoadMenu, new Color(0.18f, 0.18f, 0.22f, 1f));
-
-            if (unusedButtonCaptions != null && unusedButtonCaptions.Length > 0)
-            {
-                // Kept for existing Configure(subtitle, labels, values, buttonText) calls.
-            }
+                AddButton("VOLTAR AO MENU", LoadMenu, new Color(0.20f, 0.22f, 0.28f, 1f));
         }
 
         public void SetRow(int index, string value)
@@ -82,12 +91,13 @@ namespace FowlgenWars.POC
             go.transform.SetParent(buttonColumn, false);
 
             var rect = go.GetComponent<RectTransform>();
-            rect.sizeDelta = new Vector2(620, 88);
-            rect.anchoredPosition = new Vector2(0, -index * 100);
+            rect.sizeDelta = new Vector2(880, 94);
+            rect.anchoredPosition = new Vector2(0, -index * 106);
 
-            go.GetComponent<Image>().color = color ?? new Color(0.12f, 0.55f, 0.28f, 1f);
+            Color btnColor = color ?? new Color(0.12f, 0.55f, 0.28f, 1f);
+            go.GetComponent<Image>().color = btnColor;
 
-            var label = CreateText("Label", caption, 26, Vector2.zero, new Vector2(620, 88));
+            var label = CreateText("Label", caption, 30, Vector2.zero, new Vector2(880, 94), TextAnchor.MiddleCenter, Color.white, FontStyle.Bold);
             label.transform.SetParent(go.transform, false);
             label.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
 
@@ -109,6 +119,23 @@ namespace FowlgenWars.POC
             button.onClick.AddListener(action);
         }
 
+        public void ShowToast(string message, Color? textColor = null)
+        {
+            if (toastText == null) return;
+            if (toastCoroutine != null) StopCoroutine(toastCoroutine);
+            toastCoroutine = StartCoroutine(ToastRoutine(message, textColor ?? Color.yellow));
+        }
+
+        private IEnumerator ToastRoutine(string message, Color textColor)
+        {
+            toastText.text = message;
+            toastText.color = textColor;
+            toastText.gameObject.SetActive(true);
+            yield return new WaitForSeconds(3.5f);
+            if (toastText != null)
+                toastText.gameObject.SetActive(false);
+        }
+
         public void SetLog(string message)
         {
             logLines.Clear();
@@ -119,11 +146,11 @@ namespace FowlgenWars.POC
         {
             string line = DateTime.Now.ToString("HH:mm:ss") + "  " + message;
             logLines.Add(line);
-            while (logLines.Count > 8)
+            while (logLines.Count > 7)
                 logLines.RemoveAt(0);
 
             if (logText != null)
-                logText.text = "LOG\n" + string.Join("\n", logLines);
+                logText.text = "LOGS DA SESSÃO:\n" + string.Join("\n", logLines);
 
             Debug.Log("[Fowlgen Wars] " + message);
         }
@@ -152,7 +179,7 @@ namespace FowlgenWars.POC
 
             var scaler = go.GetComponent<CanvasScaler>();
             scaler.uiScaleMode = CanvasScaler.ScaleMode.ScaleWithScreenSize;
-            scaler.referenceResolution = new Vector2(1080, 1920);
+            scaler.referenceResolution = new Vector2(1080, 2340);
             scaler.matchWidthOrHeight = 0.5f;
 
             var bg = new GameObject("Background", typeof(RectTransform), typeof(Image));
@@ -196,7 +223,7 @@ namespace FowlgenWars.POC
         }
 
         Text CreateText(string objectName, string content, int fontSize, Vector2 position,
-            Vector2 size, TextAnchor anchor = TextAnchor.MiddleCenter)
+            Vector2 size, TextAnchor anchor = TextAnchor.MiddleCenter, Color? color = null, FontStyle fontStyle = FontStyle.Normal)
         {
             var go = new GameObject(objectName, typeof(RectTransform), typeof(Text));
             go.transform.SetParent(canvas.transform, false);
@@ -211,8 +238,9 @@ namespace FowlgenWars.POC
             if (text.font == null)
                 text.font = Resources.GetBuiltinResource<Font>("Arial.ttf");
             text.fontSize = fontSize;
+            text.fontStyle = fontStyle;
             text.alignment = anchor;
-            text.color = Color.white;
+            text.color = color ?? Color.white;
             text.horizontalOverflow = HorizontalWrapMode.Wrap;
             text.verticalOverflow = VerticalWrapMode.Overflow;
 
@@ -220,3 +248,4 @@ namespace FowlgenWars.POC
         }
     }
 }
+
