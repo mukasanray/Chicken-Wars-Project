@@ -40,6 +40,7 @@ else
 fi
 
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$HOME/.cargo/bin:$HOME/.avm/bin:$HOME/solana-release/bin:$PATH"
+export ANCHOR_BUILD_SBF_ARCH="v0"
 
 pausar() {
     echo ""
@@ -174,6 +175,11 @@ func_primeira_instalacao() {
     fi
     export PATH="$HOME/.avm/bin:$PATH"
 
+    if ! grep -q 'ANCHOR_BUILD_SBF_ARCH' "$HOME/.bashrc"; then
+        echo 'export ANCHOR_BUILD_SBF_ARCH="v0"' >> "$HOME/.bashrc"
+    fi
+    export ANCHOR_BUILD_SBF_ARCH="v0"
+
     echo -e "${YELLOW}Ativando versão mais recente do Anchor...${NC}"
     avm install latest
     avm use latest
@@ -211,15 +217,15 @@ func_primeira_instalacao() {
         rm -rf "$HOME/.cache/solana/v1.41"
         rm -rf "$HOME/.cache/solana/v1.4"* 2>/dev/null || true
 
-        echo -e "${YELLOW}Executando compilação do contrato (anchor build)...${NC}"
+        echo -e "${YELLOW}Executando compilação do contrato (anchor build --arch v0)...${NC}"
         cd "$PROGRAM_DIR"
 
-        if ! anchor build; then
+        if ! anchor build --arch v0; then
             echo -e "${YELLOW}⚠️ Primeira tentativa falhou ou download foi interrompido. Limpando cache e tentando novamente...${NC}"
             rm -rf "$HOME/.cache/solana/v1.41"
             rm -rf "$HOME/.cache/solana/v1.4"* 2>/dev/null || true
             cd "$PROGRAM_DIR"
-            anchor build
+            anchor build --arch v0
         fi
 
         echo -e "${GREEN}✓ Contrato compilado e IDL gerado em: ${PROGRAM_DIR}/target/idl/fowlgen_wars_contract.json${NC}"
@@ -279,8 +285,8 @@ func_atualizar_ambiente() {
         echo -e "\n${YELLOW}Sincronizando Program ID (anchor keys sync)...${NC}"
         anchor keys sync
 
-        echo -e "\n${YELLOW}Recompilando smart contract (anchor build)...${NC}"
-        anchor build
+        echo -e "\n${YELLOW}Recompilando smart contract (anchor build --arch v0)...${NC}"
+        anchor build --arch v0
         echo -e "\n${GREEN}${BOLD}✓ Ambiente e contrato atualizados com sucesso!${NC}"
     else
         echo -e "${RED}Erro: Diretório do contrato não encontrado em ${PROGRAM_DIR}.${NC}"
@@ -380,9 +386,9 @@ func_deploy_contrato() {
         fi
     fi
 
-    echo -e "\n${YELLOW}Sincronizando chaves e compilando binário...${NC}"
+    echo -e "\n${YELLOW}Sincronizando chaves e compilando binário (anchor build --arch v0)...${NC}"
     anchor keys sync
-    anchor build
+    anchor build --arch v0
 
     echo -e "\n${YELLOW}Executando: anchor program deploy --provider.cluster ${CHOSEN_CLUSTER} --provider.wallet ${CONFIGURED_WALLET}${NC}"
     if anchor program deploy --provider.cluster "$CHOSEN_CLUSTER" --provider.wallet "$CONFIGURED_WALLET"; then
@@ -719,11 +725,11 @@ func_executar_testes() {
     case "$T_OPT" in
         1)
             echo -e "\n${YELLOW}Executando 'anchor test'...${NC}"
-            anchor test
+            ANCHOR_BUILD_SBF_ARCH="v0" anchor test
             ;;
         2)
             echo -e "\n${YELLOW}Executando 'anchor test --skip-local-validator'...${NC}"
-            anchor test --skip-local-validator
+            ANCHOR_BUILD_SBF_ARCH="v0" anchor test --skip-local-validator
             ;;
         3)
             echo -e "\n${YELLOW}Executando 'cargo test'...${NC}"

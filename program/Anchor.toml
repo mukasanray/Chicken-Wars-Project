@@ -21,8 +21,7 @@ fowlgen_wars_contract = "11111111111111111111111111111111"
 # Provedor e cluster ativo
 [provider]
 cluster = "localnet" # Opções: "localnet", "devnet" ou "mainnet" (produção)
-wallet = "/home/marco/.config/solana/carteira_teste.json"
-# wallet = "~/.config/solana/id.json"
+wallet = "~/.config/solana/id.json"
 # wallet = "~/.config/solana/mainnet_deployer.json" # Carteira com fundos reais para Mainnet
 
 [scripts]
